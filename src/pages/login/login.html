@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Login - Glicemia Control</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div text-center>
+    <img src="../assets/imgs/logo2.png">
+  </div>
+<!-- <img src="{{image}}" class="rounded mx-auto d-block"> -->
+  <br/>
+  <div class="card text-white bg-primary">
+  <div class="card-header" text-center>Login</div>
+  <div class="card-body">
+    <p class="card-text">
+      <form (ngSubmit)="logar()">
+      <ion-item>
+    <ion-label stacked><span style="font-size: 1.7rem;">E-mail ou nome de usuário </span><ion-icon name="mail"></ion-icon> </ion-label>
+    <ion-input type="email" placeholder="Email ou usuário..." [(ngModel)]="user.email" name="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked><span style="font-size: 1.7rem;">Senha </span><ion-icon name="lock"></ion-icon> </ion-label>
+    <ion-input type="password" name="" placeholder="Senha..." [(ngModel)]="user.password" name="password"></ion-input>
+  </ion-item>
+  <ion-item>
+    <button ion-button full color="primary" round icon-end type="submit">
+      Entrar
+      <ion-icon name="arrow-forward"></ion-icon>
+    </button> 
+  </ion-item>
+</form>
+  </div>
+</div>
+</ion-content>

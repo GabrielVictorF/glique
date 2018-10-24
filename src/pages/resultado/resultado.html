@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="logout()">
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center><span class="titulo">Resultado</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="getResultados($event)">
+    <ion-refresher-content pullingText="Puxe para atualizar os resultados..." refreshingText="Atualizando..."></ion-refresher-content>
+  </ion-refresher>
+   <ion-item>
+			<ion-label>
+		    <span class="medicao-form-input">Turno</span>
+				<ion-icon name="clock"></ion-icon>
+			</ion-label>
+			<ion-select [(ngModel)]="pesquisa.turno" placeholder="Turno da medição" required interface="popover">
+      	<ion-option value="1">Café</ion-option>
+      	<ion-option value="2">Almoço</ion-option>
+      	<ion-option value="3">Jantar / Noite</ion-option>
+   		</ion-select>
+		</ion-item>
+    <ion-item>
+			<ion-label>
+        <span class="medicao-form-input">Altos ou baixos</span>
+				<ion-icon name="arrow-round-up"></ion-icon>
+        <ion-icon name="arrow-round-down"></ion-icon>
+			</ion-label>
+			<ion-select [(ngModel)]="pesquisa.altoBaixo" placeholder="Selecione uma opção" required cancelText="Cancelar" interface="popover"> <!-- Alto, baixo e médio-->
+      	<ion-option value="1">Alto</ion-option>
+      	<ion-option value="2">Normal</ion-option>
+      	<ion-option value="3">Baixo</ion-option>
+   		</ion-select>
+		</ion-item>
+    <ion-item *ngIf="funcao != 3 && funcao != 4">
+    <ion-label>
+      Mês específico
+      <ion-icon name="calendar"></ion-icon>
+    </ion-label> 
+    <ion-datetime displayFormat="MM - YYYY" pickerFormat="MMMM YYYY" [(ngModel)]="pesquisa.data" monthNames="{{functions.monthNames}}" cancelText="Cancelar" doneText="Feito" placeholder="Mês e ano desejado"></ion-datetime>
+  </ion-item>
+    <ion-item *ngIf="pesquisa.altoBaixo > 0 || pesquisa.turno > 0 || pesquisa.data != ''">
+      <button ion-button outline icon-end round full color="danger" (click)="resetCampos()">
+        Resetar campos
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-item>
+      <button ion-button color="light" full round (click)="getResultados()" icon-end> <!-- Busca de acordo com as preferencias preenchidas-->
+        Buscar
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-item>
+  <ion-item *ngFor="let x of data; let i = index" (click)="detalheItem(x)" color="{{cores[i % 2]}}"> <!-- Exibição dos itens da busca-->
+        <ion-icon name="undo"></ion-icon>
+        <b>Açúcar antes da aplicação: </b>{{x.resultado_antes}} mg/dl<br>
+       
+        <ion-icon name="share-alt"></ion-icon>
+        <b>Açúcar depois da aplicação: </b>{{x.resultado_depois}} mg/dl<br>
+
+         <ion-icon name="flash"></ion-icon>
+        <b>Quantidade injetada: </b>{{x.quantidade_insulina}}  mg/dl
+        <ion-note item-end>{{x.turno | turno}}  
+          <span class="badge badge-secondary badge-pill">
+          {{x.data | data}} - {{x.data | dia_semana}}</span>     
+        </ion-note>
+    </ion-item>                   
+    <div *ngIf="data.length == 0 && getFeito == true; else temRegistros"> <!--Caso NÂO-->
+      <ion-item text-center color="danger">Sem registros</ion-item>
+    </div>
+    <ng-template #temRegistros> <!--Caso a busca TENHA resultados-->
+      <ion-item text-center color="primary">Quantidade de registros: <b>{{data.length}}</b></ion-item>
+      <br/>
+      <ion-item text-center color="light">Média: <b>{{media}} mg/dl</b></ion-item>
+    </ng-template>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)"> <!-- Paginação dos dados -->
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

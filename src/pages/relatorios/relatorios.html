@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="logout()">
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center><span class="titulo">Relatórios</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button full icon-left outline (click)="relatorioMes()" icon-end>
+    Relatório do mês
+    <ion-icon name="calendar"></ion-icon>
+  </button>
+</ion-content>

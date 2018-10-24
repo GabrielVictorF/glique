@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center><span class="titulo">Registrar</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button round outline full color="secondary">Registro de ocorrência</button>
+  <ion-item>
+    <ion-label>
+      Data
+      <ion-icon name="calendar"></ion-icon>
+    </ion-label> 
+    <ion-datetime displayFormat="DD-MM-YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="medicao.data" monthNames="{{functions.monthNames}}" cancelText="Cancelar" doneText="Feito" placeholder="Data da ocorrência"></ion-datetime>
+  </ion-item>
+    
+	<ion-item>
+    <ion-label>
+    	Açúcar ANTES da injeção
+    	<ion-icon name="flask"></ion-icon>
+    </ion-label>
+    <ion-icon name="clock"></ion-icon>
+		<ion-input type="number" placeholder="Resultado..." [(ngModel)]="medicao.res_antes" required></ion-input>
+	</ion-item>
+
+  <ion-item>
+    <ion-label>
+    	Açúcar DEPOIS da injeção
+    	<ion-icon name="beaker"></ion-icon>
+    </ion-label>
+    <ion-icon name="clock"></ion-icon>
+		<ion-input type="number" placeholder="Resultado..." [(ngModel)]="medicao.res_depois"></ion-input>
+	</ion-item>
+  <ion-item>
+    <ion-label>
+    	Qtd inserida de insulina
+    	<ion-icon name="flash"></ion-icon>
+    </ion-label>
+    <ion-icon name="clock"></ion-icon>
+		<ion-input type="number" placeholder="Resultado..." [(ngModel)]="medicao.quantidade" required></ion-input>
+	</ion-item>
+
+	<ion-item>
+		<ion-label>
+		  <span class="medicao-form-input">Turno</span>
+			<ion-icon name="clock"></ion-icon>
+		</ion-label>
+		<ion-select [(ngModel)]="medicao.turno" placeholder="Turno da medição" required interface="popover">
+      <ion-option value="1">Café</ion-option>
+      <ion-option value="2">Almoço</ion-option>
+      <ion-option value="3">Jantar / Noite</ion-option>
+   	</ion-select>
+	</ion-item>
+  <p>
+	<button ion-button full outline color="primary" icon-end (click)="adicionar()">
+    Adicionar registro
+    <ion-icon name="send"></ion-icon>
+  </button>
+</ion-content>
