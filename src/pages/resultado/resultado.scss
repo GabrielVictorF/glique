@@ -1,0 +1,33 @@
+.ico-calendar {
+  font-size: 1.7rem;
+}
+
+.data {
+  font-size: 1.5rem;
+}
+
+.date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ff6666;
+  box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem black;
+  color: #fff;
+  padding: 0.8em;
+}
+.date span {
+  display: block;
+  text-align: center;
+}
+.date .day {
+  font-weight: 700;
+  font-size: 24px;
+  text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.18);
+}
+.date .month {
+  text-transform: uppercase;
+}
+.date .month,
+.date .year {
+  font-size: 12px;
+}

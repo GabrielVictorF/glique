@@ -8,7 +8,7 @@ export class FunctionsProvider {
    private monthNames =  ["Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"];
   private REST_API = "https://api.backendless.com/8A6BC524-0A01-1D21-FF22-34BAD81EED00/17B5D094-F4D9-1D4D-FF3B-7BC9768DB900";
 
-  constructor(public http: HttpClient, public toastCtrl: ToastController, 
+  constructor(public http: HttpClient, public toastCtrl: ToastController,
               public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     console.log('Hello FunctionsProvider Provider');
   }
@@ -34,17 +34,6 @@ export class FunctionsProvider {
     return formatado;
   }
 
-  public logoutServidor() {
-    const url = this.REST_API + '/users/logout';
-    const httpOptions = ({
-      headers: new HttpHeaders({
-        'user-token': localStorage.userToken
-      })
-    });
-    
-    return this.http.get(url, httpOptions);
-  }
-
   filtraErro(erroCode) {
     switch (erroCode) {
       case 999:
@@ -52,6 +41,8 @@ export class FunctionsProvider {
       //Data service
       case 1000:
         return 'ID de entidade não encontrado';
+      case 1037:
+        return 'Property doesnt exist';
       //User Service
       case 3000:
         return 'Esta conta foi desabilitada';
@@ -72,18 +63,20 @@ export class FunctionsProvider {
 
   public showToast(message: string) {
     const toast = this.toastCtrl.create({
+
       message: message,
       duration: 2000,
       showCloseButton: true,
       closeButtonText: 'OK'
     });
+
     toast.present();
   }
 
   public showAlert(title: string, message: string) {
     const alert = this.alertCtrl.create({
       title: title,
-      message: message,
+      message:   message,
       buttons: [{
         text: 'OK'
       }]
@@ -118,6 +111,16 @@ export class FunctionsProvider {
     });
     alert.present();
   }
+  logoutServidor() {
+   const url = this.REST_API + '/users/logout';
+    const httpOptions = ({
+      headers: new HttpHeaders({
+        'user-token': localStorage.userToken
+      })
+    });
+    
+    return this.http.get(url, httpOptions);
+  }
 
   logout() {
     let load =  this.alertCtrl.create({
@@ -140,5 +143,43 @@ export class FunctionsProvider {
     });
     load.present();
     return load; 
+  }
+
+  public formataData(tipo: number, data: Date) {
+    data = new Date(data);
+    
+    switch(tipo) {
+      case 1: 
+        return data.getDate();
+      case 2:
+        switch(data.getMonth()) {
+          case 0:
+            return "Janeiro";
+          case 1:
+            return "Fevereiro";
+          case 2:
+            return "Março";
+          case 3:
+            return "Abril";
+          case 4:
+            return "Maio";
+          case 5:
+            return "Junho";
+          case 6:
+            return "Julho";
+          case 7:
+            return "Agosto";
+          case 8:
+            return "Setembro";
+          case 9:
+            return "Outubro";
+          case 10:
+            return "Novembro"
+          case 11:
+            return "Dezembro";
+        }
+      case 3:
+        return data.getFullYear();
+    }
   }
 }

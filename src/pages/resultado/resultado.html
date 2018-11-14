@@ -9,7 +9,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content >
   <ion-refresher (ionRefresh)="getResultados($event)">
     <ion-refresher-content pullingText="Puxe para atualizar os resultados..." refreshingText="Atualizando..."></ion-refresher-content>
   </ion-refresher>
@@ -55,19 +55,27 @@
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-item>
-  <ion-item *ngFor="let x of data; let i = index" (click)="detalheItem(x)" color="{{cores[i % 2]}}"> <!-- Exibição dos itens da busca-->
+  <ion-item *ngFor="let x of data; let i = index" (click)="detalheItem(x)" class="list-group-item list-group-item-{{cores[i % 2]}}"> <!-- Exibição dos itens da busca-->
         <ion-icon name="undo"></ion-icon>
-        <b>Açúcar antes da aplicação: </b>{{x.resultado_antes}} mg/dl<br>
+        <b>Acúcar: </b>{{x.resultado_antes}} mg/dl<br>
        
         <ion-icon name="share-alt"></ion-icon>
-        <b>Açúcar depois da aplicação: </b>{{x.resultado_depois}} mg/dl<br>
+       <b>Acúcar: </b>{{x.resultado_depois}} mg/dl<br>
 
-         <ion-icon name="flash"></ion-icon>
-        <b>Quantidade injetada: </b>{{x.quantidade_insulina}}  mg/dl
-        <ion-note item-end>{{x.turno | turno}}  
-          <span class="badge badge-secondary badge-pill">
-          {{x.data | data}} - {{x.data | dia_semana}}</span>     
-        </ion-note>
+        <ion-icon name="flash"></ion-icon>
+        <b>Insulina: </b>{{x.quantidade_insulina}}  mg/dl
+       
+       <!-- <div class="text-center">
+          <span class="badge badge-danger">
+          <ion-icon name="calendar" class="ico-calendar"></ion-icon>
+            <span class="data">{{x.data | data}} - {{x.data | dia_semana}}</span>
+          </span>     
+       </div> -->
+         <div class="date ">
+        		<span class="day">{{functions.formataData(1,x.data)}}</span>
+        		<span class="month">{{functions.formataData(2,x.data)}}</span>
+        		<span class="year">{{functions.formataData(3,x.data)}}</span>
+      		</div>
     </ion-item>                   
     <div *ngIf="data.length == 0 && getFeito == true; else temRegistros"> <!--Caso NÂO-->
       <ion-item text-center color="danger">Sem registros</ion-item>

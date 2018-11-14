@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 
 import { ApiProvider } from '../../providers/api/api';
+import { FunctionsProvider } from '../../providers/functions/functions';
 
 import { DetalhePage } from '../detalhe/detalhe';
 import { ResultadoPage } from '../resultado/resultado';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-relatorio-resultado',
@@ -14,20 +16,142 @@ import { ResultadoPage } from '../resultado/resultado';
 export class RelatorioResultadoPage {
   private data: any = [];
   private relatorio;
+  protected funcao;
+  protected qtdObj: any;
+  private offset = -100;
+  private response: any = [];
+  private ico = {
+    ico: "arrow-down",
+    descricao: "Mostrar"
+  };
+  public load;
 
-  constructor(public api: ApiProvider, public navCtrl: NavController) {
-    this.resetaRelatorio();
-    this.api.getMedicoes(0).subscribe(res => {
-      this.getSomenteMes(res);
-      console.log(this.data);
-    })
+  constructor(public api: ApiProvider, public navCtrl: NavController, public navParams: NavParams,
+  public loadingCtrl: LoadingController, public alertCtrl: AlertController, public functions: FunctionsProvider) {
+    this.resetaRelatorio();    
+    this.funcao = this.navParams.get("funcao");
   }
 
   ionViewWillEnter() {
-    this.api.getMedicoes(0).subscribe(res => {
-      this.getSomenteMes(res);
-      console.log(this.data);
-    })
+    this.load = this.loadingCtrl.create({
+      content: "Obtendo"
+    }); 
+    this.load.present().then(() => {
+      this.api.getQtdObjetos().subscribe(res => {
+        this.qtdObj = res; 
+        this.filtraFuncao();
+        console.log(this.qtdObj);
+      });
+    });   
+  }
+
+  logout() {
+    const confirm = this.alertCtrl.create({
+      title: 'Um momento',
+      message: 'Tem certeza que deseja sair?',
+      buttons: [{
+        text: 'Sim',
+        handler: () => {
+          const load = this.loadingCtrl.create({
+          content: 'Saindo...'
+        });
+          load.present();
+          this.api.logout().subscribe(res => {
+            load.dismiss();
+            localStorage.removeItem("userToken");
+            this.navCtrl.setRoot(LoginPage);
+          },
+          Error => {
+            console.log(Error);
+          });
+        }
+      },
+      {
+        text: 'Não'
+      }]
+    });
+    confirm.present();
+  }
+
+  filtraFuncao() {
+    switch(this.funcao) {
+      case 1:
+        do {
+          this.offset+=100;
+          this.api.getMedicoes(this.offset).subscribe(res => {
+            res.map(response => this.response.push(response))
+            if (this.offset > this.qtdObj) {
+              this.getSomenteMes(this.response);
+            console.log(this.data);
+          }
+            console.log(this.response);
+          })
+        } while (this.offset < this.qtdObj);     
+      break;
+      case 2:
+        do {
+          this.offset+=100;
+          this.api.getMedicoes(this.offset).subscribe(res => {
+            res.map(response => this.response.push(response))
+            if (this.offset > this.qtdObj) {
+              this.getSomenteAno(this.response);
+            console.log(this.data);
+          }
+            console.log(this.response);
+          })
+        } while (this.offset < this.qtdObj);     
+      break;
+      case 3:
+        var hoje = new Date();
+        var formatado = {
+          dia: hoje.getDate(),
+          mes: hoje.getMonth(),
+          ano: hoje.getFullYear()
+        }
+        let intervalo = {
+          i1: new Date(),
+          i2: new Date()
+        };
+        var newHoje: number = hoje.getDay();
+        intervalo.i1 = new Date(formatado.ano, formatado.mes, formatado.dia - newHoje, 0,0,0);
+        intervalo.i1 = this.functions.toEpoch(intervalo.i1);
+        intervalo.i2 = new Date(formatado.ano, formatado.mes, (formatado.dia + (6 - newHoje)), 0,0,0)
+        intervalo.i2 = this.functions.toEpoch(intervalo.i2)
+        console.log(intervalo);
+          this.offset += 100;
+          this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
+             this.data = res;
+             this.load.dismiss().then(() => this.maiorMenor());
+          });
+    }
+  }
+
+  media() {
+    let somaAntes = 0, somaDepois = 0, somaInsulina = 0;
+    let length: number = this.data.length;
+    for (let i = 0; i < length; i++) {
+      somaAntes += this.data[i].resultado_antes;
+      somaDepois += this.data[i].resultado_depois;
+      somaInsulina += this.data[i].quantidade_insulina;    
+    }  console.log(somaInsulina);
+    this.relatorio.media.resultado_antes = somaAntes / length;
+    this.relatorio.media.resultado_depois = somaDepois / length;
+    this.relatorio.media.insulina = somaInsulina / length;
+    this.relatorio.media.resultado_antes = parseInt(this.relatorio.media.resultado_antes);
+    this.relatorio.media.resultado_depois = parseInt(this.relatorio.media.resultado_depois);
+    this.relatorio.media.insulina = parseInt(this.relatorio.media.insulina);
+    this.load.dismiss();
+  }
+
+  exibeMedia() {
+     if (this.ico.ico == "arrow-down") {
+      this.ico.ico = "arrow-up";
+      this.ico.descricao = "Fechar";
+    }
+    else {
+      this.ico.ico = "arrow-down";
+      this.ico.descricao = "Mostrar";
+    }
   }
 
   getSomenteMes(res) {
@@ -51,6 +175,24 @@ export class RelatorioResultadoPage {
       });
 
       this.maiorMenor();
+      
+  }
+
+  getSomenteAno(res) {
+    this.data = [];
+    let anoAtual: any = new Date();
+    anoAtual = anoAtual.getFullYear();
+    let responseCmp;
+
+    res.map(response => {
+      responseCmp = new Date(response.data);
+      //console.log(responseCmp.getFullYear());
+      if (responseCmp.getFullYear() == anoAtual) {
+        this.data.push(response);
+        console.log(this.data); 
+      }
+    });
+    this.maiorMenor();
   }
 
   resetaRelatorio() {
@@ -67,7 +209,12 @@ export class RelatorioResultadoPage {
         t3: 0
       },
       maisTurno: 0, // Turno com MAIOR número de registros
-      menorTurno: 0 // Turno com MENOR número de registros
+      menorTurno: 0, // Turno com MENOR número de registros
+      media:  {
+        resultado_antes: 0,
+        resultado_depois: 0,
+        insulina: 0
+      }
     }
   }
 
@@ -123,6 +270,8 @@ export class RelatorioResultadoPage {
       this.relatorio.menorTurno = 2;
     else
       this.relatorio.menorTurno = 3; 
+
+    this.media();
   }
 
   detalhe(tipo) {

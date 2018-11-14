@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 
 import { FunctionsProvider } from '../../providers/functions/functions';
 import { ApiProvider } from '../../providers/api/api';
+
+import { LoginPage } from '../login/login';
+import { DetalhePage } from '../detalhe/detalhe';
 
 /**
  * Generated class for the AdicionarPage page.
@@ -19,16 +22,17 @@ import { ApiProvider } from '../../providers/api/api';
 
 export class AdicionarPage {
 	private medicao = {
-		res_antes: "",
+		res_antes: 1,
     res_depois: "",
     quantidade: "",
 		data: '',
     turno: 0,
-    dia_semana: new Date()
+    dia_semana: 0
 	}
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public functions: FunctionsProvider, public api: ApiProvider) {
+    public functions: FunctionsProvider, public api: ApiProvider, public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController, public toastCtrl: ToastController) {
       var hora: any = new Date();
       hora = hora.getTime();
       if (hora < 12)
@@ -43,20 +47,59 @@ export class AdicionarPage {
     console.log('ionViewDidLoad AdicionarPage');
   }
 
-  private adicionar() {
+  adicionar() {
     console.log(this.medicao);
-      this.medicao.data = this.functions.toEpoch(this.medicao.data);
-      this.medicao.dia_semana = new Date(this.medicao.data);
-      this.medicao.dia_semana = this.medicao.dia_semana.getDay();
-      this.api.postMedicao(this.medicao).subscribe(res => {
-        console.log(res);
-        this.medicao.data = "";
-        this.functions.showToast('Medição adicionada com sucesso!');
+    this.medicao.data = this.functions.toEpoch(this.medicao.data);
+    let newDiaSemana = new Date(this.medicao.data);
+    this.medicao.dia_semana = newDiaSemana.getDay();
+
+    this.api.postMedicao(this.medicao).subscribe(res => {
+      this.medicao.data = "";
+      const toast = this.toastCtrl.create({
+        message: "Medição adicionada com sucesso!",
+        duration: 2000,
+        showCloseButton: true,
+        closeButtonText: 'Ver registro'
+      });
+
+      toast.onDidDismiss((data, role) => {
+        if (role == "close")
+          this.navCtrl.push(DetalhePage, {"itemSelecionado": res})
+      });
+      toast.present();
       },
       Error => {
-          this.functions.showToast('Erro ao adicionar medição, código: ' + Error.error.code);
+        this.functions.showToast(Error.error.message);
           console.log(Error);
-      });
+    });
   } 
+
+  logout() {
+    const confirm = this.alertCtrl.create({
+      title: 'Um momento',
+      message: 'Tem certeza que deseja sair?',
+      buttons: [{
+        text: 'Sim',
+        handler: () => {
+          const load = this.loadingCtrl.create({
+          content: 'Saindo...'
+        });
+          load.present();
+          this.api.logout().subscribe(res => {
+            load.dismiss();
+            localStorage.removeItem("userToken");
+            this.navCtrl.setRoot(LoginPage);
+          },
+          Error => {
+            console.log(Error);
+          });
+        }
+      },
+      {
+        text: 'Não'
+      }]
+    });
+    confirm.present();
+  }
 //}
 }

@@ -9,7 +9,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-item>
     <ion-icon name="arrow-up"></ion-icon>
     Maior quantidade de insulina injetada: <b>{{relatorio.maior}}</b> mg/dl
@@ -28,11 +28,41 @@
   <ion-item>
     <ion-icon name="cloud"></ion-icon>
     Registros no turno <b>Almoço</b>: {{relatorio.turno.t2}}
-    <p>
   </ion-item>
   <ion-item>
     <ion-icon name="cloud"></ion-icon>
     Registros no turno <b>Jantar/Noite</b>: {{relatorio.turno.t3}}
+  </ion-item>
+  <ion-item>
+    <ion-icon name="logo-buffer"></ion-icon>
+    Total de registros: {{data.length}}
+  </ion-item>
+  <ion-item>
+    <ion-icon name="calculator"></ion-icon>
+    Média dos registros 
+    <p>
+    <div text-center>
+      <button ion-button  icon-end small (click)="media()" data-toggle="collapse" href="#mostraMedia"           role="button" aria-expanded="false" aria-controls="mostraMedia" (click)="exibeMedia()">
+        {{ico.descricao}}
+        <ion-icon name={{ico.ico}}></ion-icon>
+      </button>
+    </div>
+    <div class="collapse" id="mostraMedia"> <!-- DIV da media -->
+      <div>
+        <ion-item>
+          <ion-icon name="undo"></ion-icon>
+          <b>Antes</b>: {{relatorio.media.resultado_antes}} mg/dl
+        </ion-item>
+        <ion-item>
+          <ion-icon name="share-alt"></ion-icon>
+          <b>Depois</b>: {{relatorio.media.resultado_depois}} mg/dl
+        </ion-item>
+        <ion-item>
+          <ion-icon name="flask"></ion-icon>
+          <b>Insulina</b>: {{relatorio.media.insulina}} mg/dl
+        </ion-item>
+      </div>
+    </div>
   </ion-item>
   <ion-item>
     <ion-icon name="cloud-upload"></ion-icon>

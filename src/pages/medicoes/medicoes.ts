@@ -8,13 +8,6 @@ import { LoginPage } from '../login/login';
 import { DetalhePage } from '../detalhe/detalhe';
 import { ResultadoPage } from '../resultado/resultado';
 
-/**
- * Generated class for the MedicoesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-medicoes',

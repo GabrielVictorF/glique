@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+
+import { LoginPage } from '../login/login';
 
 import { FunctionsProvider } from '../../providers/functions/functions';
 import { ApiProvider } from '../../providers/api/api';
@@ -10,8 +12,10 @@ import { ApiProvider } from '../../providers/api/api';
 
 export class EditaPage {
   private item: any = [];
-  private alteracao
-  constructor(public navParams: NavParams, public navCtrl: NavController, public functions: FunctionsProvider,  public api: ApiProvider) {
+  
+  constructor(public navParams: NavParams, public navCtrl: NavController, 
+  public functions: FunctionsProvider,  public api: ApiProvider, public loadingCtrl: LoadingController,
+  public alertCtrl: AlertController) {
     this.item = this.navParams.get('itemSelecionado');
     console.log(this.item);
   }
@@ -24,5 +28,33 @@ export class EditaPage {
     }, Error => {
       console.log(Error);
     });
+  }
+
+  logout() {
+    const confirm = this.alertCtrl.create({
+      title: 'Um momento',
+      message: 'Tem certeza que deseja sair?',
+      buttons: [{
+        text: 'Sim',
+        handler: () => {
+          const load = this.loadingCtrl.create({
+          content: 'Saindo...'
+        });
+          load.present();
+          this.api.logout().subscribe(res => {
+            load.dismiss();
+            localStorage.removeItem("userToken");
+            this.navCtrl.setRoot(LoginPage);
+          },
+          Error => {
+            console.log(Error);
+          });
+        }
+      },
+      {
+        text: 'Não'
+      }]
+    });
+    confirm.present();
   }
 }

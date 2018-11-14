@@ -12,18 +12,18 @@
 <ion-content>
   <ion-item>
     <ion-icon name="flask"></ion-icon>
-    <b>Nível de açúcar antes da injeção: </b>{{ item.resultado_antes }} mg/dl
+    <b>Medição de glicemia pré-prandial: </b>{{ item.resultado_antes }} mg/dl
     <ion-icon name="{{state[0]}}"></ion-icon>
   </ion-item>
   <ion-item>
     <ion-icon name="beaker"></ion-icon>
-    <b>Nível de açúcar depois da injeção: </b>{{ item.resultado_depois }} mg/dl
+    <b>Medição de glicemia pós-prandial: </b>{{ item.resultado_depois }} mg/dl
     <ion-icon name="{{state[1]}}"></ion-icon>
   </ion-item>
   <ion-item>
     <ion-icon name="calendar"></ion-icon>
     <b>Data da ocorrência: </b>{{ item.data | data }} - {{ item.data | dia_semana }}
-  </ion-item>
+  </ion-item> 
   <ion-item>
     <ion-icon name="calendar"></ion-icon>
     <b>Data do registro: </b>{{ item.created | data }} - {{ item.created | dia_semana }}
@@ -40,4 +40,5 @@
   <ion-fab right bottom>
     <button ion-fab color="black" (click)="actionSheet()"><ion-icon name="menu"></ion-icon></button>
   </ion-fab>
+
 </ion-content>

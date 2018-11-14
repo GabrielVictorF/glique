@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController } from 'ionic-angular';
 
 import { RelatorioResultadoPage } from '../relatorio-resultado/relatorio-resultado';
+import { LoginPage } from '../login/login';
+
+import { ApiProvider } from '../../providers/api/api';
 
 @Component({
   selector: 'page-relatorios',
@@ -9,11 +12,46 @@ import { RelatorioResultadoPage } from '../relatorio-resultado/relatorio-resulta
 })
 
 export class RelatoriosPage {
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public api: ApiProvider, 
+              public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
 
   }
 
   relatorioMes() {
-    this.navCtrl.push(RelatorioResultadoPage);
+    this.navCtrl.push(RelatorioResultadoPage, {"funcao": 1});
+  }
+  relatorioAno() {
+    this.navCtrl.push(RelatorioResultadoPage, {"funcao": 2});
+  }
+  relatorioSemana() {
+    this.navCtrl.push(RelatorioResultadoPage, {"funcao": 3});
+  }
+
+  logout() {
+    const confirm = this.alertCtrl.create({
+      title: 'Um momento',
+      message: 'Tem certeza que deseja sair?',
+      buttons: [{
+        text: 'Sim',
+        handler: () => {
+          const load = this.loadingCtrl.create({
+          content: 'Saindo...'
+        });
+          load.present();
+          this.api.logout().subscribe(res => {
+            load.dismiss();
+            localStorage.removeItem("userToken");
+            this.navCtrl.setRoot(LoginPage);
+          },
+          Error => {
+            console.log(Error);
+          });
+        }
+      },
+      {
+        text: 'Não'
+      }]
+    });
+    confirm.present();
   }
 }

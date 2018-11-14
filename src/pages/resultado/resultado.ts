@@ -11,6 +11,7 @@ import { LoginPage } from '../login/login';
 @Component({
    selector: 'page-resultado',
    templateUrl: 'resultado.html'
+   //styleUrls: [ './resultado.scss' ]
 })
 
 export class ResultadoPage {
@@ -22,13 +23,18 @@ export class ResultadoPage {
     altoBaixo: 0,
     data: ''
   }
+  private date = {
+  dia: 10,
+  mes: 10, ano: 10
+  }
+
   private funcao: number; //Função GET que deve ser executada no provider api, recebida via navParams
   private filtro: any; //Data(calendário) recebida via navParams
   private filtro2 = new Array(); //Filtro das opções: "TURNO" e "ALTOBAIXO"
   private offset = 0; //Paginação da busca
   private media: number = 0; //Cálculo da média da busca
   private loading; //LoadingController
-  private cores = ["light", "dark"];
+  private cores = ["danger", "warning"];
   
   constructor(public api: ApiProvider, public navParams: NavParams, public navCtrl: NavController,
   public loadingCtrl: LoadingController, public functions: FunctionsProvider, public alertCtrl: AlertController) {
@@ -37,13 +43,12 @@ export class ResultadoPage {
 
     this.loading = this.loadingCtrl.create({ //Loading do push dos resultados
       content: 'Obtendo resultados...',
-    }); this.loading.present();
-    this.getResultados();
+    }); this.loading.present().then(() => this.getResultados());
   }
 
-  ionViewWillEnter() {
+  /*ionViewWillEnter() {
     this.getResultados();
-  }
+  } */
 
   filtraPesquisa() { // Pesquisa os filtros para serem inseridos no getResultados()
     if (this.pesquisa.turno > 0)
@@ -105,8 +110,7 @@ export class ResultadoPage {
         this.filtro2.push("data%3D" + this.filtro);
         this.filtraPesquisa();
         this.data = [];
-        this.api.getPesquisa(this.filtro2, this.offset).subscribe(res => {
-          this.getFeito = true;
+        this.api.getPesquisa(this.filtro2, this.offset).subscribe(res => {          this.getFeito = true;
           console.log(res);
           if (refreshEvent)
             refreshEvent.complete();
@@ -119,7 +123,7 @@ export class ResultadoPage {
             this.calculaMedia();
         }, 
         Error => {
-          this.loading.dismiss();
+          //this.loading.dismiss();
           this.functions.showToast("Erro ao obter dados");
         });
       break;
@@ -180,7 +184,7 @@ export class ResultadoPage {
       soma += this.data[i].quantidade_insulina;
     } 
     this.media = soma / length;
-    this.media = parseInt(this.media);
+    
   }
 
   logout() {

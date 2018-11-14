@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="logout()">
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title text-center><span class="titulo">Registrar</span></ion-title>
   </ion-navbar>
 </ion-header>
@@ -15,25 +20,25 @@
   </ion-item>
     
 	<ion-item>
-    <ion-label>
-    	Açúcar ANTES da injeção
-    	<ion-icon name="flask"></ion-icon>
+    <ion-label stacked>
+    	<span class="medicao-form-input">Medição de glicemia pré-prandial</span>
+      <ion-icon name="flask"></ion-icon>
     </ion-label>
     <ion-icon name="clock"></ion-icon>
 		<ion-input type="number" placeholder="Resultado..." [(ngModel)]="medicao.res_antes" required></ion-input>
 	</ion-item>
 
   <ion-item>
-    <ion-label>
-    	Açúcar DEPOIS da injeção
+    <ion-label stacked>
+    	<span class="medicao-form-input">Medição de glicemia pós-prandial</span>
     	<ion-icon name="beaker"></ion-icon>
     </ion-label>
     <ion-icon name="clock"></ion-icon>
 		<ion-input type="number" placeholder="Resultado..." [(ngModel)]="medicao.res_depois"></ion-input>
 	</ion-item>
   <ion-item>
-    <ion-label>
-    	Qtd inserida de insulina
+    <ion-label stacked>
+    	<span class="medicao-form-input">Quantidade de insulina aplicada</span>
     	<ion-icon name="flash"></ion-icon>
     </ion-label>
     <ion-icon name="clock"></ion-icon>
@@ -41,7 +46,7 @@
 	</ion-item>
 
 	<ion-item>
-		<ion-label>
+		<ion-label stacked>
 		  <span class="medicao-form-input">Turno</span>
 			<ion-icon name="clock"></ion-icon>
 		</ion-label>

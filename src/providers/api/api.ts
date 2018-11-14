@@ -3,13 +3,8 @@ import { Injectable } from '@angular/core';
 import { Medicoes } from '../../models/medicoes';
 import { FunctionsProvider } from '../functions/functions';
 import { LoginPage } from '../../pages/login/login';
+import { LoadingController, AlertController } from 'ionic-angular';
 
-/*
-  Generated class for the ApiProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class ApiProvider {
   private APP_ID: string;
@@ -17,7 +12,8 @@ export class ApiProvider {
   private URL: string;
   private REST_API: string;
 
-  constructor(public http: HttpClient, public functions: FunctionsProvider) {
+  constructor(public http: HttpClient, public functions: FunctionsProvider, public alertCtrl: AlertController,
+  public loadingCtrl: LoadingController) {
     this.APP_ID = "8A6BC524-0A01-1D21-FF22-34BAD81EED00";
     this.API_KEY = "17B5D094-F4D9-1D4D-FF3B-7BC9768DB900";
     this.URL = "https://api.backendless.com";
@@ -66,7 +62,7 @@ export class ApiProvider {
     return this.http.get(url, httpOptions);
   }
 
-  public getMedicoes(offset: number, filtros?: []): any {
+  public getMedicoes(offset: number, filtros?): any {
     let where = "";
     if (filtros && filtros.length > 0) {
       console.log("COM FILTRO");
@@ -149,7 +145,7 @@ export class ApiProvider {
     return this.http.delete(url, httpOptions);
   }
 
-  public getPesquisa(filtros: [], offset): any { // Traz resultados de acordo com a data solicitada
+  public getPesquisa(filtros, offset): any { // Traz resultados de acordo com a data solicitada
     let where: string = "?offset=" + offset + "&where=";
     const httpOptions = ({
       headers: new HttpHeaders({
@@ -171,5 +167,28 @@ export class ApiProvider {
   
   public getMesEspecifico(offset) {
     let where: string = "?offset=" + offset + "&where";
+  }
+
+  public getSemana(inicio: any, fim: any) {
+    const url: string = this.REST_API + "/data/medicoes?where=data%3E%3D" + inicio + "%26%26data%3C%3D" + fim;
+    console.log(url);
+    const httpOptions = ({
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'user-token': localStorage.getItem("userToken")
+      })
+    });
+    return this.http.get(url, httpOptions);
+  }
+
+  public getQtdObjetos() {
+    const url = this.REST_API + "/data/medicoes/count";
+    const httpOptions = ({
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'user-token': localStorage.getItem("userToken")
+      })
+    });
+    return this.http.get(url, httpOptions);
   }
 }
