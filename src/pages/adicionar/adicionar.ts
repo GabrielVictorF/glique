@@ -48,30 +48,55 @@ export class AdicionarPage {
   }
 
   adicionar() {
-    console.log(this.medicao);
-    this.medicao.data = this.functions.toEpoch(this.medicao.data);
-    let newDiaSemana = new Date(this.medicao.data);
-    this.medicao.dia_semana = newDiaSemana.getDay();
+    const newTurno: string;
+    switch (this.medicao.turno) {
+      case 1:
+        newTurno = "Café";
+        break;
+      case 2:
+        newTurno = "Almoço";
+        break;
+      case 3:
+        newTurno = "Jantar / Noite";
+        break;
+    }
+    const alert = this.alertCtrl.create({
+        //cssClass: "styleAlert",
+        title: "Um segundo",
+        message: "Por favor verifique os dados antes de continuar!<p><b>Turno: </b>" + newTurno,
+        buttons:[{
+          text: "sim",
+          handler: () => {
+            console.log(this.medicao);
+            this.medicao.data = this.functions.toEpoch(this.medicao.data);
+            let newDiaSemana = new Date(this.medicao.data);
+            this.medicao.dia_semana = newDiaSemana.getDay();
 
-    this.api.postMedicao(this.medicao).subscribe(res => {
-      this.medicao.data = "";
-      const toast = this.toastCtrl.create({
-        message: "Medição adicionada com sucesso!",
-        duration: 2000,
-        showCloseButton: true,
-        closeButtonText: 'Ver registro'
-      });
+            this.api.postMedicao(this.medicao).subscribe(res => {
+              this.medicao.data = "";
+              const toast = this.toastCtrl.create({
+                message: "Medição adicionada com sucesso!",
+                duration: 2000,
+                showCloseButton: true,
+                closeButtonText: 'Ver registro'
+              });
 
-      toast.onDidDismiss((data, role) => {
-        if (role == "close")
-          this.navCtrl.push(DetalhePage, {"itemSelecionado": res})
-      });
-      toast.present();
-      },
-      Error => {
-        this.functions.showToast(Error.error.message);
-          console.log(Error);
+              toast.onDidDismiss((data, role) => {
+                if (role == "close")
+                  this.navCtrl.push(DetalhePage, {"itemSelecionado": res})
+              });
+              toast.present();
+              },
+              Error => {
+                this.functions.showToast(Error.error.message);
+                  console.log(Error);
+              });
+            }
+        }, {
+          text: "nao"
+        }]
     });
+    alert.present();
   } 
 
   logout() {

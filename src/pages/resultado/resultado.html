@@ -9,7 +9,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <ion-refresher (ionRefresh)="getResultados($event)">
     <ion-refresher-content pullingText="Puxe para atualizar os resultados..." refreshingText="Atualizando..."></ion-refresher-content>
   </ion-refresher>
@@ -76,7 +76,7 @@
         		<span class="month">{{functions.formataData(2,x.data)}}</span>
         		<span class="year">{{functions.formataData(3,x.data)}}</span>
       		</div>
-    </ion-item>                   
+      </ion-item>
     <div *ngIf="data.length == 0 && getFeito == true; else temRegistros"> <!--Caso NÂO-->
       <ion-item text-center color="danger">Sem registros</ion-item>
     </div>

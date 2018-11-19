@@ -78,13 +78,26 @@ export class DetalhePage {
         text: 'Excluir',
         icon: 'trash',
         handler: () => {
-          this.api.deleteMedicao(this.item.objectId).subscribe(res => {
-      console.log(res);
-      this.functions.showToast('Removido!');
-      this.navCtrl.pop();
-    }, Error => {
-      this.functions.mostraAlert("Erro","Erro ao deletar dado!");
-    });
+          const alert = this.alertCtrl.create({
+            title: "Um momento",
+            message: "Tem certeza que deseja excluir este registro?",
+            buttons:[{
+              text: "Sim",
+              handler: () => {
+                this.api.deleteMedicao(this.item.objectId).subscribe(res => {
+                  this.functions.showToast('Removido!');
+                  this.navCtrl.pop();
+                }, 
+                Error => { //Error de delete do registro
+                  this.functions.mostraAlert("Erro","Erro ao deletar dado!");
+                });
+              }
+              },
+              {
+                text: "Não",
+              }]
+          });
+          alert.present();
         }
       }]
     });
