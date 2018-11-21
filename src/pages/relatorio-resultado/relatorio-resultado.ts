@@ -18,7 +18,7 @@ export class RelatorioResultadoPage {
   private relatorio;
   protected funcao;
   protected qtdObj: any;
-  private offset = -100;
+  private offset;
   private response: any = [];
   private ico = {
     ico: "arrow-down",
@@ -36,6 +36,8 @@ export class RelatorioResultadoPage {
     this.load = this.loadingCtrl.create({
       content: "Obtendo"
     }); 
+    this.offset = -100;
+    this.response = [];
     this.load.present().then(() => {
       this.api.getQtdObjetos().subscribe(res => {
         this.qtdObj = res; 
@@ -117,8 +119,7 @@ export class RelatorioResultadoPage {
         intervalo.i1 = this.functions.toEpoch(intervalo.i1);
         intervalo.i2 = new Date(formatado.ano, formatado.mes, (formatado.dia + (6 - newHoje)), 0,0,0)
         intervalo.i2 = this.functions.toEpoch(intervalo.i2)
-        console.log(intervalo);
-          this.offset += 100;
+   
           this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
              this.data = res;
              this.load.dismiss().then(() => this.maiorMenor());

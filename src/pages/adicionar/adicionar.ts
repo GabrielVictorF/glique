@@ -48,7 +48,7 @@ export class AdicionarPage {
   }
 
   adicionar() {
-    const newTurno: string;
+    let newTurno: string = "";
     switch (this.medicao.turno) {
       case 1:
         newTurno = "Café";

@@ -170,7 +170,7 @@ export class ApiProvider {
   }
 
   public getSemana(inicio: any, fim: any) {
-    const url: string = this.REST_API + "/data/medicoes?where=data%3E%3D" + inicio + "%26%26data%3C%3D" + fim;
+    const url: string = this.REST_API + "/data/medicoes?where=data%3E%3D" + inicio + "%26%26data%3C%3D" + fim + "&pageSize=100";
     console.log(url);
     const httpOptions = ({
       headers: new HttpHeaders({
