@@ -25,6 +25,7 @@ export class RelatorioResultadoPage {
     descricao: "Mostrar"
   };
   public load;
+  private getConcluido: boolean = false;
 
   constructor(public api: ApiProvider, public navCtrl: NavController, public navParams: NavParams,
   public loadingCtrl: LoadingController, public alertCtrl: AlertController, public functions: FunctionsProvider) {
@@ -100,12 +101,13 @@ export class RelatorioResultadoPage {
           })
         } while (this.offset < this.qtdObj);  
       } else {
+        this.getConcluido = true;
         this.load.dismiss();
       }
             
       break;
       case 2:
-        if (qtdObj > 0) {
+        if (this.qtdObj > 0) {
           do {
           this.offset+=100;
           this.api.getMedicoes(this.offset).subscribe(res => {
@@ -126,8 +128,10 @@ export class RelatorioResultadoPage {
             }))
           })
         } while (this.offset < this.qtdObj);
-      } else 
+      } else {
+        this.getConcluido = true;
         this.load.dismiss();        
+      }
       break;
       case 3:
         var hoje = new Date();
@@ -146,10 +150,15 @@ export class RelatorioResultadoPage {
         intervalo.i2 = new Date(formatado.ano, formatado.mes, (formatado.dia + (6 - newHoje)), 0,0,0)
         intervalo.i2 = this.functions.toEpoch(intervalo.i2)
    
-          this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
-             this.data = res;
-             this.load.dismiss().then(() => this.maiorMenor());
-          });
+        this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
+          if (res.length > 0 ) {
+              this.data = res;
+              this.load.dismiss().then(() => this.maiorMenor());
+            } else {
+              this.getConcluido = true;
+              this.load.dismiss(); 
+            }});
+          
     }
   }
 
@@ -167,6 +176,7 @@ export class RelatorioResultadoPage {
     this.relatorio.media.resultado_antes = parseInt(this.relatorio.media.resultado_antes);
     this.relatorio.media.resultado_depois = parseInt(this.relatorio.media.resultado_depois);
     this.relatorio.media.insulina = parseInt(this.relatorio.media.insulina);
+    this.getConcluido = true;
     this.load.dismiss();
   }
 
