@@ -78,6 +78,7 @@ export class RelatorioResultadoPage {
   filtraFuncao() {
     switch(this.funcao) {
       case 1:
+      if (this.qtdObj > 0) {
         do {
           this.offset+=100;
           this.api.getMedicoes(this.offset).subscribe(res => {
@@ -87,21 +88,46 @@ export class RelatorioResultadoPage {
             console.log(this.data);
           }
             console.log(this.response);
+          }, Error => {
+            console.log(Error);
+            this.load.dismiss().then(() => this.alertCtrl.create({
+              title: "Ops",
+               message: "Erro ao obter dados",
+               buttons:[{
+                 text: "Ok"
+               }]
+            }))
           })
-        } while (this.offset < this.qtdObj);     
+        } while (this.offset < this.qtdObj);  
+      } else {
+        this.load.dismiss();
+      }
+            
       break;
       case 2:
-        do {
+        if (qtdObj > 0) {
+          do {
           this.offset+=100;
           this.api.getMedicoes(this.offset).subscribe(res => {
-            res.map(response => this.response.push(response))
-            if (this.offset > this.qtdObj) {
+            if (res.length > 0) { // Caso obtenha dados
+              res.map(response => this.response.push(response))
+            if (this.offset > this.qtdObj) 
               this.getSomenteAno(this.response);
-            console.log(this.data);
-          }
-            console.log(this.response);
+            }  
+          },
+          Error => {
+            console.log(Error);
+            this.load.dismiss().then(() => this.alertCtrl.create({
+              title: "Ops",
+               message: "Erro ao obter dados",
+               buttons:[{
+                 text: "Ok"
+               }]
+            }))
           })
-        } while (this.offset < this.qtdObj);     
+        } while (this.offset < this.qtdObj);
+      } else 
+        this.load.dismiss();        
       break;
       case 3:
         var hoje = new Date();
@@ -184,15 +210,15 @@ export class RelatorioResultadoPage {
     let anoAtual: any = new Date();
     anoAtual = anoAtual.getFullYear();
     let responseCmp;
-
+    
     res.map(response => {
-      responseCmp = new Date(response.data);
-      //console.log(responseCmp.getFullYear());
-      if (responseCmp.getFullYear() == anoAtual) {
-        this.data.push(response);
-        console.log(this.data); 
-      }
-    });
+        responseCmp = new Date(response.data);
+        //console.log(responseCmp.getFullYear());
+        if (responseCmp.getFullYear() == anoAtual) {
+          this.data.push(response);
+          console.log(this.data); 
+        }
+      });
     this.maiorMenor();
   }
 
@@ -210,7 +236,7 @@ export class RelatorioResultadoPage {
         t3: 0
       },
       maisTurno: 0, // Turno com MAIOR número de registros
-      menorTurno: 0, // Turno com MENOR número de registros
+      menorTurno: 0, // T  urno com MENOR número de registros
       media:  {
         resultado_antes: 0,
         resultado_depois: 0,
@@ -221,8 +247,9 @@ export class RelatorioResultadoPage {
 
   maiorMenor() {
     this.resetaRelatorio();
-    //Incrementa os turnos de acordo com os dados  
-    for (var i = 0; i < this.data.length; i++) {
+    //Incrementa os turnos de acordo com os dados
+    if (this.data.length > 0) {
+       for (var i = 0; i < this.data.length; i++) {
       if (this.data[i].turno == 1)
         this.relatorio.turno.t1++;
       else if (this.data[i].turno == 2)
@@ -272,8 +299,9 @@ export class RelatorioResultadoPage {
     else
       this.relatorio.menorTurno = 3; 
 
-    this.media();
-  }
+      this.media();
+    }  
+}
 
   detalhe(tipo) {
     switch (tipo) {

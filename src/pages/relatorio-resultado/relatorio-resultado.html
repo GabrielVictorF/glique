@@ -15,7 +15,7 @@
     Maior quantidade de insulina injetada: <b>{{relatorio.maior}}</b> mg/dl
     <p>
     <div text-center>
-      <button ion-button icon-end (click)="detalhe(1)">
+      <button ion-button icon-end (click)="detalhe(1)" *ngIf="relatorio.maior != -1">
         Ver Detalhe
         <ion-icon name="more"></ion-icon>
       </button>
@@ -77,7 +77,7 @@
     Maior nível de açúcar: <b>{{relatorio.maiorAcucar}}</b> mg/dl
     <p>
     <div text-center>
-      <button ion-button icon-end (click)="detalhe(2)">
+      <button ion-button icon-end (click)="detalhe(2)" *ngIf="relatorio.maiorAcucar != -1">
         Ver Detalhe
         <ion-icon name="more"></ion-icon>
       </button>
@@ -88,7 +88,7 @@
     Menor nível de açúcar: <b>{{relatorio.menorAcucar}}</b> mg/dl
     <p>
     <div text-center>
-      <button ion-button icon-end (click)="detalhe(3)">
+      <button ion-button icon-end (click)="detalhe(3)" *ngIf="relatorio.menorAcucar != 10000000">
         Ver Detalhe
         <ion-icon name="more"></ion-icon>
       </button>
