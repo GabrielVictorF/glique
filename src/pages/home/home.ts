@@ -40,16 +40,16 @@ export class HomePage {
             load.dismiss();
             localStorage.removeItem("userToken");
             //this.navCtrl.length = 0;
-            this.navCtrl.setRoot(LoginPage  );
+             this.navCtrl.setRoot(LoginPage);
           },
           Error => {
             console.log(Error);
-          });
-        }
+          });          
+        }  
       },
       {
         text: 'Não'
-      }]
+      }]                                                                
     });
     confirm.present();
   }

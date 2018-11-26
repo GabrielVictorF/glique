@@ -9,8 +9,9 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding> 
   <button ion-button round outline full color="secondary">Registro de ocorrência</button>
+  <ion-list class="label-add">
   <ion-item>
     <ion-label>
       Data
@@ -56,6 +57,7 @@
       <ion-option value="3">Jantar / Noite</ion-option>
    	</ion-select>
 	</ion-item>
+</ion-list>
   <p>
 	<button ion-button full outline color="primary" icon-end (click)="adicionar()">
     Adicionar registro
