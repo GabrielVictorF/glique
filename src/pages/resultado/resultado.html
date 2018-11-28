@@ -43,7 +43,22 @@
     </ion-label> 
     <ion-datetime displayFormat="MM - YYYY" pickerFormat="MMMM YYYY" [(ngModel)]="pesquisa.data" monthNames="{{functions.monthNames}}" cancelText="Cancelar" doneText="Feito" placeholder="Mês e ano desejado"></ion-datetime>
   </ion-item>
-    <ion-item *ngIf="pesquisa.altoBaixo > 0 || pesquisa.turno > 0 || pesquisa.data != ''">
+  <ion-item *ngIf="funcao != 3 && funcao != 4"> <!-- OTIMIZAR PARA ARRAY -->
+    <ion-label>
+      Dia da semana
+      <ion-icon name="podium"></ion-icon>
+    </ion-label>
+      <ion-select [(ngModel)]="pesquisa.diaSemana" placeholder="Selecione uma opção" required cancelText="Cancelar" interface="popover"> <!-- Dias da semana -->
+        <ion-option value="1">Segunda</ion-option>
+        <ion-option value="2">Terça</ion-option>
+        <ion-option value="3">Quarta</ion-option>
+        <ion-option value="4">Quinta</ion-option>
+        <ion-option value="5">Sexta</ion-option>
+        <ion-option value="6">Sábado</ion-option>
+        <ion-option value="0">Domingo</ion-option>
+      </ion-select>
+  </ion-item>
+    <ion-item *ngIf="pesquisa.altoBaixo > 0 || pesquisa.turno > 0 || pesquisa.data != '' || pesquisa.diaSemana > -1">
       <button ion-button outline icon-end round full color="danger" (click)="resetCampos()">
         Resetar campos
         <ion-icon name="close"></ion-icon>

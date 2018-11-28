@@ -21,7 +21,8 @@ export class ResultadoPage {
   private pesquisa = { //Ng-model dos filtros de pesquisa
     turno: 0,
     altoBaixo: 0,
-    data: ''
+    data: '',
+    diaSemana: -1
   }
   private date = {
   dia: 10,
@@ -81,6 +82,17 @@ export class ResultadoPage {
       });
   }
 
+  filtroDiaSemana(res) {
+    let responseNew: any;
+    res.map(response => {
+    responseNew = new Date(response.data);
+      if (responseNew.getDay() == this.pesquisa.diaSemana) {
+        this.data.push(response);
+        console.log(response);
+      }
+    });
+  }
+
   getResultados(refreshEvent?) {
 
      this.offset = 0;
@@ -97,8 +109,11 @@ export class ResultadoPage {
           this.loading.dismiss();
           if (this.pesquisa.data != '') { //Caso seja inserida uma data no filtro
             this.getSomenteMes(res);
-          } else 
+          } if (this.pesquisa.diaSemana > -1) {
+            this.filtroDiaSemana(res);
+          } else {
             this.data = res;
+          }
           if (this.data.length > 0)
             this.calculaMedia();
         });
@@ -108,7 +123,7 @@ export class ResultadoPage {
       case 3: //Medições HOJE
       case 4: //Medições dia específico
         this.filtro2.push("data%3D" + this.filtro);
-        this.filtraPesquisa();
+        this.filtraPesquisa(); 
         this.data = [];
         this.api.getPesquisa(this.filtro2, this.offset).subscribe(res => {          this.getFeito = true;
           console.log(res);
@@ -134,6 +149,7 @@ export class ResultadoPage {
     this.pesquisa.turno = 0;
     this.pesquisa.altoBaixo = 0;
     this.pesquisa.data = "";
+    this.pesquisa.diaSemana = -1;
   }
 
   doInfinite(infiniteScroll) {
