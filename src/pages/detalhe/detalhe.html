@@ -26,7 +26,7 @@
   </ion-item> 
   <ion-item>
     <ion-icon name="calendar"></ion-icon>
-    <b>Data do registro: </b>{{ item.created | data }} - {{ item.created | dia_semana }}
+    <b>Data do registro: </b>{{ item.created | data }} - {{ item.created | horario }} - {{ item.created | dia_semana }}
   </ion-item>
   <ion-item>
     <ion-icon name="flash"></ion-icon>
@@ -40,5 +40,4 @@
   <ion-fab right bottom>
     <button ion-fab color="black" (click)="actionSheet()"><ion-icon name="menu"></ion-icon></button>
   </ion-fab>
-
 </ion-content>

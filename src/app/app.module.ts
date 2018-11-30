@@ -22,6 +22,7 @@ import { TurnoPipe } from '../pipes/turno/turno';
 import { DataPipe } from '../pipes/data/data';
 import { DiaSemanaPipe } from '../pipes/dia-semana/dia-semana';
 import { MesPipe } from '../pipes/mes/mes';
+import { HorarioPipe } from '../pipes/horario/horario';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { MesPipe } from '../pipes/mes/mes';
     TurnoPipe,
     DataPipe,
     DiaSemanaPipe,
-    MesPipe
+    MesPipe,
+    HorarioPipe
   ],
   imports: [
     BrowserModule,

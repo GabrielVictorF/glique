@@ -1,5 +1,7 @@
 {
   "name": "blood-glucose-control",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
