@@ -73,7 +73,7 @@ export class ResultadoPage {
     let responseCmp;
     filtro.mes = this.pesquisa.data.substring(5,7);
     filtro.ano = this.pesquisa.data.substring(0, 4);
-    filtro.ano = parseInt(filtro.ano)
+
     console.log(filtro);
       res.map(response => {
         responseCmp = new Date(response.data);
@@ -116,7 +116,9 @@ export class ResultadoPage {
           this.loading.dismiss();
           if (this.pesquisa.data != '') { //Caso seja inserida uma data no filtro
             this.getSomenteMes(res);
-          } else if (this.pesquisa.data == "" && this.pesquisa.diaSemana < 0) {
+          } else {
+            this.filtroDiaSemana(res);
+          } if (this.pesquisa.data == "" && this.pesquisa.diaSemana < 0) {
             console.log("ATRIBUIDO")
             this.data = res;
           }
