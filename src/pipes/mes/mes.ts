@@ -10,7 +10,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class MesPipe implements PipeTransform {
   /**
-   * Takes a value and makes it lowercase.
+   * Transforma uma data em um mês, de acordo com o nome do mesmo
    */
   transform(value) {
     value = new Date(value);

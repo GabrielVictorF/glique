@@ -12,12 +12,12 @@
 <ion-content>
   <ion-item>
     <ion-icon name="flask"></ion-icon>
-    <b>Medição de glicemia pré-prandial: </b>{{ item.resultado_antes }} mg/dl
+    <b>Glicemia pré-prandial: </b>{{ item.resultado_antes }} mg/dl
     <ion-icon name="{{state[0]}}"></ion-icon>
   </ion-item>
   <ion-item>
     <ion-icon name="beaker"></ion-icon>
-    <b>Medição de glicemia pós-prandial: </b>{{ item.resultado_depois }} mg/dl
+    <b>Glicemia pós-prandial: </b>{{ item.resultado_depois }} mg/dl
     <ion-icon name="{{state[1]}}"></ion-icon>
   </ion-item>
   <ion-item>
@@ -26,8 +26,17 @@
   </ion-item> 
   <ion-item>
     <ion-icon name="calendar"></ion-icon>
-    <b>Data do registro: </b>{{ item.created | data }} - {{ item.created | horario }} - {{ item.created | dia_semana }}
+    <b>Data do registro: </b>{{ item.created | data }}
+     <ion-item>
+      <ion-icon name="alarm"></ion-icon>
+      <b>Horário: </b>{{ item.created | horario }}   
+   </ion-item>
+   <ion-item>
+    <ion-icon name="compass"></ion-icon>
+     <b>Dia da semana: </b>{{ item.created | dia_semana }}
+   </ion-item>
   </ion-item>
+ 
   <ion-item>
     <ion-icon name="flash"></ion-icon>
     <b>Quantidade de insulina injetada: </b>{{ item.quantidade_insulina }} mg/dl

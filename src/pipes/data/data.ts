@@ -10,7 +10,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DataPipe implements PipeTransform {
   /**
-   * Takes a value and makes it lowercase.
+   *  Transforma uma data no formato DD/MM/YYYY
    */
   transform(value) {
     let hoje = new Date();

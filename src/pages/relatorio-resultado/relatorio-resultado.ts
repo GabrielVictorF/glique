@@ -78,7 +78,7 @@ export class RelatorioResultadoPage {
 
   filtraFuncao() {
     switch(this.funcao) {
-      case 1:
+      case 1: //Relatorio do mes
       if (this.qtdObj > 0) {
         do {
           this.offset+=100;
@@ -100,6 +100,8 @@ export class RelatorioResultadoPage {
             }))
           })
         } while (this.offset < this.qtdObj);  
+        this.getConcluido = true;
+        this.load.dismiss();
       } else {
         this.getConcluido = true;
         this.load.dismiss();

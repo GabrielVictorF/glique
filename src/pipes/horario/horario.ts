@@ -10,12 +10,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class HorarioPipe implements PipeTransform {
   /**
-   * Takes a value and makes it lowercase.
+   * Transforma uma data em horário, no formato: HH:MM:SS
    */
   transform(value) {
-  	let format = new Date(value);
-  	format = format.toString();
-  	format = format.substring(16, 24);
-  	return format;
+  	const format = new Date(value);
+  	let newFormat = format.toString();
+  	newFormat = newFormat.substring(16, 24);
+  	return newFormat;
   }
 }

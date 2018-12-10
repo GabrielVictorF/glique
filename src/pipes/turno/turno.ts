@@ -10,7 +10,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TurnoPipe implements PipeTransform {
   /**
-   * Takes a value and makes it lowercase.
+   * Transforma um número de turno(1, 2, 3) em nome de turno
    */
   transform(value: number) {
   	if (value == 1)

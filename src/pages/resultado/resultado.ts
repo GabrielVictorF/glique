@@ -65,6 +65,7 @@ export class ResultadoPage {
   } 
 
   getSomenteMes(res) {
+    let tempData = [];
     let filtro = {
       mes: '',
       ano: ''
@@ -72,14 +73,21 @@ export class ResultadoPage {
     let responseCmp;
     filtro.mes = this.pesquisa.data.substring(5,7);
     filtro.ano = this.pesquisa.data.substring(0, 4);
+    filtro.ano = parseInt(filtro.ano)
     console.log(filtro);
       res.map(response => {
         responseCmp = new Date(response.data);
-        console.log(responseCmp.getMonth() + 1);
         if (((responseCmp.getMonth() + 1) == filtro.mes) && (responseCmp.getFullYear() == filtro.ano) ) {
-          this.data.push(response); 
+          tempData.push(response); 
         } 
       });
+      if (tempData.length > 0) {
+        if (this.pesquisa.diaSemana > -1) {
+          this.filtroDiaSemana(tempData);
+      }  else {
+        this.data = tempData;
+      }  
+    }   
   }
 
   filtroDiaSemana(res) {
@@ -88,7 +96,6 @@ export class ResultadoPage {
     responseNew = new Date(response.data);
       if (responseNew.getDay() == this.pesquisa.diaSemana) {
         this.data.push(response);
-        console.log(response);
       }
     });
   }
@@ -109,9 +116,8 @@ export class ResultadoPage {
           this.loading.dismiss();
           if (this.pesquisa.data != '') { //Caso seja inserida uma data no filtro
             this.getSomenteMes(res);
-          } if (this.pesquisa.diaSemana > -1) {
-            this.filtroDiaSemana(res);
-          } else {
+          } else if (this.pesquisa.data == "" && this.pesquisa.diaSemana < 0) {
+            console.log("ATRIBUIDO")
             this.data = res;
           }
           if (this.data.length > 0)

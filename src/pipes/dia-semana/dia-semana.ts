@@ -10,7 +10,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DiaSemanaPipe implements PipeTransform {
   /**
-   * Takes a value and makes it lowercase.
+   * Transforma uma data em um dia da semana, de acordo com o dia
    */
   transform(value) {
     let formatado: any = new Date(value);

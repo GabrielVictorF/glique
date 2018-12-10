@@ -18,7 +18,7 @@
 		    <span class="medicao-form-input">Turno</span>
 				<ion-icon name="clock"></ion-icon>
 			</ion-label>
-			<ion-select [(ngModel)]="pesquisa.turno" placeholder="Turno da medição" required interface="popover">
+			<ion-select [(ngModel)]="pesquisa.turno" placeholder="Turno da medição" required interface="popover"> <!-- Filtro turno -->
       	<ion-option value="1">Café</ion-option>
       	<ion-option value="2">Almoço</ion-option>
       	<ion-option value="3">Jantar / Noite</ion-option>
@@ -30,7 +30,7 @@
 				<ion-icon name="arrow-round-up"></ion-icon>
         <ion-icon name="arrow-round-down"></ion-icon>
 			</ion-label>
-			<ion-select [(ngModel)]="pesquisa.altoBaixo" placeholder="Selecione uma opção" required cancelText="Cancelar" interface="popover"> <!-- Alto, baixo e médio-->
+			<ion-select [(ngModel)]="pesquisa.altoBaixo" placeholder="Selecione uma opção" required cancelText="Cancelar" interface="popover"> <!-- Filtro de nível da mediçáo-->
       	<ion-option value="1">Alto</ion-option>
       	<ion-option value="2">Normal</ion-option>
       	<ion-option value="3">Baixo</ion-option>
@@ -41,7 +41,7 @@
       Mês específico
       <ion-icon name="calendar"></ion-icon>
     </ion-label> 
-    <ion-datetime displayFormat="MM - YYYY" pickerFormat="MMMM YYYY" [(ngModel)]="pesquisa.data" monthNames="{{functions.monthNames}}" cancelText="Cancelar" doneText="Feito" placeholder="Mês e ano desejado"></ion-datetime>
+    <ion-datetime displayFormat="MM - YYYY" pickerFormat="MMMM YYYY" [(ngModel)]="pesquisa.data" monthNames="{{functions.monthNames}}" cancelText="Cancelar" doneText="Feito" placeholder="Mês e ano desejado"></ion-datetime> <!-- Filtro de data -->
   </ion-item>
   <ion-item *ngIf="funcao != 3 && funcao != 4"> <!-- OTIMIZAR PARA ARRAY -->
     <ion-label>
@@ -72,10 +72,10 @@
     </ion-item>
   <ion-item *ngFor="let x of data; let i = index" (click)="detalheItem(x)" class="list-group-item list-group-item-{{cores[i % 2]}}"> <!-- Exibição dos itens da busca-->
         <ion-icon name="undo"></ion-icon>
-        <b>Acúcar: </b>{{x.resultado_antes}} mg/dl<br>
+        <b>Pré glicemia: </b>{{x.resultado_antes}} mg/dl<br>
        
         <ion-icon name="share-alt"></ion-icon>
-       <b>Acúcar: </b>{{x.resultado_depois}} mg/dl<br>
+       <b>Pós glicemia: </b>{{x.resultado_depois}} mg/dl<br>
 
         <ion-icon name="flash"></ion-icon>
         <b>Insulina: </b>{{x.quantidade_insulina}}  mg/dl
