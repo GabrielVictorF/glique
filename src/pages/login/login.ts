@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController} from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController} from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { TabsPage } from '../tabs/tabs';
 
@@ -16,7 +16,11 @@ export class LoginPage {
     password: ''
   }
   private image;
-  constructor(public navCtrl: NavController, public api: ApiProvider, public alertCtrl: AlertController, public functions: FunctionsProvider) {
+  constructor(public navCtrl: NavController, 
+    public api: ApiProvider, 
+    public alertCtrl: AlertController, 
+    public functions: FunctionsProvider,
+    public loadingCtrl: LoadingController) {
     this.image =  'https://develop.backendless.com/FAA68423-49CB-CE65-FF5B-CB0FC0C7B600/console/avpnlcmellcgdgcpfekyzsiwwrqxvypchbdj/files/view/logo_aqui.png';
   }
 
@@ -24,6 +28,10 @@ export class LoginPage {
     if (this.user.email == '' || this.user.password == '') {
       this.functions.showToast('Email / senha não podem estar vazios!');
     } else {
+      let load = this.loadingCtrl.create({
+        content: "Logando, por favor aguarde..."
+      }); 
+      load.present();
       if (this.user.email.indexOf('@') == -1) { //Caso seja nome de usuário
         this.api.infoUserWhere(this.user.email).subscribe(res => {
           console.log(res);
@@ -31,6 +39,7 @@ export class LoginPage {
             this.functions.mostraAlert('Erro', 'Email / senha inválidos');
           else {
             this.api.login(res[0].email, this.user.password).subscribe(res => {
+              load.dismiss();
              localStorage.setItem("userToken", res["user-token"]); //Token para reqs posteriores
               this.navCtrl.setRoot(TabsPage);
         },
@@ -46,7 +55,8 @@ export class LoginPage {
           this.functions.mostraAlert('Erro', 'Usuário incorreto');
         });
       } else {
-        this.api.login(this.user.email, this.user.password).subscribe(res => { 
+        this.api.login(this.user.email, this.user.password).subscribe(res => {
+          load.dismiss();
          localStorage.setItem("userToken", res["user-token"]); //Token para reqs posteriores
           this.navCtrl.setRoot(TabsPage);
         },

@@ -1,0 +1,1 @@
+- Aplicar política de acesso a dados

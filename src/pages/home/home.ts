@@ -14,11 +14,17 @@ import { FunctionsProvider } from '../../providers/functions/functions';
   templateUrl: 'home.html',
 })
 export class HomePage {
-
+  protected turno: string;
   constructor(public navCtrl: NavController, public api: ApiProvider, 
     public functions: FunctionsProvider, public loadingCtrl: LoadingController,
     public alertCtrl: AlertController) {
-  
+    var turnoAgora = new Date().getHours();
+    if (turnoAgora <= 5)
+      this.turno = "Boa madrugada";
+    else if (turnoAgora <= 19)
+      this.turno = "Bom dia";
+    else 
+      this.turno = "Boa noite";
   }
 
   public medicoes() {

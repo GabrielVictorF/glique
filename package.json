@@ -1,6 +1,5 @@
 {
-  "name": "blood-glucose-control",
-  "version": "3.5",
+  "name": "glique",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
