@@ -45,6 +45,7 @@ export class LoginPage {
         },
         Error => { //Login
           console.log(Error);
+          load.dismiss();
           const message: string = this.functions.filtraErro(Error.error.code);
           this.functions.mostraAlert('Erro', message);
           });
@@ -52,6 +53,7 @@ export class LoginPage {
         },
         Error => { //InfoUser
           console.log(Error);
+          load.dismiss();
           this.functions.mostraAlert('Erro', 'Usuário incorreto');
         });
       } else {
@@ -62,6 +64,7 @@ export class LoginPage {
         },
         Error => { // Login
           console.log(Error);
+          load.dismiss();
           const message: string = this.functions.filtraErro(Error.error.code);
           this.functions.mostraAlert('Erro', message);
         });

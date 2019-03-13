@@ -35,7 +35,7 @@ export class ResultadoPage {
   private offset = 0; //Paginação da busca
   private media: number = 0; //Cálculo da média da busca
   private loading; //LoadingController
-  private cores = ["danger", "warning"];
+  private cores = ["primary", "warning"];
   
   constructor(public api: ApiProvider, public navParams: NavParams, public navCtrl: NavController,
   public loadingCtrl: LoadingController, public functions: FunctionsProvider, public alertCtrl: AlertController) {

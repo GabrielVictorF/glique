@@ -20,6 +20,18 @@ export class ApiProvider {
     this.REST_API = this.URL + '/' + this.APP_ID + '/' + this.API_KEY;
 	}
 
+    public getPesquisaCat(pesquisa?): any { //Token posterior
+      const url;
+      if (pesquisa) {
+        const encoded = "?where=nome%20LIKE%20'%25" + pesquisa + "%25'";
+        url = this.REST_API + '/data/categorias' + encoded;
+        console.log(url)
+      } else 
+       url = this.REST_API + '/data/categorias';
+     return this.http.get(url);
+    }
+
+
    public infoUserWhere(user): any {
     var encoded = encodeURIComponent(user);
     const where = "?where=name%3D'" + encoded + "'";
