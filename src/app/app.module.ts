@@ -18,6 +18,7 @@ import { LoginPage } from '../pages/login/login';
 import { RelatoriosPage } from '../pages/relatorios/relatorios';
 import { RelatorioResultadoPage } from '../pages/relatorio-resultado/relatorio-resultado';
 import { AlimentosPage } from '../pages/alimentos/alimentos';
+import { CadastrarPage } from '../pages/cadastrar/cadastrar';  
 
 import { TurnoPipe } from '../pipes/turno/turno';
 import { DataPipe } from '../pipes/data/data';
@@ -39,6 +40,7 @@ import { HorarioPipe } from '../pipes/horario/horario';
     RelatoriosPage,
     RelatorioResultadoPage,
     AlimentosPage,
+    CadastrarPage,
     TurnoPipe,
     DataPipe,
     DiaSemanaPipe,
@@ -63,7 +65,8 @@ import { HorarioPipe } from '../pipes/horario/horario';
     RelatoriosPage,
     RelatorioResultadoPage,
     LoginPage,
-    AlimentosPage
+    AlimentosPage,
+    CadastrarPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

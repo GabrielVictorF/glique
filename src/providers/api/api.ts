@@ -11,6 +11,7 @@ export class ApiProvider {
   private API_KEY: string;
   private URL: string;
   private REST_API: string;
+  public  httpOptions: any;
 
   constructor(public http: HttpClient, public functions: FunctionsProvider, public alertCtrl: AlertController,
   public loadingCtrl: LoadingController) {
@@ -18,19 +19,23 @@ export class ApiProvider {
     this.API_KEY = "17B5D094-F4D9-1D4D-FF3B-7BC9768DB900";
     this.URL = "https://api.backendless.com";
     this.REST_API = this.URL + '/' + this.APP_ID + '/' + this.API_KEY;
+    this.httpOptions = ({
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
 	}
 
     public getPesquisaCat(pesquisa?): any { //Token posterior
-      const url;
+      let url;
       if (pesquisa) {
-        const encoded = "?where=nome%20LIKE%20'%25" + pesquisa + "%25'";
+        let encoded = "?where=nome%20LIKE%20'%25" + pesquisa + "%25'";
         url = this.REST_API + '/data/categorias' + encoded;
         console.log(url)
       } else 
        url = this.REST_API + '/data/categorias';
      return this.http.get(url);
     }
-
 
    public infoUserWhere(user): any {
     var encoded = encodeURIComponent(user);
@@ -44,19 +49,26 @@ export class ApiProvider {
 
   public login(email: string, password: string): any {
     const url = this.REST_API + '/users/login';
-    const httpOptions = ({
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    });
     
     let body = {
     	login: email,
     	password: password
     }
   	return this.http.post(url,
-  		body, httpOptions);
+  		body, this.httpOptions);
 	}
+
+   public cadastra(user):any {
+    const url = this.REST_API + '/users/register';
+    let body = {
+      email: user.email,
+      password: user.password,
+      nome: user.nome,
+      cargo: user.cargo,
+      idade: parseInt(user.idade)
+    }
+    return this.http.post(url, body, this.httpOptions);
+  }
 
   public validaToken() {
     const url = this.REST_API + '/users/isvalidusertoken/' + localStorage.userToken;

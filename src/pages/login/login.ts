@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController} from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
+
 import { TabsPage } from '../tabs/tabs';
+import { CadastrarPage } from '../cadastrar/cadastrar';
 
 import { FunctionsProvider } from '../../providers/functions/functions';
 
@@ -22,6 +24,10 @@ export class LoginPage {
     public functions: FunctionsProvider,
     public loadingCtrl: LoadingController) {
     this.image =  'https://develop.backendless.com/FAA68423-49CB-CE65-FF5B-CB0FC0C7B600/console/avpnlcmellcgdgcpfekyzsiwwrqxvypchbdj/files/view/logo_aqui.png';
+  }
+
+  cadastrar() {
+    this.navCtrl.push(CadastrarPage);
   }
 
   logar() {

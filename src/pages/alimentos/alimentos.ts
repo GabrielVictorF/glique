@@ -33,4 +33,6 @@ export class AlimentosPage {
    			console.log(this.categorias);
     });
   }
+
+  
 }

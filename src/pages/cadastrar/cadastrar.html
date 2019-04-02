@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Cadastro de usuário
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+		<ion-label stacked><ion-icon name="mail" item-start></ion-icon> <b>E-mail</b></ion-label>
+		<ion-input type="email"	placeholder="Insira seu e-mail..." [(ngModel)]="user.email"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label stacked><ion-icon name="lock" item-start></ion-icon> <b>Senha</b></ion-label>
+		<ion-input type="password" name="" placeholder="Insira sua senha..." [(ngModel)]="user.password"></ion-input>
+	</ion-item>
+  <ion-item>
+		<ion-label stacked><ion-icon name="lock" item-start></ion-icon> <b>Confirme sua senha</b></ion-label>
+		<ion-input type="password" name="" placeholder="Insira sua senha novamente..." [(ngModel)]="password2"></ion-input>
+	</ion-item>
+  <ion-item>
+		<ion-label stacked><ion-icon name="body" item-start></ion-icon><b>Nome</b></ion-label>
+		<ion-input type="text" name="" placeholder="Insira seu nome..." [(ngModel)]="user.nome"></ion-input>
+	</ion-item>
+  <ion-item>
+		<ion-label stacked><ion-icon name="finger-print" item-start></ion-icon> <b>Idade</b></ion-label>
+		<ion-input type="number" name="" placeholder="Insira sua idade..." [(ngModel)]="user.idade"></ion-input>
+	</ion-item>
+	<ion-item>
+		<button ion-button full color="primary" (click)="cadastrar()">Cadastrar</button>
+	</ion-item>
+</ion-content>
