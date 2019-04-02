@@ -34,7 +34,7 @@ import { HorarioPipe } from '../pipes/horario/horario';
     AdicionarPage,
     MedicoesPage,
     DetalhePage,
-    EditaPage,
+    EditaPage,  
     ResultadoPage,
     LoginPage,
     RelatoriosPage,
@@ -49,7 +49,7 @@ import { HorarioPipe } from '../pipes/horario/horario';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {tabsHideOnSubPages: true}),
     HttpClientModule,
   ],
   bootstrap: [IonicApp],
@@ -75,3 +75,4 @@ import { HorarioPipe } from '../pipes/horario/horario';
   ]
 })
 export class AppModule {}
+  

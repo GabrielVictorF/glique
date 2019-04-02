@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { App } from 'ionic-angular';
 
 import { MedicoesPage } from '../medicoes/medicoes';
 import { LoginPage } from '../login/login';
@@ -17,7 +18,7 @@ export class HomePage {
   protected turno: string;
   constructor(public navCtrl: NavController, public api: ApiProvider, 
     public functions: FunctionsProvider, public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController, public app: App) {
     var turnoAgora = new Date().getHours();
     if (turnoAgora <= 5)
       this.turno = "Boa madrugada";
@@ -45,9 +46,7 @@ export class HomePage {
           this.api.logout().subscribe(res => {
             load.dismiss();
             localStorage.removeItem("userToken");
-            //this.navCtrl.length = 0;
-             this.navCtrl.setRoot(LoginPage);
-          },
+             this.app.getRootNavs()[0].setRoot(LoginPage); //Erro de tabs solved
           Error => {
             console.log(Error);
           });          
