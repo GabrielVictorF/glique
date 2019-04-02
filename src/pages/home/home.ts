@@ -46,7 +46,8 @@ export class HomePage {
           this.api.logout().subscribe(res => {
             load.dismiss();
             localStorage.removeItem("userToken");
-             this.app.getRootNavs()[0].setRoot(LoginPage); //Erro de tabs solved
+            this.app.getRootNavs()[0].setRoot(LoginPage); //Erro de tabs solved
+          },
           Error => {
             console.log(Error);
           });          

@@ -10,16 +10,23 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button full icon-left outline (click)="medicoes()" icon-end>
-    Mostrar ocorrências 
+  <div class="container">
+    <div class="row" >
+      <div class="col-">
+        <button ion-button small icon-left outline (click)="medicoes()" icon-end>
+    Ocorrências 
     <ion-icon name="apps"></ion-icon>
   </button>
-  <button ion-button full icon-left outline (click)="relatorios()" icon-end>
-    Mostrar relatórios
+      </div>
+       <div class="col-">
+        <button ion-button small icon-left outline (click)="relatorios()" icon-end>
+    Relatórios
     <ion-icon name="analytics"></ion-icon>
   </button>
-
-  <div class="alert alert-secondary bemVindo" text-center>
-    <h3>Bem-vindo! {{this.turno}}!</h3>
+      </div>
+    </div>
   </div>
+  <!--<div class="alert alert-secondary bemVindo" text-center>
+    <h3>Bem-vindo! {{this.turno}}!</h3>
+  </div>-->
 </ion-content>

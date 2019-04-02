@@ -49,7 +49,7 @@ import { HorarioPipe } from '../pipes/horario/horario';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp, {tabsHideOnSubPages: true}),
+    IonicModule.forRoot(MyApp),
     HttpClientModule,
   ],
   bootstrap: [IonicApp],
