@@ -70,6 +70,14 @@
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-item>
+     <div *ngIf="data.length == 0 && getFeito == true; else temRegistros"> <!--Caso NÂO-->
+      <ion-item text-center color="danger">Sem registros</ion-item>
+    </div>
+    <ng-template #temRegistros> <!--Caso a busca TENHA resultados-->
+      <ion-item text-center color="primary">Quantidade de registros: <b>{{data.length}}</b></ion-item>
+      <br/>
+      <ion-item text-center color="light">Média: <b>{{media.toFixed(2)}} mg/dl</b></ion-item>
+    </ng-template>
   <ion-item *ngFor="let x of data; let i = index" (click)="detalheItem(x)" class="list-group-item list-group-item-{{cores[i % 2]}}"> <!-- Exibição dos itens da busca-->
         <ion-icon name="undo"></ion-icon>
         <b>Pré glicemia: </b>{{x.resultado_antes}} mg/dl<br>
@@ -92,14 +100,6 @@
         		<span class="year">{{functions.formataData(3,x.data)}}</span>
       		</div>
       </ion-item>
-    <div *ngIf="data.length == 0 && getFeito == true; else temRegistros"> <!--Caso NÂO-->
-      <ion-item text-center color="danger">Sem registros</ion-item>
-    </div>
-    <ng-template #temRegistros> <!--Caso a busca TENHA resultados-->
-      <ion-item text-center color="primary">Quantidade de registros: <b>{{data.length}}</b></ion-item>
-      <br/>
-      <ion-item text-center color="light">Média: <b>{{media}} mg/dl</b></ion-item>
-    </ng-template>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)"> <!-- Paginação dos dados -->
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>

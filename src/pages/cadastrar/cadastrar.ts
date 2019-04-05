@@ -18,10 +18,11 @@ import { FunctionsProvider } from '../../providers/functions/functions';
 
  export class CadastrarPage {
  	private user = {
- 		email: '',
- 		password: '',
- 		nome: '',
- 		idade: ''
+ 		email: 'a@a.com',
+ 		password: 'a',
+ 		name: '',
+ 		idade: '',
+ 		login: ''
  	}
  	private password2: string;
 
@@ -30,6 +31,8 @@ import { FunctionsProvider } from '../../providers/functions/functions';
  	}
 
  	cadastrar() {
+ 		let filtroLogin: [] = this.user.email.split("@");
+ 		this.user.login = filtroLogin[0];
  		if (this.user.email == '' || this.user.password == '')
  			this.functions.showToast('Preencha todos os campos!');
  		else if (this.user.password != this.password2)

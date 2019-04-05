@@ -204,11 +204,11 @@ export class ResultadoPage {
   private calculaMedia() {
     let soma = 0;
     let length: number = this.data.length;
+    console.log(length);
     for (let i = 0; i < length; i++) {
       soma += this.data[i].quantidade_insulina;
     } 
     this.media = soma / length;
-    
   }
 
   logout() {

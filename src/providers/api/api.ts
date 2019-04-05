@@ -39,7 +39,7 @@ export class ApiProvider {
 
    public infoUserWhere(user): any {
     var encoded = encodeURIComponent(user);
-    const where = "?where=name%3D'" + encoded + "'";
+    const where = "?where=login%3D'" + encoded + "'";
     console.log(where);
     const urlBuscaUser = this.REST_API + '/data/Users' + where;
     console.log(urlBuscaUser);
@@ -62,8 +62,9 @@ export class ApiProvider {
     const url = this.REST_API + '/users/register';
     let body = {
       email: user.email,
-      password: user.password,
-      nome: user.nome,
+      password: user.password, //transform into string
+      nome: user.name,
+      login: user.login,
       cargo: user.cargo,
       idade: parseInt(user.idade)
     }

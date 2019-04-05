@@ -43,13 +43,15 @@ export class FunctionsProvider {
         return 'ID de entidade não encontrado';
       case 1037:
         return 'Property doesnt exist';
-      //User Service
+      //User Servicel
       case 3000:
         return 'Esta conta foi desabilitada';
       case 3003:
         return 'Email / senha inválidos';
       case 3006:
         return 'Email / senha não podem estar vazios';
+      case 3033:
+        return 'Login ja existente!';
       case 3036:
         return '';
       case 3040:
@@ -58,6 +60,8 @@ export class FunctionsProvider {
         return 'Sua sessão expirou, por favor logue novamente.'
       case 3090:
         return 'Conta desativada, contacte um administrador';
+      default:
+        return 'Erro desconhecido, favor tentar novamente';
     } 
   }
 

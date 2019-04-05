@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController} from 'ionic-angular';
-import { ApiProvider } from '../../providers/api/api';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { TabsPage } from '../tabs/tabs';
 import { CadastrarPage } from '../cadastrar/cadastrar';
 
 import { FunctionsProvider } from '../../providers/functions/functions';
+import { ApiProvider } from '../../providers/api/api';
 
 @Component({
   selector: 'page-login',
@@ -18,11 +19,17 @@ export class LoginPage {
     password: ''
   }
   private image;
+  private formValida: FormGroup;
   constructor(public navCtrl: NavController, 
     public api: ApiProvider, 
     public alertCtrl: AlertController, 
     public functions: FunctionsProvider,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    private formBuilder: FormBuilder) {
+    this.formValida = this.formBuilder.group({
+      login: ['', Validators.required],
+      senha: ['', Validators.required],
+    });
     this.image =  'https://develop.backendless.com/FAA68423-49CB-CE65-FF5B-CB0FC0C7B600/console/avpnlcmellcgdgcpfekyzsiwwrqxvypchbdj/files/view/logo_aqui.png';
   }
 

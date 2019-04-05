@@ -10,21 +10,22 @@
   </div>
 
   <br/>
+  
   <div class="card text-white bg-primary">
     <div class="card-header" text-center>Login</div>
     <div class="card-body">
       <p class="card-text">
-        <form (ngSubmit)="logar()">
+        <form (ngSubmit)="logar()" [formGroup]="formValida">
           <ion-item>
             <ion-label stacked><span style="font-size: 1.7rem;">E-mail ou nome de usuário </span><ion-icon name="mail"></ion-icon> </ion-label>
-            <ion-input type="email" placeholder="Email ou usuário..." [(ngModel)]="user.email" name="email"></ion-input>
+            <ion-input type="email" formControlName="login" placeholder="Email ou usuário..." [(ngModel)]="user.email" name="email"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label stacked><span style="font-size: 1.7rem;">Senha </span><ion-icon name="lock"></ion-icon> </ion-label>
-            <ion-input type="password" name="" placeholder="Senha..." [(ngModel)]="user.password" name="password"></ion-input>
+            <ion-input type="password" name="senha" formControlName="senha" placeholder="Senha..." [(ngModel)]="user.password" name="password"></ion-input>
           </ion-item>
           <ion-item>
-            <button ion-button full color="primary" round icon-end type="submit">
+            <button ion-button full color="primary" round icon-end type="submit" [disabled]="!formValida.valid">
               Entrar
               <ion-icon name="arrow-forward"></ion-icon>
             </button> 
@@ -35,4 +36,4 @@
     <ion-item>
       <button ion-button full rounded (click)="cadastrar()">Cadastrar</button>
     </ion-item>
-  </ion-content>
+</ion-content>
