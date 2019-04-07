@@ -21,7 +21,7 @@ export class MedicoesPage {
   public show = false;
   private ocorrenciaData;
   private offset = 0;
-  private qtdObj = {
+  private qtdObj: number = {
     hoje: 0,
     total: 0
   }

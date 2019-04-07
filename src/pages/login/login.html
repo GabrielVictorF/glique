@@ -1,20 +1,20 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="danger">
     <ion-title text-center>Login</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <div text-center>
-    <img src="https://firebasestorage.googleapis.com/v0/b/glique.appspot.com/o/imgs%2Fglique.png?alt=media&token=e0675c37-fc14-44c9-a5ee-5dea53f7617b">
+    <img src="https://firebasestorage.googleapis.com/v0/b/glique.appspot.com/o/imgs%2Flogos%2Flogo_atual.png?alt=media&token=e4f21942-fd72-4359-ae98-a873583727d2" class="logo">
   </div>
 
   <br/>
   
-  <div class="card text-white bg-primary">
+  <div class="card text-white bg-danger">
     <div class="card-header" text-center>Login</div>
     <div class="card-body">
-      <p class="card-text">
+      <p class="card-text texto-card">
         <form (ngSubmit)="logar()" [formGroup]="formValida">
           <ion-item>
             <ion-label stacked><span style="font-size: 1.7rem;">E-mail ou nome de usuário </span><ion-icon name="mail"></ion-icon> </ion-label>
@@ -25,7 +25,7 @@
             <ion-input type="password" name="senha" formControlName="senha" placeholder="Senha..." [(ngModel)]="user.password" name="password"></ion-input>
           </ion-item>
           <ion-item>
-            <button ion-button full color="primary" round icon-end type="submit" [disabled]="!formValida.valid">
+            <button ion-button full color="light" round icon-end type="submit" [disabled]="!formValida.valid">
               Entrar
               <ion-icon name="arrow-forward"></ion-icon>
             </button> 
@@ -33,7 +33,9 @@
         </form>
       </div>
     </div>
-    <ion-item>
-      <button ion-button full rounded (click)="cadastrar()">Cadastrar</button>
-    </ion-item>
+    <ion-fab right bottom>
+      <button ion-fab (click)="cadastrar()" color="light">
+        <ion-icon name="open"></ion-icon>
+      </button>
+    </ion-fab>
 </ion-content>
