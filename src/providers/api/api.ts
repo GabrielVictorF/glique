@@ -87,6 +87,18 @@ export class ApiProvider {
     return this.http.get(url, httpOptions);
   }
 
+  public getQuantidadeObj() {
+    let url = this.REST_API + '/data/medicoes/count';
+    const httpOptions = ({
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'user-token': localStorage.getItem("userToken")
+      })
+    });
+
+    return this.http.get(url, httpOptions);
+  }
+
   public getMedicoes(offset: number, filtros?): any {
     let where = "";
     if (filtros && filtros.length > 0) {

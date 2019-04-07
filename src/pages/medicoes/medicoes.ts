@@ -17,45 +17,21 @@ export class MedicoesPage {
   private media: number;
   public turno;
   private altoBaixo = ''; 
-  private ico = ["arrow-down", "arrow-down"];
-  public show = {
-    categoria: false,
-    especifico: false,
-    altoBaixo: false
-  };
+  private ico = ["arrow-down", "arrow-up"];
+  public show = false;
   private ocorrenciaData;
   private offset = 0;
+  private qtdObj = {
+    hoje: 0,
+    total: 0
+  }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: ApiProvider,
-    public functions: FunctionsProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) { 
+    public functions: FunctionsProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewDidLoad MedicoesPage');
-  }
-
-  mostra(icoPos: number) {
-    switch(icoPos) {
-      case 0:
-        this.show.categoria = !this.show.categoria;
-        if (this.show.especifico)
-          this.show.especifico = false;
-        break;
-      case 1:
-        this.show.especifico = !this.show.especifico;
-        if (this.show.categoria)
-          this.show.categoria = false;
-        break;
-      case 2:
-        this.show.altoBaixo = !this.show.altoBaixo;
-        break;
-    }
-    if(this.ico[icoPos] == "arrow-up") {
-      this.ico[icoPos] = "arrow-down";
-    }
-    else {
-      this.ico[icoPos] = "arrow-up";
-    }
+    this.quantidadeObj();
   }
 
   public getAllMedicoes(): any {
@@ -71,6 +47,13 @@ export class MedicoesPage {
     
     this.ocorrenciaData = this.functions.toEpoch(this.ocorrenciaData);
     this.navCtrl.push(ResultadoPage, {funcao: 4, filtro: this.ocorrenciaData});
+  }
+
+  quantidadeObj() {
+    this.api.getQuantidadeObj().subscribe(res => {
+      this.qtdObj.total = res;
+      console.log(res);
+    });
   }
 
   logout() {

@@ -75,9 +75,11 @@
     </div>
     <ng-template #temRegistros> <!--Caso a busca TENHA resultados-->
       <ion-item text-center color="primary">Quantidade de registros: <b>{{data.length}}</b></ion-item>
-      <br/>
-      <ion-item text-center color="light">Média: <b>{{media.toFixed(2)}} mg/dl</b></ion-item>
+      <ion-item text-center color="light">Média das injeções pré-prandial: <b>{{medias.pre.toFixed(2)}} mg/dl</b></ion-item>
+      <ion-item text-center color="light">Média das injeções pós-prandial: <b>{{medias.pos.toFixed(2)}} mg/dl</b></ion-item>
+      <ion-item text-center color="light">Média das injeções: <b>{{medias.injetado.toFixed(2)}} mg/dl</b></ion-item>
     </ng-template>
+    <br>
   <ion-item *ngFor="let x of data; let i = index" (click)="detalheItem(x)" class="list-group-item list-group-item-{{cores[i % 2]}}"> <!-- Exibição dos itens da busca-->
         <ion-icon name="undo"></ion-icon>
         <b>Pré glicemia: </b>{{x.resultado_antes}} mg/dl<br>

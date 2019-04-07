@@ -33,7 +33,11 @@ export class ResultadoPage {
   private filtro: any; //Data(calendário) recebida via navParams
   private filtro2 = new Array(); //Filtro das opções: "TURNO" e "ALTOBAIXO"
   private offset = 0; //Paginação da busca
-  private media: number = 0; //Cálculo da média da busca
+  private medias = {
+    pre: 0,
+    pos: 0,
+    injetado: 0
+  }; //Cálculo das médias da busca
   private loading; //LoadingController
   private cores = ["primary", "warning"];
   
@@ -124,6 +128,10 @@ export class ResultadoPage {
           }
           if (this.data.length > 0)
             this.calculaMedia();
+        }, Error => {
+          let erro = this.functions.filtraErro(Error.error.code);
+          this.functions.showAlert("Ops!", erro);
+          this.loading.dismiss().then(this.logout());
         });
       break;
       case 2: //Desativado
@@ -201,17 +209,25 @@ export class ResultadoPage {
     this.navCtrl.push(DetalhePage, {'itemSelecionado': item});
   }
 
-  private calculaMedia() {
-    let soma = 0;
+  private calculaMedia() { //Falta otimizar desempenho
+    let soma = {
+      pre: 0,
+      pos: 0,
+      injetado: 0
+    };
     let length: number = this.data.length;
-    console.log(length);
+
     for (let i = 0; i < length; i++) {
-      soma += this.data[i].quantidade_insulina;
+      soma.pre += this.data[i].resultado_antes;
+      soma.pos += this.data[i].resultado_depois;
+      soma.injetado += this.data[i].quantidade_insulina;
     } 
-    this.media = soma / length;
+    this.medias.pre = soma.pre / length;
+    this.medias.pos = soma.pos / length;
+    this.medias.injetado = soma.injetado / length;
   }
 
-  logout() {
+  logoutInterface() {
     const confirm = this.alertCtrl.create({
       title: 'Um momento',
       message: 'Tem certeza que deseja sair?',
@@ -227,7 +243,7 @@ export class ResultadoPage {
             localStorage.removeItem("userToken");
             this.navCtrl.setRoot(LoginPage);
           },
-          Error => {
+          Error => {  
             console.log(Error);
           });
         }
@@ -237,5 +253,9 @@ export class ResultadoPage {
       }]
     });
     confirm.present();
+  }
+
+  logout(): Observable {
+    
   }
 }

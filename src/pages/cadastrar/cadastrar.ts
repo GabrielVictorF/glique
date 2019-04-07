@@ -31,7 +31,7 @@ import { FunctionsProvider } from '../../providers/functions/functions';
  	}
 
  	cadastrar() {
- 		let filtroLogin: [] = this.user.email.split("@");
+ 		let filtroLogin: any = this.user.email.split("@");
  		this.user.login = filtroLogin[0];
  		if (this.user.email == '' || this.user.password == '')
  			this.functions.showToast('Preencha todos os campos!');

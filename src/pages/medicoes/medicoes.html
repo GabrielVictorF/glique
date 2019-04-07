@@ -23,16 +23,18 @@
     Medições de hoje
     <ion-icon name="remove"></ion-icon>
   </button>
-   <button ion-button full outline (click)="mostra(1)" color="danger" icon-end>
+   <button ion-button full outline (click)="show = !show" color="danger" icon-end>
     Medições de um dia específico
-    <ion-icon name="{{ico[1]}}"></ion-icon>
+    <ion-icon name="{{ico[0]}}" *ngIf="!show"></ion-icon>
+    <ion-icon name="{{ico[1]}}" *ngIf="show"></ion-icon>
   </button>
   <button ion-button full  outline (click)="getAllMedicoes()" color="dark" icon-end>
     Todas as medições
+    <span class="badge badge-danger">{{ qtdObj.total }}</span>
     <ion-icon name="remove"></ion-icon>
   </button>
 
-    <div *ngIf="show.especifico">
+    <div *ngIf="show">
       <button ion-button color="light" full round (click)="medicoesDiaEspecifico()" icon-end>
         Buscar
         <ion-icon name="search"></ion-icon>
@@ -43,25 +45,6 @@
       <ion-icon name="calendar"></ion-icon>
     </ion-label> 
     <ion-datetime displayFormat="DD-MM-YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="ocorrenciaData" monthNames="{{functions.monthNames}}" cancelText="Cancelar" doneText="Feito" placeholder="Data da ocorrência"></ion-datetime>   
-    </ion-item>
-    </div>
-    <div *ngIf="show.categoria">
-      <ion-item>
-			<ion-label stacked>
-		    <span class="medicao-form-input">Turno</span>
-				<ion-icon name="clock"></ion-icon>
-			</ion-label>
-			<ion-select [(ngModel)]="turno" placeholder="Turno da medição" required>
-      	<ion-option value="1">Café</ion-option>
-      	<ion-option value="2">Almoço</ion-option>
-      	<ion-option value="3">Jantar / Noite</ion-option>
-   		</ion-select>
-		</ion-item>
-    <ion-item>
-      <button ion-button color="light" full round (click)="medicoesTurnoEspecifico()" icon-end>
-        Buscar
-        <ion-icon name="search"></ion-icon>
-      </button>
     </ion-item>
     </div>
 </ion-content>
