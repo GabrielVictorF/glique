@@ -1,6 +1,6 @@
 # Blood Glucose Control
 
-![BGC](https://firebasestorage.googleapis.com/v0/b/glique.appspot.com/o/imgs%2Fglique.png?alt=media&token=e0675c37-fc14-44c9-a5ee-5dea53f7617b)
+![GLIQUE](https://firebasestorage.googleapis.com/v0/b/glique.appspot.com/o/imgs%2Flogos%2Flogo_atual.png?alt=media&token=e4f21942-fd72-4359-ae98-a873583727d2)
 
 [![N|Ionic](https://firebasestorage.googleapis.com/v0/b/blood-glucose-control.appspot.com/o/imgs%2FPOWERED%20BY%20(2).png?alt=media&token=485f9cf2-4b53-4fe9-9c1a-a7e9a8a81c8a)](https://ionicframework.com)
 Blood Glucose Control (BGC) é um software que gerencia as medições de glicemia do usuário, fornecendo ferramentas como: relatórios, listagem dos registros com filtros inteligentes, adições de forma simples. Ainda está em sua fase inicial.
