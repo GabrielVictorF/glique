@@ -87,8 +87,20 @@ export class ApiProvider {
     return this.http.get(url, httpOptions);
   }
 
-  public getQuantidadeObj() {
+  public getQuantidadeObj() { //Retorna a quantidade de objetos na tabela medicoes
     let url = this.REST_API + '/data/medicoes/count';
+    const httpOptions = ({
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'user-token': localStorage.getItem("userToken")
+      })
+    });
+
+    return this.http.get(url, httpOptions);
+  }
+
+   public getQuantidadeObjDia(data: any) { //Retorna a quantidade de objetos de hoje na tabela medicoes
+    let url = this.REST_API + '/data/medicoes/count?where=data%3D' + data;
     const httpOptions = ({
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

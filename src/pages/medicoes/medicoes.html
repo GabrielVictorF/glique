@@ -20,6 +20,7 @@
 <ion-content padding>
   <button ion-button outline full (click)="medicoesHoje()" icon-end>
     Medições de hoje
+    <span class="badge badge-danger">{{ qtdObj.hoje }}</span>
     <ion-icon name="remove"></ion-icon>
   </button>
    <button ion-button full outline (click)="show = !show" color="danger" icon-end>

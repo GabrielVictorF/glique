@@ -65,7 +65,7 @@ import { DetalhePage } from '../detalhe/detalhe';
      this.medicao.data = this.functions.toEpoch(this.medicao.data);
      let newDiaSemana = new Date(this.medicao.data);
      this.medicao.dia_semana = newDiaSemana.getDay();
-
+     
      this.api.postMedicao(this.medicao).subscribe(res => {
        this.medicao.data = "";
        const toast = this.toastCtrl.create({

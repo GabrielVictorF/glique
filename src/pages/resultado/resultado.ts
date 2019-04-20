@@ -254,8 +254,4 @@ export class ResultadoPage {
     });
     confirm.present();
   }
-
-  logout(): Observable {
-    
-  }
 }

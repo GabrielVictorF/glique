@@ -13,8 +13,8 @@ export class FunctionsProvider {
     console.log('Hello FunctionsProvider Provider');
   }
 
-  public toEpoch(dataHuman?: any):any {
-    console.log(dataHuman) 
+  public toEpoch(dataHuman?: any):any { //Transforma uma data pro meu formato
+    console.log(dataHuman)               //Caso não receba nada por param ele pega do dia atual
     let data: any = {};
     if (dataHuman) {
       let date = new Date(dataHuman);

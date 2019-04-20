@@ -50,6 +50,9 @@ export class MedicoesPage {
   }
 
   quantidadeObj() {
+    let hoje = this.functions.toEpoch();
+    console.log(hoje)    
+    this.api.getQuantidadeObjDia(hoje).subscribe(res => this.qtdObj.hoje = res);
     this.api.getQuantidadeObj().subscribe(res => {
       this.qtdObj.total = res;
       console.log(res);
