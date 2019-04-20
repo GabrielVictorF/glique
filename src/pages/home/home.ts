@@ -32,33 +32,7 @@ export class HomePage {
   	this.navCtrl.push(MedicoesPage);
   }
 
-  logout() {
-    const confirm = this.alertCtrl.create({
-      title: 'Um momento',
-      message: 'Tem certeza que deseja sair?',
-      buttons: [{
-        text: 'Sim',
-        handler: () => {
-          const load = this.loadingCtrl.create({
-          content: 'Saindo...'
-        });
-          load.present();
-          this.api.logout().subscribe(res => {
-            load.dismiss();
-            localStorage.removeItem("userToken");
-            this.app.getRootNavs()[0].setRoot(LoginPage); //Erro de tabs solved
-          },
-          Error => {
-            console.log(Error);
-          });          
-        }  
-      },
-      {
-        text: 'Não'
-      }]                                                                
-    });
-    confirm.present();
-  }
+  
 
   relatorios() {
     this.navCtrl.push(RelatoriosPage);

@@ -26,6 +26,8 @@ import { DiaSemanaPipe } from '../pipes/dia-semana/dia-semana';
 import { MesPipe } from '../pipes/mes/mes';
 import { HorarioPipe } from '../pipes/horario/horario';
 
+import { MenuComponent } from '../components/menu/menu';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -45,7 +47,8 @@ import { HorarioPipe } from '../pipes/horario/horario';
     DataPipe,
     DiaSemanaPipe,
     MesPipe,
-    HorarioPipe
+    HorarioPipe,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

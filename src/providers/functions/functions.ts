@@ -1,7 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ToastController, AlertController, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, NavController } from 'ionic-angular';
 
+
+import { LoginPage } from '../../pages/login/login';
+import { ApiProvider } from '../api/api';
 
 @Injectable()
 export class FunctionsProvider {
@@ -115,40 +118,7 @@ export class FunctionsProvider {
     });
     alert.present();
   }
-  logoutServidor() {
-   const url = this.REST_API + '/users/logout';
-    const httpOptions = ({
-      headers: new HttpHeaders({
-        'user-token': localStorage.userToken
-      })
-    });
-    
-    return this.http.get(url, httpOptions);
-  }
-
-  logout() {
-    let load =  this.alertCtrl.create({
-      title: 'Sessão expirou!',
-      message: 'Sua sessão expirou, por favor logue novamente.',
-      buttons: [{
-      text: 'OK',
-      handler: () => {
-        const load = this.loadingCtrl.create({
-          content: 'Saindo...'
-        });
-        load.present();            
-        this.logoutServidor().subscribe(res => {
-          console.log("OK, deslogado");
-          load.dismiss();
-         localStorage.removeItem("userToken");
-        });
-      }
-      }]
-    });
-    load.present();
-    return load; 
-  }
-
+  
   public formataData(tipo: number, data: Date) {
     data = new Date(data);
     
