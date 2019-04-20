@@ -27,6 +27,7 @@ import { DetalhePage } from '../detalhe/detalhe';
      quantidade: "",
      data: '',
      turno: 0,
+     tipo: 0,
      dia_semana: 0
    }
 

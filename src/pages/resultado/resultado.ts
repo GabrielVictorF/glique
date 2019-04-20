@@ -20,6 +20,7 @@ export class ResultadoPage {
   private getFeito: boolean = false; //Controle 
   private pesquisa = { //Ng-model dos filtros de pesquisa
     turno: 0,
+    tipo: 0,
     altoBaixo: 0,
     data: '',
     diaSemana: -1
@@ -58,6 +59,8 @@ export class ResultadoPage {
   filtraPesquisa() { // Pesquisa os filtros para serem inseridos no getResultados()
     if (this.pesquisa.turno > 0)
       this.filtro2.push("turno%20%3D%20" + this.pesquisa.turno);
+    if (this.pesquisa.tipo > 0)
+      this.filtro2.push("tipo%3D" + this.pesquisa.tipo);
     if (this.pesquisa.altoBaixo == 1)
       this.filtro2.push(encodeURIComponent("resultado_antes > 100"));
     else if (this.pesquisa.altoBaixo == 2)
@@ -166,6 +169,7 @@ export class ResultadoPage {
     this.pesquisa.altoBaixo = 0;
     this.pesquisa.data = "";
     this.pesquisa.diaSemana = -1;
+    this.pesquisa.tipo = 0;
   }
 
   doInfinite(infiniteScroll) {

@@ -159,6 +159,7 @@ export class ApiProvider {
       quantidade_insulina: parseInt(medicao.quantidade),
       data: medicao.data,
       turno: parseInt(medicao.turno),
+      tipo: parseInt(medicao.tipo),
       dia_semana: parseInt(medicao.dia_semana)
     }
     return this.http.post(url, body, httpOptions);

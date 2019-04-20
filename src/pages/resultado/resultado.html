@@ -24,6 +24,18 @@
       	<ion-option value="3">Jantar / Noite</ion-option>
    		</ion-select>
 		</ion-item>
+
+    <ion-item>
+      <ion-label>
+        <span class="medicao-form-input">Tipo de insulina</span>
+        <ion-icon name="cog"></ion-icon>
+      </ion-label>
+      <ion-select [(ngModel)]="pesquisa.tipo" placeholder="Tipo da medição" required interface="popover"> <!-- Filtro turno -->
+        <ion-option value="1">Basal</ion-option>
+        <ion-option value="2">Bolus </ion-option>
+      </ion-select>
+    </ion-item>
+    
     <ion-item>
 			<ion-label>
         <span class="medicao-form-input">Altos ou baixos</span>
@@ -58,7 +70,7 @@
         <ion-option value="0">Domingo</ion-option>
       </ion-select>
   </ion-item>
-    <ion-item *ngIf="pesquisa.altoBaixo > 0 || pesquisa.turno > 0 || pesquisa.data != '' || pesquisa.diaSemana > -1">
+    <ion-item *ngIf="pesquisa.altoBaixo > 0 || pesquisa.turno > 0 || pesquisa.data != '' || pesquisa.diaSemana > -1 || pesquisa.tipo > 0">
       <button ion-button outline icon-end round full color="danger" (click)="resetCampos()">
         Resetar campos
         <ion-icon name="close"></ion-icon>
