@@ -17,14 +17,13 @@ export class MyApp {
     public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     platform.ready().then(() => {
       if (localStorage.userToken) {
-        console.log("Tem token!");
         this.api.validaToken().subscribe(res => {
           if (res) {
             this.rootPage = TabsPage;
           } else {
             this.logout();
           } 
-        });
+        }, Error => this.rootPage = LoginPage);
       } else {
         this.rootPage = LoginPage;
       } 

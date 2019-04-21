@@ -48,34 +48,6 @@ export class RelatorioResultadoPage {
     });   
   }
 
-  logout() {
-    const confirm = this.alertCtrl.create({
-      title: 'Um momento',
-      message: 'Tem certeza que deseja sair?',
-      buttons: [{
-        text: 'Sim',
-        handler: () => {
-          const load = this.loadingCtrl.create({
-          content: 'Saindo...'
-        });
-          load.present();
-          this.api.logout().subscribe(res => {
-            load.dismiss();
-            localStorage.removeItem("userToken");
-            this.navCtrl.setRoot(LoginPage);
-          },
-          Error => {
-            console.log(Error);
-          });
-        }
-      },
-      {
-        text: 'Não'
-      }]
-    });
-    confirm.present();
-  }
-
   filtraFuncao() {
     switch(this.funcao) {
       case 1: //Relatorio do mes

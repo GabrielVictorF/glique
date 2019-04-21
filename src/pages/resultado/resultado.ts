@@ -134,7 +134,7 @@ export class ResultadoPage {
         }, Error => {
           let erro = this.functions.filtraErro(Error.error.code);
           this.functions.showAlert("Ops!", erro);
-          this.loading.dismiss().then(this.logout());
+          this.loading.dismiss();
         });
       break;
       case 2: //Desativado
@@ -229,33 +229,5 @@ export class ResultadoPage {
     this.medias.pre = soma.pre / length;
     this.medias.pos = soma.pos / length;
     this.medias.injetado = soma.injetado / length;
-  }
-
-  logoutInterface() {
-    const confirm = this.alertCtrl.create({
-      title: 'Um momento',
-      message: 'Tem certeza que deseja sair?',
-      buttons: [{
-        text: 'Sim',
-        handler: () => {
-          const load = this.loadingCtrl.create({
-          content: 'Saindo...'
-        });
-          load.present();
-          this.api.logout().subscribe(res => {
-            load.dismiss();
-            localStorage.removeItem("userToken");
-            this.navCtrl.setRoot(LoginPage);
-          },
-          Error => {  
-            console.log(Error);
-          });
-        }
-      },
-      {
-        text: 'Não'
-      }]
-    });
-    confirm.present();
   }
 }

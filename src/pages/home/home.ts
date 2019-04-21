@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
-import { App } from 'ionic-angular';
 
 import { MedicoesPage } from '../medicoes/medicoes';
 import { LoginPage } from '../login/login';
@@ -18,7 +17,7 @@ export class HomePage {
   protected turno: string;
   constructor(public navCtrl: NavController, public api: ApiProvider, 
     public functions: FunctionsProvider, public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController, public app: App) {
+    public alertCtrl: AlertController) {
     var turnoAgora = new Date().getHours();
     if (turnoAgora <= 5)
       this.turno = "Boa madrugada";
@@ -31,8 +30,6 @@ export class HomePage {
   public medicoes() {
   	this.navCtrl.push(MedicoesPage);
   }
-
-  
 
   relatorios() {
     this.navCtrl.push(RelatoriosPage);
