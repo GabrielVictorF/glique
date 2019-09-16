@@ -53,7 +53,8 @@ export class LoginPage {
           else {
             this.api.login(res[0].email, this.user.password).subscribe(res => {
               load.dismiss();
-             localStorage.setItem("userToken", res["user-token"]); //Token para reqs posteriores
+              localStorage.setItem("userToken", res["user-token"]); //Token para reqs posteriores           
+              localStorage.setItem("userId", res.objectId); // Id do usuário atual logado
               this.navCtrl.setRoot(TabsPage);
         },
         Error => { //Login
@@ -73,6 +74,7 @@ export class LoginPage {
         this.api.login(this.user.email, this.user.password).subscribe(res => {
           load.dismiss();
          localStorage.setItem("userToken", res["user-token"]); //Token para reqs posteriores
+         localStorage.setItem("userId", res.objectId); // Id do usuário atual logado
           this.navCtrl.setRoot(TabsPage);
         },
         Error => { // Login

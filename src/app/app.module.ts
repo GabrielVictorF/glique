@@ -19,6 +19,7 @@ import { RelatoriosPage } from '../pages/relatorios/relatorios';
 import { RelatorioResultadoPage } from '../pages/relatorio-resultado/relatorio-resultado';
 import { AlimentosPage } from '../pages/alimentos/alimentos';
 import { CadastrarPage } from '../pages/cadastrar/cadastrar';  
+import { PerfilPage } from '../pages/perfil/perfil';
 
 import { TurnoPipe } from '../pipes/turno/turno';
 import { DataPipe } from '../pipes/data/data';
@@ -27,6 +28,10 @@ import { MesPipe } from '../pipes/mes/mes';
 import { HorarioPipe } from '../pipes/horario/horario';
 
 import { MenuComponent } from '../components/menu/menu';
+
+import * as JSC from "jscharting";
+
+export default JSC;
 
 @NgModule({
   declarations: [
@@ -43,6 +48,7 @@ import { MenuComponent } from '../components/menu/menu';
     RelatorioResultadoPage,
     AlimentosPage,
     CadastrarPage,
+    PerfilPage,
     TurnoPipe,
     DataPipe,
     DiaSemanaPipe,
@@ -69,7 +75,8 @@ import { MenuComponent } from '../components/menu/menu';
     RelatorioResultadoPage,
     LoginPage,
     AlimentosPage,
-    CadastrarPage
+    CadastrarPage,
+    PerfilPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

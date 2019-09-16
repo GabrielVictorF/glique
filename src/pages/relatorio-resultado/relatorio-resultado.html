@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="light">
-   <ion-buttons right>
+    <ion-buttons right>
       <button ion-button icon-only menuToggle>
         <ion-icon name='menu'></ion-icon>
       </button>
@@ -10,64 +10,55 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="data.length == 0 && getConcluido; else semRegistro">
-     <ion-item text-center color="danger">Sem registros</ion-item>
+  <div *ngIf="data.length == 0 && getConcluido; else temRegistro">
+    <ion-item text-center color="danger">Sem registros</ion-item>
   </div>
 
-  <ng-template #semRegistro>
-   <ion-item>
+  <ng-template #temRegistro>
+    <div id="chartTurno" style="height: 30rem; width: 100%">
+
+    </div>
+    <ion-item>
       <ion-icon name="arrow-up"></ion-icon>
       Maior quantidade de insulina injetada: <b>{{relatorio.maior}}</b> mg/dl
       <p>
-      <div text-center>
-        <button ion-button icon-end (click)="detalhe(1)" *ngIf="relatorio.maior != -1">
-          Ver Detalhe
-          <ion-icon name="more"></ion-icon>
-        </button>
-      </div>
+        <div text-center>
+          <button ion-button icon-end (click)="detalhe(1)" *ngIf="relatorio.maior != -1">
+            Ver Detalhe
+            <ion-icon name="more"></ion-icon>
+          </button>
+        </div>
     </ion-item>
-    <ion-item>
-      <ion-icon name="cloud"></ion-icon>
-       Registros no turno <b>Café</b>: {{relatorio.turno.t1}}
-    </ion-item>
-    <ion-item>
-      <ion-icon name="cloud"></ion-icon>
-      Registros no turno <b>Almoço</b>: {{relatorio.turno.t2}}
-    </ion-item>
-    <ion-item>
-      <ion-icon name="cloud"></ion-icon>
-      Registros no turno <b>Jantar/Noite</b>: {{relatorio.turno.t3}}
-    </ion-item>
-    <ion-item>
-      <ion-icon name="logo-buffer"></ion-icon>
-      Total de registros: {{data.length}}
-    </ion-item>
+
+
     <ion-item>
       <ion-icon name="calculator"></ion-icon>
-      Média dos registros 
+      Média dos registros
       <p>
-      <div text-center>
-        <button ion-button  icon-end small (click)="media()" data-toggle="collapse" href="#mostraMedia"           role="button" aria-expanded="false" aria-controls="mostraMedia" (click)="exibeMedia()">
-          {{ico.descricao}}
-          <ion-icon name={{ico.ico}}></ion-icon>
-        </button>
-      </div>
-      <div class="collapse" id="mostraMedia"> <!-- DIV da media -->
-        <div>
-          <ion-item>
-            <ion-icon name="undo"></ion-icon>
-            <b>Antes</b>: {{relatorio.media.resultado_antes}} mg/dl
-          </ion-item>
-          <ion-item>
-            <ion-icon name="share-alt"></ion-icon>
-            <b>Depois</b>: {{relatorio.media.resultado_depois}} mg/dl
-          </ion-item>
-          <ion-item>
-            <ion-icon name="flask"></ion-icon>
-            <b>Insulina</b>: {{relatorio.media.insulina}} mg/dl
-          </ion-item>
+        <div text-center>
+          <button ion-button icon-end small (click)="media()" data-toggle="collapse" href="#mostraMedia" role="button"
+            aria-expanded="false" aria-controls="mostraMedia" (click)="exibeMedia()">
+            {{ico.descricao}}
+            <ion-icon name={{ico.ico}}></ion-icon>
+          </button>
         </div>
-      </div>
+        <div class="collapse" id="mostraMedia">
+          <!-- DIV da media -->
+          <div>
+            <ion-item>
+              <ion-icon name="undo"></ion-icon>
+              <b>Antes</b>: {{relatorio.media.resultado_antes}} mg/dl
+            </ion-item>
+            <ion-item>
+              <ion-icon name="share-alt"></ion-icon>
+              <b>Depois</b>: {{relatorio.media.resultado_depois}} mg/dl
+            </ion-item>
+            <ion-item>
+              <ion-icon name="flask"></ion-icon>
+              <b>Insulina</b>: {{relatorio.media.insulina}} mg/dl
+            </ion-item>
+          </div>
+        </div>
     </ion-item>
     <ion-item>
       <ion-icon name="cloud-upload"></ion-icon>
@@ -81,24 +72,23 @@
       <ion-icon name="arrow-up"></ion-icon>
       Maior nível de açúcar: <b>{{relatorio.maiorAcucar}}</b> mg/dl
       <p>
-      <div text-center>
-        <button ion-button icon-end (click)="detalhe(2)" *ngIf="relatorio.maiorAcucar != -1">
-          Ver Detalhe
-          <ion-icon name="more"></ion-icon>
-        </button>
-      </div>
+        <div text-center>
+          <button ion-button icon-end (click)="detalhe(2)" *ngIf="relatorio.maiorAcucar != -1">
+            Ver Detalhe
+            <ion-icon name="more"></ion-icon>
+          </button>
+        </div>
     </ion-item>
-     <ion-item>
+    <ion-item>
       <ion-icon name="arrow-down"></ion-icon>
       Menor nível de açúcar: <b>{{relatorio.menorAcucar}}</b> mg/dl
       <p>
-      <div text-center>
-        <button ion-button icon-end (click)="detalhe(3)" *ngIf="relatorio.menorAcucar != 10000000">
-          Ver Detalhe
-          <ion-icon name="more"></ion-icon>
-        </button>
-      </div>
+        <div text-center>
+          <button ion-button icon-end (click)="detalhe(3)" *ngIf="relatorio.menorAcucar != 10000000">
+            Ver Detalhe
+            <ion-icon name="more"></ion-icon>
+          </button>
+        </div>
     </ion-item>
   </ng-template>
 </ion-content>
-

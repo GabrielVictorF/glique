@@ -241,4 +241,16 @@ export class ApiProvider {
     });
     return this.http.get(url, httpOptions);
   }
+
+  public getInfoUser() {
+    const url = this.REST_API + "/data/users/" + localStorage.getItem("userId");
+    const httpOptions = ({
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'user-token': localStorage.getItem("userToken")
+      })
+    });
+
+    return this.http.get(url, httpOptions);
+  }
 }

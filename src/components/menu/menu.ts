@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
-import { AlertController, LoadingController, MenuController, App } from 'ionic-angular';
+import { AlertController, LoadingController, MenuController, App, NavController } from 'ionic-angular';
 
 import { LoginPage } from '../../pages/login/login';
+import { PerfilPage } from '../../pages/perfil/perfil';
 
 import { ApiProvider } from '../../providers/api/api';
 
@@ -21,7 +22,7 @@ export class MenuComponent {
   text: string;
 
   constructor(public alertCtrl: AlertController, public loadingCtrl: LoadingController, 
-  	public app: App, public api: ApiProvider, public menuCtrl: MenuController) {
+    public app: App, public api: ApiProvider, public menuCtrl: MenuController) {
     console.log('Hello MenuComponent Component');
     this.text = 'Hello World';
   }
@@ -52,5 +53,9 @@ logout() {
       }]                                                                
     });
     confirm.present();
+  }
+
+  pagePerfil() {
+    this.app.getRootNavs()[0].push(PerfilPage)
   }
 }

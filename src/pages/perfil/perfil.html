@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar color="light">
+    <ion-buttons right>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name='menu'></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center><span class="titulo">Meu perfil</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <strong>Ùltimo login: </strong>{{ dadosUser?.lastLogin | data}}
+  </ion-item>
+  <ion-item>
+    <strong>Status da conta: </strong>{{ dadosUser?.userStatus }}
+  </ion-item>
+  <ion-item>
+    <strong>Conta criada em: </strong>{{ dadosUser?.created | data}}
+  </ion-item>
+  <ion-item>
+    <strong>E-mail cadastrado: </strong>{{ dadosUser?.email }}
+  </ion-item>
+  <ion-item>
+    <strong>Idade: </strong>{{ dadosUser?.idade }}
+  </ion-item>
+  <ion-item>
+    <strong>Nome do usuário: </strong>{{ dadosUser?.name }}
+  </ion-item>
+  <ion-item>
+    <strong>Ùltima modificação: </strong>{{ dadosUser?.updated }}
+  </ion-item>
+</ion-content>
