@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiProvider } from '../providers/api/api';
 import { FunctionsProvider } from '../providers/functions/functions';
 
+
 import { AdicionarPage } from '../pages/adicionar/adicionar';
 import { MedicoesPage } from '../pages/medicoes/medicoes';
 import { HomePage } from '../pages/home/home';
@@ -30,8 +31,22 @@ import { HorarioPipe } from '../pipes/horario/horario';
 import { MenuComponent } from '../components/menu/menu';
 
 import * as JSC from "jscharting";
+import * as Sentry from 'sentry-cordova';
 
-export default JSC;
+Sentry.init({
+  dsn: "https://6c712accdaf14eb1a7d3f6e733815ba7@sentry.io/1728696"
+});
+
+export class SentryIonicErrorHandler extends IonicErrorHandler {
+  handleError(error) {
+    super.handleError(error);
+    try {
+      Sentry.captureException(error.originalError || error);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
 
 @NgModule({
   declarations: [
@@ -79,10 +94,11 @@ export default JSC;
     PerfilPage
   ],
   providers: [
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    //{provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: ErrorHandler, useClass: SentryIonicErrorHandler},
     ApiProvider,
     FunctionsProvider,
   ]
 })
-export class AppModule {}
+export class AppModule  {}
   
