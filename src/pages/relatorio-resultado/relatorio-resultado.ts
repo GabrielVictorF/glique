@@ -38,50 +38,19 @@ export class RelatorioResultadoPage {
 
   ionViewWillEnter() {
     this.funcao = this.navParams.get("funcao");
-    this.load = this.loadingCtrl.create({
-      content: "Obtendo"
-    });
     this.offset = -100;
     this.response = [];
-    this.load.present().then(() => {
       this.api.getQtdObjetos().subscribe(res => {
         this.qtdObj = res;
         this.filtraFuncao();  
         console.log(this.qtdObj);
       });
-    });
   }
 
   filtraFuncao() {
     switch (this.funcao) {
       case 1: //Relatorio do mes
-        if (this.qtdObj > 0) { // Caso a quantidade de med no banco não seja 0
-          do {
-            this.offset += 100;
-            this.api.getMedicoes(this.offset).subscribe(res => {
-              res.map(response => this.response.push(response)) // Add a request do offset atual ao total
-              if (this.offset > this.qtdObj) {
-                this.getSomenteMes(this.response);
-              }
-              console.log(this.response);
-            }, Error => {
-              console.log(Error);
-              this.load.dismiss().then(() => this.alertCtrl.create({
-                title: "Ops",
-                message: "Erro ao obter dados",
-                buttons: [{
-                  text: "Ok"
-                }]
-              }))
-            })  
-          } while (this.offset < this.qtdObj);
-          this.getConcluido = true;
-          this.load.dismiss();
-        } else {
-          this.getConcluido = true;
-          this.load.dismiss();
-        }
-
+        this.getSomenteMes();
         break;
       case 2:
         if (this.qtdObj > 0) {
@@ -96,18 +65,17 @@ export class RelatorioResultadoPage {
             },
               Error => {
                 console.log(Error);
-                this.load.dismiss().then(() => this.alertCtrl.create({
+                this.alertCtrl.create({
                   title: "Ops",
                   message: "Erro ao obter dados",
                   buttons: [{
                     text: "Ok"
                   }]
-                }))
-              })
+                })});
           } while (this.offset < this.qtdObj);
         } else {
           this.getConcluido = true;
-          this.load.dismiss();
+          
         }
         break;
       case 3:
@@ -130,10 +98,9 @@ export class RelatorioResultadoPage {
         this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
           if (res.length > 0) {
             this.data = res;
-            this.load.dismiss().then(() => this.maiorMenor());
+            this.maiorMenor();
           } else {
             this.getConcluido = true;
-            this.load.dismiss();
           }
         });
 
@@ -155,7 +122,6 @@ export class RelatorioResultadoPage {
     this.relatorio.media.resultado_depois = parseInt(this.relatorio.media.resultado_depois);
     this.relatorio.media.insulina = parseInt(this.relatorio.media.insulina);
     this.getConcluido = true;
-    this.load.dismiss();
   }
 
   exibeMedia() {
@@ -169,7 +135,7 @@ export class RelatorioResultadoPage {
     }
   }
 
-  getSomenteMes(res) { // Alterar para tratar no banco
+  getSomenteMes() { // Alterar para tratar no banco
     /*this.data = [];
     let newData = {
       mes: '',
@@ -188,13 +154,16 @@ export class RelatorioResultadoPage {
         this.data.push(response);
       }
     }); */
-
+    let load = this.loadingCtrl.create({
+      content: 'Obtendo dados...'
+    }); load.present();
     let hoje = new Date();
     let primeiroDia = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
     let ultimoDia = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
     primeiroDia = this.functions.toEpoch(primeiroDia);
     ultimoDia = this.functions.toEpoch(ultimoDia);
     this.api.getMesEspecifico(primeiroDia, ultimoDia).subscribe(res => {
+      load.dismiss();
       this.data = res;    
       this.maiorMenor();
     });
@@ -203,7 +172,7 @@ export class RelatorioResultadoPage {
   getSomenteAno(res) { // Alterar para tratar no banco
     /*this.data = [];
     let anoAtual: any = new Date();
-    anoAtual = anoAtual.getFullYear();
+    anoAtual = anoAtual.getFull Year();
     let responseCmp;
 
     res.map(response => {
