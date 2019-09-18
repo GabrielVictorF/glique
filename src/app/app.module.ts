@@ -21,6 +21,7 @@ import { RelatorioResultadoPage } from '../pages/relatorio-resultado/relatorio-r
 import { AlimentosPage } from '../pages/alimentos/alimentos';
 import { CadastrarPage } from '../pages/cadastrar/cadastrar';  
 import { PerfilPage } from '../pages/perfil/perfil';
+import { ModalRelatorioPage } from '../pages/relatorio-resultado/modal-relatorio/modal-relatorio';
 
 import { TurnoPipe } from '../pipes/turno/turno';
 import { DataPipe } from '../pipes/data/data';
@@ -64,6 +65,7 @@ export class SentryIonicErrorHandler extends IonicErrorHandler {
     AlimentosPage,
     CadastrarPage,
     PerfilPage,
+    ModalRelatorioPage,
     TurnoPipe,
     DataPipe,
     DiaSemanaPipe,
@@ -91,7 +93,8 @@ export class SentryIonicErrorHandler extends IonicErrorHandler {
     LoginPage,
     AlimentosPage,
     CadastrarPage,
-    PerfilPage
+    PerfilPage,
+    ModalRelatorioPage
   ],
   providers: [
     //{provide: ErrorHandler, useClass: IonicErrorHandler},

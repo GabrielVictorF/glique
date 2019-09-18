@@ -15,9 +15,6 @@
   </div>
 
   <ng-template #temRegistro>
-    <div id="chartTurno" style="height: 30rem; width: 100%">
-
-    </div>
     <ion-item>
       <ion-icon name="arrow-up"></ion-icon>
       Maior quantidade de insulina injetada: <b>{{relatorio.maior}}</b> mg/dl
@@ -89,6 +86,14 @@
             <ion-icon name="more"></ion-icon>
           </button>
         </div>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="grid"></ion-icon>
+      Relatório de medição por turno
+      <button ion-button small (click)="openModal()">
+        <ion-icon name="arrow-round-forward"></ion-icon>
+        Ir
+      </button>
     </ion-item>
   </ng-template>
 </ion-content>

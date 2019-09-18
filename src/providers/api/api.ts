@@ -11,7 +11,12 @@ export class ApiProvider {
   private API_KEY: string;
   private URL: string;
   private REST_API: string;
-  public  httpOptions: any;
+  public httpOptions = ({
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'user-token': localStorage.getItem("userToken")
+    })
+  });
 
   constructor(public http: HttpClient, public functions: FunctionsProvider, public alertCtrl: AlertController,
   public loadingCtrl: LoadingController) {
@@ -215,8 +220,25 @@ export class ApiProvider {
     return this.http.get(url, httpOptions); 
   }
   
-  public getMesEspecifico(offset) {
-    let where: string = "?offset=" + offset + "&where";
+  public getMesEspecifico(primeiroDia, ultimoDia) {
+    let where: string = `?where=data>=${primeiroDia}&&data<=${ultimoDia}`;
+    where = encodeURI(where);
+    const httpOptions = ({
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'user-token': localStorage.getItem("userToken")
+      })
+    });
+
+    const url = this.REST_API + '/data/medicoes' + where;
+    return this.http.get(url, httpOptions);
+  }
+
+  public getAnoEspecifico(anoAtual) {
+    let where: string = `?where=data>=${anoAtual}`;
+    where = encodeURI(where);
+    const url = `${this.REST_API}/data/medicoes${where}`;
+    return this.http.get(url, this.httpOptions);
   }
 
   public getSemana(inicio: any, fim: any): any {

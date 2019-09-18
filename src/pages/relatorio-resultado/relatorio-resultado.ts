@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, ModalController, ViewController } from 'ionic-angular';
 
 import { ApiProvider } from '../../providers/api/api';
 import { FunctionsProvider } from '../../providers/functions/functions';
@@ -7,8 +7,8 @@ import { FunctionsProvider } from '../../providers/functions/functions';
 import { DetalhePage } from '../detalhe/detalhe';
 import { ResultadoPage } from '../resultado/resultado';
 import { LoginPage } from '../login/login';
+import { ModalRelatorioPage } from './modal-relatorio/modal-relatorio';
 
-import * as CanvasJS from './canvasjs.min.js';
 import { chart } from 'jscharting';
 
 @Component({
@@ -28,17 +28,16 @@ export class RelatorioResultadoPage {
     descricao: "Mostrar"
   };
   public load;
-  public chart;
   private getConcluido: boolean = false;
 
   constructor(public api: ApiProvider, public navCtrl: NavController, public navParams: NavParams,
-    public loadingCtrl: LoadingController, public alertCtrl: AlertController, public functions: FunctionsProvider) {
+    public loadingCtrl: LoadingController, public alertCtrl: AlertController, public functions: FunctionsProvider,
+    public modal: ModalController) {
     this.resetaRelatorio(); 
   }
 
   ionViewWillEnter() {
     this.funcao = this.navParams.get("funcao");
-    this.geraRelatorioTurno();
     this.load = this.loadingCtrl.create({
       content: "Obtendo"
     });
@@ -56,11 +55,11 @@ export class RelatorioResultadoPage {
   filtraFuncao() {
     switch (this.funcao) {
       case 1: //Relatorio do mes
-        if (this.qtdObj > 0) {
+        if (this.qtdObj > 0) { // Caso a quantidade de med no banco não seja 0
           do {
             this.offset += 100;
             this.api.getMedicoes(this.offset).subscribe(res => {
-              res.map(response => this.response.push(response))
+              res.map(response => this.response.push(response)) // Add a request do offset atual ao total
               if (this.offset > this.qtdObj) {
                 this.getSomenteMes(this.response);
               }
@@ -74,7 +73,7 @@ export class RelatorioResultadoPage {
                   text: "Ok"
                 }]
               }))
-            })
+            })  
           } while (this.offset < this.qtdObj);
           this.getConcluido = true;
           this.load.dismiss();
@@ -170,8 +169,8 @@ export class RelatorioResultadoPage {
     }
   }
 
-  getSomenteMes(res) {
-    this.data = [];
+  getSomenteMes(res) { // Alterar para tratar no banco
+    /*this.data = [];
     let newData = {
       mes: '',
       ano: ''
@@ -188,14 +187,21 @@ export class RelatorioResultadoPage {
       if (((responseCmp.getMonth() + 1) == newData.mes) && (responseCmp.getFullYear() == newData.ano)) {
         this.data.push(response);
       }
+    }); */
+
+    let hoje = new Date();
+    let primeiroDia = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+    let ultimoDia = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
+    primeiroDia = this.functions.toEpoch(primeiroDia);
+    ultimoDia = this.functions.toEpoch(ultimoDia);
+    this.api.getMesEspecifico(primeiroDia, ultimoDia).subscribe(res => {
+      this.data = res;    
+      this.maiorMenor();
     });
-
-    this.maiorMenor();
-
   }
 
-  getSomenteAno(res) {
-    this.data = [];
+  getSomenteAno(res) { // Alterar para tratar no banco
+    /*this.data = [];
     let anoAtual: any = new Date();
     anoAtual = anoAtual.getFullYear();
     let responseCmp;
@@ -206,8 +212,15 @@ export class RelatorioResultadoPage {
       if (responseCmp.getFullYear() == anoAtual) {
         this.data.push(response);
       }
+    }); */
+
+    let hoje = new Date();
+    let esteAno = new Date(hoje.getFullYear(), 0, 0);
+    esteAno = this.functions.toEpoch(esteAno);
+    this.api.getAnoEspecifico(esteAno).subscribe(res => {
+      this.data = res;
+      this.maiorMenor();
     });
-    this.maiorMenor();
   }
 
   resetaRelatorio() {
@@ -270,8 +283,6 @@ export class RelatorioResultadoPage {
           this.relatorio.maiorObject = this.data[i]; //Pega todo o objeto do maior nível de insulina
         }
       }
-
-      this.geraRelatorioTurno();
       this.media();
     }
   }
@@ -289,25 +300,8 @@ export class RelatorioResultadoPage {
     }
   }
 
-  geraRelatorioTurno() {
-    this.chart = new CanvasJS.Chart("chartTurno", {
-      animationEnabled: true,
-      exportEnabled: true,
-      title: {
-        text: "Registros por turno"
-      },
-      data: [{
-        type: "pie",
-        toolTipContent:"<b>{name}</b>: {y} registros (#percent%)",
-        indexLabel: "{name} - #percent%",
-        dataPoints: [
-          { y: this.relatorio.turno.t1, name: "Café" },
-          { y: this.relatorio.turno.t2, name: "Almoço" },
-          { y: this.relatorio.turno.t3, name: "Jantar" }
-        ]
-      }]
-    });
-    
-    this.chart.render();
+  openModal() {
+    let modal = this.modal.create(ModalRelatorioPage, {"data": this.relatorio.turno});
+    modal.present();
   }
 }
