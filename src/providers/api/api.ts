@@ -14,7 +14,7 @@ export class ApiProvider {
   public httpOptions = ({
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'user-token': localStorage.getItem("userToken")
+      'user-token': localStorage.getItem("userToken") // Token gerado ao usuário logar
     })
   });
 
@@ -23,36 +23,36 @@ export class ApiProvider {
     this.APP_ID = "8A6BC524-0A01-1D21-FF22-34BAD81EED00";
     this.API_KEY = "17B5D094-F4D9-1D4D-FF3B-7BC9768DB900";
     this.URL = "https://api.backendless.com";
-    this.REST_API = this.URL + '/' + this.APP_ID + '/' + this.API_KEY;
-    this.httpOptions = ({
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    });
+    this.REST_API = `${this.URL}/${this.APP_ID}/${this.API_KEY}`;
 	}
 
     public getPesquisaCat(pesquisa?): any { //Token posterior
       let url;
-      if (pesquisa) {
-        let encoded = "?where=nome%20LIKE%20'%25" + pesquisa + "%25'";
-        url = this.REST_API + '/data/categorias' + encoded;
-        console.log(url)
-      } else 
-       url = this.REST_API + '/data/categorias';
+      if (pesquisa) { // Caso tenha termo de pesquisa
+        //let encoded = "?where=nome%20LIKE%20'%25" + pesquisa + "%25'";
+        let encoded = encodeURI(`?where=nome LIKE '%${pesquisa}%'`);
+        url = `${this.REST_API}/data/categorias${encoded}`;
+      } else // Caso seja só um get all na tabela
+       url = `${this.REST_API}/data/categorias`;
      return this.http.get(url);
     }
 
    public infoUserWhere(user): any {
-    var encoded = encodeURIComponent(user);
+    let encoded = encodeURIComponent(user);
     const where = "?where=login%3D'" + encoded + "'";
     console.log(where);
     const urlBuscaUser = this.REST_API + '/data/Users' + where;
     console.log(urlBuscaUser);
 
-    return this.http.get(urlBuscaUser);
+    return this.http.get(urlBuscaUser, this.httpOptions);
   }
 
   public login(email: string, password: string): any {
+    let httpOptions = ({
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
     const url = this.REST_API + '/users/login';
     
     let body = {
@@ -60,7 +60,7 @@ export class ApiProvider {
     	password: password
     }
   	return this.http.post(url,
-  		body, this.httpOptions);
+  		body, httpOptions);
 	}
 
    public cadastra(user):any {
@@ -230,12 +230,12 @@ export class ApiProvider {
       })
     });
 
-    const url = this.REST_API + '/data/medicoes' + where;
-    return this.http.get(url, httpOptions);
+    const url = `${this.REST_API}/data/medicoes${where}`;
+    return this.http.get(url, this.httpOptions);
   }
 
   public getAnoEspecifico(anoAtual) {
-    let where: string = `?where=data>=${anoAtual}`;
+    let where: string = `?where=data>${anoAtual}`;
     where = encodeURI(where);
     const url = `${this.REST_API}/data/medicoes${where}`;
     return this.http.get(url, this.httpOptions);

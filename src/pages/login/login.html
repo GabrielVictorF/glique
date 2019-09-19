@@ -17,7 +17,7 @@
       <p class="card-text texto-card">
         <form (ngSubmit)="logar()" [formGroup]="formValida">
           <ion-item>
-            <ion-label stacked><span style="font-size: 1.7rem;">E-mail ou nome de usuário </span><ion-icon name="mail"></ion-icon> </ion-label>
+            <ion-label stacked><span style="font-size: 1.7rem;">E-mail</span><ion-icon name="mail"></ion-icon> </ion-label>
             <ion-input type="email" formControlName="login" placeholder="Email ou usuário..." [(ngModel)]="user.email" name="email"></ion-input>
           </ion-item>
           <ion-item>

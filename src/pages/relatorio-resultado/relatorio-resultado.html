@@ -9,8 +9,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>a
-  <div *ngIf="data.length == 0 && getConcluido; else temRegistro">
+<ion-content *ngIf="data.length == 0">
+  <p>aaaaaaaaaaa</p>
+</ion-content>
+
+<ion-content>
+  <div *ngIf="data.length == 0; else temRegistro">
     <ion-item text-center color="danger">Sem registros</ion-item>
   </div>
 

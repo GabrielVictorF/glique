@@ -28,7 +28,7 @@ export class RelatorioResultadoPage {
     descricao: "Mostrar"
   };
   public load;
-  private getConcluido: boolean = false;
+  public getConcluido: boolean = false;
 
   constructor(public api: ApiProvider, public navCtrl: NavController, public navParams: NavParams,
     public loadingCtrl: LoadingController, public alertCtrl: AlertController, public functions: FunctionsProvider,
@@ -53,30 +53,7 @@ export class RelatorioResultadoPage {
         this.getSomenteMes();
         break;
       case 2:
-        if (this.qtdObj > 0) {
-          do {
-            this.offset += 100;
-            this.api.getMedicoes(this.offset).subscribe(res => {
-              if (res.length > 0) { // Caso obtenha dados
-                res.map(response => this.response.push(response))
-                if (this.offset > this.qtdObj)
-                  this.getSomenteAno(this.response);
-              }
-            },
-              Error => {
-                console.log(Error);
-                this.alertCtrl.create({
-                  title: "Ops",
-                  message: "Erro ao obter dados",
-                  buttons: [{
-                    text: "Ok"
-                  }]
-                })});
-          } while (this.offset < this.qtdObj);
-        } else {
-          this.getConcluido = true;
-          
-        }
+        this.getSomenteAno();
         break;
       case 3:
         var hoje = new Date();
@@ -169,7 +146,7 @@ export class RelatorioResultadoPage {
     });
   }
 
-  getSomenteAno(res) { // Alterar para tratar no banco
+  getSomenteAno() { // Alterar para tratar no banco
     /*this.data = [];
     let anoAtual: any = new Date();
     anoAtual = anoAtual.getFull Year();
@@ -188,7 +165,7 @@ export class RelatorioResultadoPage {
     esteAno = this.functions.toEpoch(esteAno);
     this.api.getAnoEspecifico(esteAno).subscribe(res => {
       this.data = res;
-      this.maiorMenor();
+      this.maiorMenor()
     });
   }
 
