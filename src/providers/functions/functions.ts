@@ -31,8 +31,8 @@ export class FunctionsProvider {
       data.mes = date.getMonth(),
       data.dia =  date.getDate()
     }
-    var dataNew = new Date(data.ano, data.mes, data.dia, 0, 0, 0);
-    var formatado = dataNew.getTime();
+    let dataNew = new Date(data.ano, data.mes, data.dia, 0, 0, 0);
+    let formatado = dataNew.getTime();
     console.log(formatado);
     return formatado;
   }
@@ -105,7 +105,7 @@ export class FunctionsProvider {
 
     if (data.day < 10)
       data.day = "0" + data.day;
-    var dataFormatada =  data.year + "-" + data.month + "-" + data.day;
+    let dataFormatada =  data.year + "-" + data.month + "-" + data.day;
     console.log(dataFormatada);
     return dataFormatada;
   }
