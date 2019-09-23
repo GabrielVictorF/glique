@@ -9,7 +9,6 @@ import { ResultadoPage } from '../resultado/resultado';
 import { LoginPage } from '../login/login';
 import { ModalRelatorioPage } from './modal-relatorio/modal-relatorio';
 
-import { chart } from 'jscharting';
 
 @Component({
   selector: 'page-relatorio-resultado',
@@ -98,6 +97,7 @@ export class RelatorioResultadoPage {
     this.relatorio.media.resultado_antes = parseInt(this.relatorio.media.resultado_antes);
     this.relatorio.media.resultado_depois = parseInt(this.relatorio.media.resultado_depois);
     this.relatorio.media.insulina = parseInt(this.relatorio.media.insulina);
+    console.log(this.relatorio.media)
     this.getConcluido = true;
   }
 
@@ -165,7 +165,8 @@ export class RelatorioResultadoPage {
     esteAno = this.functions.toEpoch(esteAno);
     this.api.getAnoEspecifico(esteAno).subscribe(res => {
       this.data = res;
-      this.maiorMenor()
+      this.maiorMenor();
+      this.media();
     });
   }
 

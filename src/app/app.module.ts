@@ -31,7 +31,6 @@ import { HorarioPipe } from '../pipes/horario/horario';
 
 import { MenuComponent } from '../components/menu/menu';
 
-import * as JSC from "jscharting";
 import * as Sentry from 'sentry-cordova';
 
 Sentry.init({

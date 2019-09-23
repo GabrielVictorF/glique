@@ -73,7 +73,7 @@ export class ApiProvider {
 
   public logout() {
     const url = `${this.REST_API}/users/logout`;
-    return this.http.get(url, this.httpOptions);
+    return this.http.get(url, this.httpOptionsNoToken);
   }
 
   public getQuantidadeObj() { //Retorna a quantidade de objetos na tabela medicoes
