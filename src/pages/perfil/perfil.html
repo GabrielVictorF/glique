@@ -12,6 +12,9 @@
 
 <ion-content padding>
   <ion-item>
+    <input type="file" ion-input>
+  </ion-item>
+  <ion-item>
     <strong>Ùltimo login: </strong>{{ dadosUser?.lastLogin | data}}
   </ion-item>
   <ion-item>
@@ -30,6 +33,6 @@
     <strong>Nome do usuário: </strong>{{ dadosUser?.name }}
   </ion-item>
   <ion-item>
-    <strong>Ùltima modificação: </strong>{{ dadosUser?.updated }}
+    <strong>Ùltima modificação: </strong>{{ dadosUser?.updated | data}}
   </ion-item>
 </ion-content>

@@ -9,16 +9,21 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content *ngIf="data.length == 0">
-  <p>aaaaaaaaaaa</p>
-</ion-content>
-
 <ion-content>
-  <div *ngIf="data.length == 0; else temRegistro">
+  <ion-refresher (ionRefresh)="ionViewWillEnter()">
+    <ion-refresher-content pullingText="Puxe para gerar novamente o relatório..." refreshingText="Gerando relatório...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="!getConcluido">
+
+  </div>
+
+  <div *ngIf="data.length == 0 && getConcluido">
     <ion-item text-center color="danger">Sem registros</ion-item>
   </div>
 
-  <ng-template #temRegistro>
+  <div *ngIf="data.length > 0 && getConcluido">
     <ion-item>
       <ion-icon name="arrow-up"></ion-icon>
       Maior quantidade de insulina injetada: <b>{{relatorio.maior}}</b> mg/dl
@@ -31,6 +36,38 @@
         </div>
     </ion-item>
 
+    <ion-item>
+      <ion-icon name="arrow-up"></ion-icon>
+      Maior nível de açúcar: <b>{{relatorio.maiorAcucar}}</b> mg/dl
+      <p>
+        <div text-center>
+          <button ion-button icon-end (click)="detalhe(2)" *ngIf="relatorio.maiorAcucar != -1">
+            Ver Detalhe
+            <ion-icon name="more"></ion-icon>
+          </button>
+        </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="arrow-down"></ion-icon>
+      Menor nível de açúcar: <b>{{relatorio.menorAcucar}}</b> mg/dl
+      <p>
+        <div text-center>
+          <button ion-button icon-end (click)="detalhe(3)" *ngIf="relatorio.menorAcucar != 10000000">
+            Ver Detalhe
+            <ion-icon name="more"></ion-icon>
+          </button>
+        </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="grid"></ion-icon>
+      Relatório de medição por turno
+      <button ion-button small (click)="openModal()">
+        <ion-icon name="arrow-round-forward"></ion-icon>
+        Ir
+      </button>
+    </ion-item>
 
     <ion-item>
       <ion-icon name="calculator"></ion-icon>
@@ -69,38 +106,9 @@
       <ion-icon name="cloud-download"></ion-icon>
       Menos registros no turno: <b>{{relatorio.menorTurno | turno}}</b>
     </ion-item>
-    <ion-item>
-      <ion-icon name="arrow-up"></ion-icon>
-      Maior nível de açúcar: <b>{{relatorio.maiorAcucar}}</b> mg/dl
-      <p>
-        <div text-center>
-          <button ion-button icon-end (click)="detalhe(2)" *ngIf="relatorio.maiorAcucar != -1">
-            Ver Detalhe
-            <ion-icon name="more"></ion-icon>
-          </button>
-        </div>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="arrow-down"></ion-icon>
-      Menor nível de açúcar: <b>{{relatorio.menorAcucar}}</b> mg/dl
-      <p>
-        <div text-center>
-          <button ion-button icon-end (click)="detalhe(3)" *ngIf="relatorio.menorAcucar != 10000000">
-            Ver Detalhe
-            <ion-icon name="more"></ion-icon>
-          </button>
-        </div>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="grid"></ion-icon>
-      Relatório de medição por turno
-      <button ion-button small (click)="openModal()">
-        <ion-icon name="arrow-round-forward"></ion-icon>
-        Ir
-      </button>
-    </ion-item>
+
     <ion-item>
       <strong>Quantidade de resultados: </strong>{{ data.length }}
     </ion-item>
-  </ng-template>
+  </div>
 </ion-content>

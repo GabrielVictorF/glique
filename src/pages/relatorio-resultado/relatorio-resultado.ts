@@ -32,54 +32,30 @@ export class RelatorioResultadoPage {
   constructor(public api: ApiProvider, public navCtrl: NavController, public navParams: NavParams,
     public loadingCtrl: LoadingController, public alertCtrl: AlertController, public functions: FunctionsProvider,
     public modal: ModalController) {
-    this.resetaRelatorio(); 
+    this.resetaRelatorio();
   }
 
   ionViewWillEnter() {
     this.funcao = this.navParams.get("funcao");
     this.offset = -100;
     this.response = [];
-      this.api.getQtdObjetos().subscribe(res => {
-        this.qtdObj = res;
-        this.filtraFuncao();  
-        console.log(this.qtdObj);
-      });
+    this.api.getQtdObjetos().subscribe(res => {
+      this.qtdObj = res;
+      this.filtraFuncao();
+      console.log(this.qtdObj);
+    });
   }
 
   filtraFuncao() {
     switch (this.funcao) {
-      case 1: //Relatorio do mes
+      case 1: // Relatorio do mes
         this.getSomenteMes();
         break;
-      case 2:
+      case 2: // Relatório do ano
         this.getSomenteAno();
         break;
-      case 3:
-        var hoje = new Date();
-        var formatado = {
-          dia: hoje.getDate(),
-          mes: hoje.getMonth(),
-          ano: hoje.getFullYear()
-        }
-        let intervalo = {
-          i1: new Date(),
-          i2: new Date()
-        };
-        var newHoje: number = hoje.getDay();
-        intervalo.i1 = new Date(formatado.ano, formatado.mes, formatado.dia - newHoje, 0, 0, 0);
-        intervalo.i1 = this.functions.toEpoch(intervalo.i1);
-        intervalo.i2 = new Date(formatado.ano, formatado.mes, (formatado.dia + (6 - newHoje)), 0, 0, 0)
-        intervalo.i2 = this.functions.toEpoch(intervalo.i2)
-
-        this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
-          if (res.length > 0) {
-            this.data = res;
-            this.maiorMenor();
-          } else {
-            this.getConcluido = true;
-          }
-        });
-
+      case 3: // Relatório da semana
+        this.getSomenteSemana();
     }
   }
 
@@ -141,7 +117,7 @@ export class RelatorioResultadoPage {
     ultimoDia = this.functions.toEpoch(ultimoDia);
     this.api.getMesEspecifico(primeiroDia, ultimoDia).subscribe(res => {
       load.dismiss();
-      this.data = res;    
+      this.data = res;
       this.maiorMenor();
     });
   }
@@ -160,13 +136,49 @@ export class RelatorioResultadoPage {
       }
     }); */
 
+    let load = this.loadingCtrl.create({
+      content: 'Obtendo dados'
+    }); load.present();
     let hoje = new Date();
     let esteAno = new Date(hoje.getFullYear(), 0, 0);
     esteAno = this.functions.toEpoch(esteAno);
     this.api.getAnoEspecifico(esteAno).subscribe(res => {
+      load.dismiss();
       this.data = res;
       this.maiorMenor();
       this.media();
+    });
+  }
+
+  getSomenteSemana() {
+    let load = this.loadingCtrl.create({
+      content: 'Obtendo dados'
+    }); load.present();
+
+    let hoje = new Date();
+    let formatado = {
+      dia: hoje.getDate(),
+      mes: hoje.getMonth(),
+      ano: hoje.getFullYear()
+    }
+    let intervalo = {
+      i1: new Date(),
+      i2: new Date()
+    };
+    let newHoje: number = hoje.getDay();
+    intervalo.i1 = new Date(formatado.ano, formatado.mes, formatado.dia - newHoje, 0, 0, 0);
+    intervalo.i1 = this.functions.toEpoch(intervalo.i1);
+    intervalo.i2 = new Date(formatado.ano, formatado.mes, (formatado.dia + (6 - newHoje)), 0, 0, 0)
+    intervalo.i2 = this.functions.toEpoch(intervalo.i2)
+
+    this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
+      load.dismiss();
+      this.getConcluido = true;
+      if (res.length > 0) {
+        this.data = res;
+        this.maiorMenor();
+      }
+      this.getConcluido = true;
     });
   }
 
@@ -248,7 +260,7 @@ export class RelatorioResultadoPage {
   }
 
   openModal() {
-    let modal = this.modal.create(ModalRelatorioPage, {"data": this.relatorio.turno});
+    let modal = this.modal.create(ModalRelatorioPage, { "data": this.relatorio.turno });
     modal.present();
   }
 }
