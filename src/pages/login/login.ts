@@ -47,7 +47,7 @@ export class LoginPage {
       localStorage.setItem("userId", res.objectId); // Id do usuário atual logado
       this.navCtrl.setRoot(TabsPage);
     },
-      Error => { //Login
+      Error => { //Login  
         console.log(Error);
         load.dismiss();
         const message: string = this.functions.filtraErro(Error.error.code);

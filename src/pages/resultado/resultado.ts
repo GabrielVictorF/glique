@@ -25,6 +25,7 @@ export class ResultadoPage {
     data: '',
     diaSemana: -1
   }
+  private ico = ["arrow-down", "arrow-up"];
   private date = {
   dia: 10,
   mes: 10, ano: 10
@@ -47,9 +48,7 @@ export class ResultadoPage {
     this.funcao = this.navParams.get("funcao"); //Função a ser executada
     this.filtro = this.navParams.get("filtro"); // Data a ser pesquisada no Backendless
 
-    this.loading = this.loadingCtrl.create({ //Loading do push dos resultados
-      content: 'Obtendo resultados...',
-    }); this.loading.present().then(() => this.getResultados());
+    this.getResultados();
   }
 
   /*ionViewWillEnter() {
@@ -108,6 +107,9 @@ export class ResultadoPage {
   }
 
   getResultados(refreshEvent?) {
+    this.loading = this.loadingCtrl.create({ //Loading do push dos resultados
+      content: 'Obtendo resultados...',
+    }); this.loading.present();
 
      this.offset = 0;
      this.filtro2 = new Array();

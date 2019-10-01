@@ -10,22 +10,31 @@
 </ion-header>
 
 <ion-content padding>
-    <div class="row">
-      <div class="col-12">
-            <button ion-button small icon-left outline full (click)="medicoes()" icon-end>
-              Ocorrências 
-              <ion-icon name="apps"></ion-icon>
-            </button>
-     </div>
+  <!--<ion-slides pager>
+    <ion-slide>
+      Tutorial de uso 1
+    </ion-slide>
+    <ion-slide>
+      Tutorial de uso 1
+    </ion-slide>
+  </ion-slides> -->
+
+  <div class="row">
+    <div class="col-12">
+      <button ion-button small icon-left outline full (click)="medicoes()" icon-end>
+        Medições
+        <ion-icon name="flask"></ion-icon>
+      </button>
     </div>
-    <div class="row">
-      <div class="col-12">
-              <button ion-button small icon-left outline full (click)="relatorios()" icon-end>
-          Relatórios
-          <ion-icon name="analytics"></ion-icon>
-        </button>
-     </div>
-     </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button ion-button small icon-left outline full (click)="relatorios()" icon-end>
+        Relatórios
+        <ion-icon name="analytics"></ion-icon>
+      </button>
+    </div>
+  </div>
   <!--<div class="alert alert-secondary bemVindo" text-center>
     <h3>Bem-vindo! {{this.turno}}!</h3>
   </div>-->
