@@ -56,6 +56,8 @@ export class MedicoesPage {
     this.api.getQuantidadeObj().subscribe(res => {
       this.qtdObj.total = res;
       console.log(res);
+    }, Error => {
+      this.functions.showAlert("Ops!", this.functions.filtraErro(Error.error.code));
     });
   }
 }

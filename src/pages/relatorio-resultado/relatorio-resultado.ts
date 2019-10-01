@@ -116,9 +116,12 @@ export class RelatorioResultadoPage {
     primeiroDia = this.functions.toEpoch(primeiroDia);
     ultimoDia = this.functions.toEpoch(ultimoDia);
     this.api.getMesEspecifico(primeiroDia, ultimoDia).subscribe(res => {
+      this.getConcluido = true;
       load.dismiss();
       this.data = res;
       this.maiorMenor();
+    }, Error => {
+      this.functions.showAlert("Ops!", this.functions.filtraErro(Error.error.code));
     });
   }
 
@@ -142,11 +145,15 @@ export class RelatorioResultadoPage {
     let hoje = new Date();
     let esteAno = new Date(hoje.getFullYear(), 0, 0);
     esteAno = this.functions.toEpoch(esteAno);
+    console.log(esteAno)
     this.api.getAnoEspecifico(esteAno).subscribe(res => {
       load.dismiss();
       this.data = res;
+      console.log("Tamanho da request:" + this.data.length)
       this.maiorMenor();
       this.media();
+    }, Error => {
+      this.functions.showAlert("Ops!", this.functions.filtraErro(Error.error.code));
     });
   }
 
@@ -179,6 +186,8 @@ export class RelatorioResultadoPage {
         this.maiorMenor();
       }
       this.getConcluido = true;
+    }, Error => {
+      this.functions.showAlert("Ops!", this.functions.filtraErro(Error.error.code));
     });
   }
 

@@ -96,7 +96,10 @@
   </ion-item>
   <div *ngIf="data.length == 0 && getFeito == true; else temRegistros">
     <!--Caso NÂO-->
-    <ion-item text-center color="danger">Sem registros</ion-item>
+    <ion-item text-center color="danger" icon-end>
+      Sem registros
+      <ion-icon name="alert"></ion-icon>
+    </ion-item>
   </div>
   <ng-template #temRegistros>
     <!--Caso a busca TENHA resultados-->
