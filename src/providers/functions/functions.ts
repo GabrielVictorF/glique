@@ -59,6 +59,8 @@ export class FunctionsProvider {
         return '';
       case 3040:
         return 'Insira um e-email válido';
+      case 3044:
+        return 'Não foi possível logar. Múltiplos logins detectados. Favor desconectar sua conta do outro dispositivo.'
       case 3064:
         return 'Sua sessão expirou, por favor logue novamente.'
       case 3090:

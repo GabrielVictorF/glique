@@ -165,7 +165,7 @@ export class ApiProvider {
   public getAnoEspecifico(anoAtual) {
     let where: string = `?where=data>${anoAtual}`;
     where = encodeURI(where);
-    const url = `${this.REST_API}/data/medicoes${where}`;
+    const url = `${this.REST_API}/data/medicoes${where}&pageSize=100`;
     return this.http.get(url, this.httpOptions);
   }
 

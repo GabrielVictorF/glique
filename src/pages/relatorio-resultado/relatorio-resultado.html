@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher (ionRefresh)="ionViewWillEnter()">
+  <ion-refresher (ionRefresh)="ionViewWillEnter($event)">
     <ion-refresher-content pullingText="Puxe para gerar novamente o relatório..." refreshingText="Gerando relatório...">
     </ion-refresher-content>
   </ion-refresher>

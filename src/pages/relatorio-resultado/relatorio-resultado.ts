@@ -35,11 +35,13 @@ export class RelatorioResultadoPage {
     this.resetaRelatorio();
   }
 
-  ionViewWillEnter() {
+  ionViewWillEnter(refreshEvent?) {
     this.funcao = this.navParams.get("funcao");
     this.offset = -100;
     this.response = [];
     this.api.getQtdObjetos().subscribe(res => {
+      if (refreshEvent)
+        refreshEvent.complete();
       this.qtdObj = res;
       this.filtraFuncao();
       console.log(this.qtdObj);
