@@ -15,9 +15,9 @@ export class DataPipe implements PipeTransform {
   transform(value) {
     let hoje = new Date();
     if (value != null) {
-      var dateVal ="/Date(" + value + ")/";
-      var date = new Date( parseFloat( dateVal.substr(6 )));
-      var novaData = date.toLocaleString();
+      let dateVal ="/Date(" + value + ")/";
+      let date = new Date( parseFloat( dateVal.substr(6 )));
+      let novaData = date.toLocaleString();
       novaData = novaData.substring(0,10);
       return novaData;
     }

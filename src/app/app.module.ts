@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, Navbar } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -74,8 +74,14 @@ export class SentryIonicErrorHandler extends IonicErrorHandler {
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
-    HttpClientModule,
+    IonicModule.forRoot(MyApp, {
+      platforms: {
+        ios: {
+          backButtonText: 'Voltar'
+        }
+      }
+    }),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -99,7 +105,7 @@ export class SentryIonicErrorHandler extends IonicErrorHandler {
     //{provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: ErrorHandler, useClass: SentryIonicErrorHandler},
     ApiProvider,
-    FunctionsProvider,
+    FunctionsProvider
   ]
 })
 export class AppModule  {}

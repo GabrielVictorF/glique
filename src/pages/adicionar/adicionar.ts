@@ -34,7 +34,7 @@ import { DetalhePage } from '../detalhe/detalhe';
    constructor(public navCtrl: NavController, public navParams: NavParams, 
      public functions: FunctionsProvider, public api: ApiProvider, public loadingCtrl: LoadingController,
      public alertCtrl: AlertController, public toastCtrl: ToastController) {
-     var hora: any = new Date();
+     let hora: any = new Date();
      hora = hora.getTime();
      if (hora < 12)
        this.medicao.turno = 1;

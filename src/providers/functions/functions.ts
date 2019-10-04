@@ -49,6 +49,8 @@ export class FunctionsProvider {
       //User Servicel
       case 3000:
         return 'Esta conta foi desabilitada';
+      case 3002:
+        return 'Esta conta já está logada em outro dispositivo.'
       case 3003:
         return 'Email / senha inválidos';
       case 3006:

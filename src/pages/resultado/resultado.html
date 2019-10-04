@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="light">
+  <ion-navbar color="navBarColor">
     <ion-buttons right>
       <button ion-button icon-only menuToggle>
         <ion-icon name='menu'></ion-icon>
@@ -104,12 +104,13 @@
   <ng-template #temRegistros>
     <!--Caso a busca TENHA resultados-->
     <ion-item text-center color="primary">Quantidade de registros: <b>{{data.length}}</b></ion-item>
-    <ion-item text-center (click)="show = !show">
+    <ion-item text-center (click)="show = !show" data-toggle="collapse" href="#mostraMedia" role="button"
+    aria-expanded="false" aria-controls="mostraMedia">
       Mostrar médias
       <ion-icon name="{{ico[0]}}" *ngIf="!show"></ion-icon>
       <ion-icon name="{{ico[1]}}" *ngIf="show"></ion-icon>
     </ion-item>
-    <div *ngIf="show">
+    <div id="mostraMedia">
       <ion-item text-center color="light">Média das injeções pré-prandial: <b>{{medias.pre.toFixed(2)}} mg/dl</b>
       </ion-item>
       <ion-item text-center color="light">Média das injeções pós-prandial: <b>{{medias.pos.toFixed(2)}} mg/dl</b>

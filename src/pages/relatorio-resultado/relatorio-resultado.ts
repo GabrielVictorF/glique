@@ -220,7 +220,7 @@ export class RelatorioResultadoPage {
     this.resetaRelatorio();
     //Incrementa os turnos de acordo com os dados
     if (this.data.length > 0) {
-      for (var i = 0; i < this.data.length; i++) {
+      for (let i = 0; i < this.data.length; i++) {
         if (this.data[i].turno == 1)
           this.relatorio.turno.t1++;
         else if (this.data[i].turno == 2)
