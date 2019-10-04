@@ -7,6 +7,7 @@ import { FunctionsProvider } from '../../providers/functions/functions';
 import { DetalhePage} from '../detalhe/detalhe';
 
 import { LoginPage } from '../login/login';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
    selector: 'page-resultado',
@@ -30,6 +31,7 @@ export class ResultadoPage {
   dia: 10,
   mes: 10, ano: 10
   }
+  private quantidadeResultado;
 
   private funcao: number; //Função GET que deve ser executada no provider api, recebida via navParams
   private filtro: any; //Data(calendário) recebida via navParams
@@ -47,7 +49,6 @@ export class ResultadoPage {
   public loadingCtrl: LoadingController, public functions: FunctionsProvider, public alertCtrl: AlertController) {
     this.funcao = this.navParams.get("funcao"); //Função a ser executada
     this.filtro = this.navParams.get("filtro"); // Data a ser pesquisada no Backendless
-
     this.getResultados();
   }
 
@@ -118,6 +119,9 @@ export class ResultadoPage {
       case 1:
        this.filtraPesquisa();
        this.data = [];
+        this.api.getQuantidadeObj().subscribe(res => {
+          this.quantidadeResultado = res; 
+        });
         this.api.getMedicoes(this.offset, this.filtro2).subscribe(res => {
           this.getFeito = true;
           if (refreshEvent)
@@ -139,10 +143,18 @@ export class ResultadoPage {
           this.loading.dismiss();
         });
       break;
-      case 2: //Desativado
+      case 2: // Medições da semana
+        let intervalo = this.functions.calculaEssaSemana();
+        this.api.getQuantidadeObjSemana(intervalo.i1, intervalo.i2).subscribe(res => {
+          this.quantidadeResultado = res;
+        })
+        this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
+          this.data = res;
+          this.loading.dismiss();
+        });
         break;
       case 3: //Medições HOJE
-      case 4: //Medições dia específico
+      case 4: //Medições dia específico DESATIVAR??????????
         this.filtro2.push("data%3D" + this.filtro);
         this.filtraPesquisa(); 
         this.data = [];
@@ -179,7 +191,7 @@ export class ResultadoPage {
 
       switch(this.funcao) {
         case 1:
-          this.offset += 100;
+          this.offset += 10;
           console.log(this.offset);
           this.api.getMedicoes(this.offset, this.filtro2).subscribe(res => {
           if (this.pesquisa.data != '') { //Caso seja inserida uma data no filtro
@@ -192,10 +204,16 @@ export class ResultadoPage {
           });
         break;
         case 2:
+          this.offset += 10;
+          let intervalo = this.functions.calculaEssaSemana();
+        this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
+          this.data = res;
+          infiniteScroll.complete();
+        });
           break;
         case 3:
         case 4:
-          this.offset += 100;
+          this.offset += 10;
           this.api.getPesquisa(this.filtro2, this.offset).subscribe(res => {
             if (this.pesquisa.data != '') { //Caso seja inserida uma data no filtro
               this.getSomenteMes(res);

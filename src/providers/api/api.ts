@@ -86,6 +86,11 @@ export class ApiProvider {
     return this.http.get(url, this.httpOptions);
   }
 
+  public getQuantidadeObjSemana(inicio, fim) {
+    let url = `${this.REST_API}/data/medicoes/count?where=data>=${inicio}&&data<=${fim}`;
+    return this.http.get(url, this.httpOptions);
+  }
+
   public getMedicoes(offset: number, filtros?): any {
     let where = "";
     if (filtros && filtros.length > 0) { // Caso venha com filtros
@@ -96,9 +101,9 @@ export class ApiProvider {
           where += "%26%26";
       });
 
-      where += `&pageSize=100&sortBy=data%20desc&offset=${offset}`;
+      where += `&pageSize=10&sortBy=data%20desc&offset=${offset}`;
     } else {
-      where += `?pageSize=100&sortBy=data%20desc&offset=${offset}`;
+      where += `?pageSize=10&sortBy=data%20desc&offset=${offset}`;
     }
 
     const url = `${this.REST_API}/data/medicoes${where}`;
@@ -106,7 +111,7 @@ export class ApiProvider {
   }
 
   public getMedicoesTurnoEspecifico(turno: any, offset: any): any { // SEM USO 19/09/2019
-    let filtro = `&&pageSize=15&sortBy=data%20desc&where=turno%3D${turno}&offset=${offset}`;
+    let filtro = `&&pageSize=10&sortBy=data%20desc&where=turno%3D${turno}&offset=${offset}`;
     const url = `${this.REST_API}/data/medicoes${filtro}`;
     return this.http.get<Medicoes>(url);
   }
@@ -117,10 +122,9 @@ export class ApiProvider {
       resultado_antes: parseInt(medicao.res_antes),
       resultado_depois: parseInt(medicao.res_depois),
       quantidade_insulina: parseInt(medicao.quantidade),
-      data: medicao.data,
+      data: medicao.data, 
       turno: parseInt(medicao.turno),
-      tipo: parseInt(medicao.tipo),
-      dia_semana: parseInt(medicao.dia_semana)
+      tipo: parseInt(medicao.tipo)
     }
     return this.http.post(url, body, this.httpOptions);
   } 
@@ -165,12 +169,12 @@ export class ApiProvider {
   public getAnoEspecifico(anoAtual) {
     let where: string = `?where=data>${anoAtual}`;
     where = encodeURI(where);
-    const url = `${this.REST_API}/data/medicoes${where}&pageSize=100`;
+    const url = `${this.REST_API}/data/medicoes${where}&pageSize=10`;
     return this.http.get(url, this.httpOptions);
   }
 
   public getSemana(inicio: any, fim: any): any {
-    const url: string = encodeURI(`${this.REST_API}/data/medicoes?where=data>=${inicio}&&data<=${fim}&pageSize=100`);
+    const url: string = encodeURI(`${this.REST_API}/data/medicoes?where=data>=${inicio}&&data<=${fim}&pageSize=10`);
     return this.http.get(url, this.httpOptions);
   }
 

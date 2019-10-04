@@ -122,6 +122,25 @@ export class FunctionsProvider {
     });
     alert.present();
   }
+
+  public calculaEssaSemana() {
+    let hoje = new Date();
+    let formatado = {
+      dia: hoje.getDate(),
+      mes: hoje.getMonth(),
+      ano: hoje.getFullYear()
+    }
+    let intervalo = {
+      i1: new Date(),
+      i2: new Date()
+    };
+    let newHoje: number = hoje.getDay();
+    intervalo.i1 = new Date(formatado.ano, formatado.mes, formatado.dia - newHoje, 0, 0, 0);
+    intervalo.i1 = this.toEpoch(intervalo.i1);
+    intervalo.i2 = new Date(formatado.ano, formatado.mes, (formatado.dia + (6 - newHoje)), 0, 0, 0)
+    intervalo.i2 = this.toEpoch(intervalo.i2);
+    return intervalo;
+  }
   
   public formataData(tipo: number, data: Date) {
     data = new Date(data);

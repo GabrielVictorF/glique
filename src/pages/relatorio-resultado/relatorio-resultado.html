@@ -26,14 +26,25 @@
   <div *ngIf="data.length > 0 && getConcluido">
     <ion-list>
       <ion-list-header text-center>
-        Relatórios 
+        Relatórios
         <span *ngIf="funcao == 1">do Mês</span>
         <span *ngIf="funcao == 2">do Ano</span>
-        <span *ngIf="funcao == 3">da Semana</span>
+        <span *ngIf="funcao == 3">da Semana</span>        
+        <ion-icon name="analytics"></ion-icon>
       </ion-list-header>
+
+      <ion-item-divider text-center>
+        Total de resultados
+      </ion-item-divider>
+
+      <ion-item>
+        Quantidade de resultados: <strong>{{ data.length }}</strong>
+      </ion-item>
       
       <ion-item-divider text-center>
         Maiores e menores níveis de glicemia 
+        <ion-icon name="arrow-round-up"></ion-icon>
+        <ion-icon name="arrow-round-down"></ion-icon>
       </ion-item-divider>
 
       <ion-item text-wrap>
@@ -79,6 +90,7 @@
 
       <ion-item-divider text-center>
         Médias
+        <ion-icon name="calculator"></ion-icon>
       </ion-item-divider>
 
       <ion-item text-wrap>
@@ -109,7 +121,9 @@
       </ion-item>
 
       <ion-item-divider text-center>
-        Maiores e menores registros 
+        Maiores e menores registros
+        <ion-icon name="arrow-round-up"></ion-icon>
+        <ion-icon name="arrow-round-down"></ion-icon>
       </ion-item-divider>
 
       <ion-item>
@@ -119,10 +133,6 @@
       <ion-item>
         <ion-icon name="cloud-download"></ion-icon>
         Menos registros no turno: <b>{{relatorio.menorTurno | turno}}</b>
-      </ion-item>
-
-      <ion-item>
-        <strong>Quantidade de resultados: </strong>{{ data.length }}
       </ion-item>
     </ion-list>
   </div>

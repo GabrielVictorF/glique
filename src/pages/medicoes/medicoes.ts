@@ -23,7 +23,8 @@ export class MedicoesPage {
   private offset = 0;
   private qtdObj: any = {
     hoje: 0,
-    total: 0
+    total: 0,
+    semana: 0
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: ApiProvider,
@@ -43,6 +44,10 @@ export class MedicoesPage {
       this.navCtrl.push(ResultadoPage, {funcao: 3, filtro: data});
   }
 
+  public medicoesSemana() {
+    this.navCtrl.push(ResultadoPage, {funcao: 2})
+  }
+
   public medicoesDiaEspecifico() {
     
     this.ocorrenciaData = this.functions.toEpoch(this.ocorrenciaData);
@@ -51,8 +56,10 @@ export class MedicoesPage {
 
   quantidadeObj() {
     let hoje = this.functions.toEpoch();
+    let intervalo = this.functions.calculaEssaSemana();
     console.log(hoje)    
     this.api.getQuantidadeObjDia(hoje).subscribe(res => this.qtdObj.hoje = res);
+    this.api.getQuantidadeObjSemana(intervalo.i1, intervalo.i2).subscribe(res => this.qtdObj.semana = res);
     this.api.getQuantidadeObj().subscribe(res => {
       this.qtdObj.total = res;
       console.log(res);
