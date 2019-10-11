@@ -19,7 +19,7 @@ import { LoginPage } from '../pages/login/login';
 import { RelatoriosPage } from '../pages/relatorios/relatorios';
 import { RelatorioResultadoPage } from '../pages/relatorio-resultado/relatorio-resultado';
 import { AlimentosPage } from '../pages/alimentos/alimentos';
-import { CadastrarPage } from '../pages/cadastrar/cadastrar';  
+import { CadastrarPage } from '../pages/cadastrar/cadastrar';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { ModalRelatorioPage } from '../pages/relatorio-resultado/modal-relatorio/modal-relatorio';
 
@@ -31,11 +31,26 @@ import { HorarioPipe } from '../pipes/horario/horario';
 
 import { MenuComponent } from '../components/menu/menu';
 
-import * as Sentry from 'sentry-cordova';
+//import * as Sentry from 'sentry-cordova';
+import * as Sentry from '@sentry/browser';
+import { errorHandler } from '@angular/platform-browser/src/browser';
 
 Sentry.init({
-  dsn: "https://6c712accdaf14eb1a7d3f6e733815ba7@sentry.io/1728696"
+  dsn: "https://6c712accdaf14eb1a7d3f6e733815ba7@sentry.io/1728696",
+  beforeSend(event, hint) {
+    console.log(event)
+    console.log(hint)
+    // Check if it is an exception, and if so, show the report dialog
+    if (event.exception) {
+      localStorage.setItem('eror_event_id', event.event_id);
+      //var evento = new CustomEvent('sentry-report', {'detail': event.event_id});
+      //document.dispatchEvent(evento);  
+      //console.log("Erro enviado ao Sentry");
+    }
+    return event;
+  }
 });
+
 
 export class SentryIonicErrorHandler extends IonicErrorHandler {
   handleError(error) {
@@ -56,7 +71,7 @@ export class SentryIonicErrorHandler extends IonicErrorHandler {
     AdicionarPage,
     MedicoesPage,
     DetalhePage,
-    EditaPage,  
+    EditaPage,
     ResultadoPage,
     LoginPage,
     RelatoriosPage,
@@ -103,10 +118,9 @@ export class SentryIonicErrorHandler extends IonicErrorHandler {
   ],
   providers: [
     //{provide: ErrorHandler, useClass: IonicErrorHandler},
-    {provide: ErrorHandler, useClass: SentryIonicErrorHandler},
+    { provide: ErrorHandler, useClass: SentryIonicErrorHandler },
     ApiProvider,
     FunctionsProvider
   ]
 })
-export class AppModule  {}
-  
+export class AppModule { }

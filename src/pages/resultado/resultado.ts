@@ -7,7 +7,6 @@ import { FunctionsProvider } from '../../providers/functions/functions';
 import { DetalhePage} from '../detalhe/detalhe';
 
 import { LoginPage } from '../login/login';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
    selector: 'page-resultado',
@@ -150,11 +149,16 @@ export class ResultadoPage {
         })
         this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
           this.data = res;
+          if (this.data.length > 0)
+            this.calculaMedia();
           this.loading.dismiss();
         });
         break;
-      case 3: //Medições HOJE
-      case 4: //Medições dia específico DESATIVAR??????????
+        case 3: //Medições HOJE
+        case 4: //Medições dia específico DESATIVAR??????????
+        this.api.getQuantidadeObjDia(this.functions.toEpoch()).subscribe(res => {
+          this.quantidadeResultado = res;
+        });
         this.filtro2.push("data%3D" + this.filtro);
         this.filtraPesquisa(); 
         this.data = [];

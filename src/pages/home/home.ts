@@ -35,4 +35,8 @@ export class HomePage {
     this.navCtrl.push(RelatoriosPage);
   }
   //TESTE SSH
+
+  dialog() {
+    this.functions.showSentryReportDialog();
+  }
 }

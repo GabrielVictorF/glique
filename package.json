@@ -24,6 +24,7 @@
     "@ionic-native/status-bar": "~4.15.0",
     "@ionic/pro": "^2.0.3",
     "@ionic/storage": "2.2.0",
+    "@sentry/browser": "^5.6.3",
     "cordova-android": "7.1.4",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.1.3",

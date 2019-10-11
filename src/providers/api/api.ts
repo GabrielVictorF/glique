@@ -81,10 +81,13 @@ export class ApiProvider {
     return this.http.get(url, this.httpOptions);
   }
 
-  public getQuantidadeObjDia(data: any) { //Retorna a quantidade de objetos de hoje na tabela medicoes
+  public getQuantidadeObjDia(data?: any) { //Retorna a quantidade de objetos de um dia específico
     let url = `${this.REST_API}/data/medicoes/count?where=data%3D${data}`;
+
     return this.http.get(url, this.httpOptions);
   }
+
+  public getQuantidade
 
   public getQuantidadeObjSemana(inicio, fim) {
     let url = `${this.REST_API}/data/medicoes/count?where=data>=${inicio}&&data<=${fim}`;

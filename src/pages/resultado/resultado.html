@@ -48,9 +48,9 @@
     <ion-select [(ngModel)]="pesquisa.altoBaixo" placeholder="Selecione uma opção" required cancelText="Cancelar"
       interface="popover">
       <!-- Filtro de nível da mediçáo-->
-      <ion-option value="1">Alto</ion-option>
-      <ion-option value="2">Normal</ion-option>
-      <ion-option value="3">Baixo</ion-option>
+      <ion-option value="1">Alto(maior que <strong>100</strong>)</ion-option>
+      <ion-option value="2">Normal(entre <strong>80</strong> e <strong>100</strong>)</ion-option>
+      <ion-option value="3">Baixo(abaixo de <strong>80</strong>)</ion-option>
     </ion-select>
   </ion-item>
   <ion-item *ngIf="funcao != 3 && funcao != 4">
@@ -105,8 +105,8 @@
     <!--Caso a busca TENHA resultados-->
     <ion-item text-center color="primary">Quantidade de registros: <b>{{quantidadeResultado}}</b></ion-item>
     <ion-item text-center (click)="show = !show" data-toggle="collapse" href="#mostraMedia" role="button"
-    aria-expanded="false" aria-controls="mostraMedia">
-      Mostrar médias
+      aria-expanded="false" aria-controls="mostraMedia">
+      Médias
       <ion-icon name="{{ico[0]}}" *ngIf="!show"></ion-icon>
       <ion-icon name="{{ico[1]}}" *ngIf="show"></ion-icon>
     </ion-item>

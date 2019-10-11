@@ -19,7 +19,6 @@ export class MyApp {
       if (localStorage.userToken) {
         this.api.validaToken().subscribe(res => {
           if (res) {
-            console.log(localStorage.userToken)
             this.rootPage = TabsPage;
           } else {
             this.logout();
