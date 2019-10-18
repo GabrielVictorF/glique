@@ -7,6 +7,7 @@ import { PerfilPage } from '../../pages/perfil/perfil';
 import { FeedbackPage } from '../../pages/feedback/feedback';
 
 import { ApiProvider } from '../../providers/api/api';
+import { HelpPage } from '../../pages/help/help';
 
 @Component({
   selector: 'menu',
@@ -56,5 +57,9 @@ logout() {
 
   feedback() {
     this.app.getRootNavs()[0].push(FeedbackPage);
+  }
+
+  ajuda() {
+    this.app.getRootNavs()[0].push(HelpPage);
   }
 }
