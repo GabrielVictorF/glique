@@ -4,15 +4,10 @@ import { AlertController, LoadingController, MenuController, App, NavController 
 
 import { LoginPage } from '../../pages/login/login';
 import { PerfilPage } from '../../pages/perfil/perfil';
+import { FeedbackPage } from '../../pages/feedback/feedback';
 
 import { ApiProvider } from '../../providers/api/api';
 
-/**
- * Generated class for the MenuComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'menu',
   templateUrl: 'menu.html'
@@ -56,6 +51,10 @@ logout() {
   }
 
   pagePerfil() {
-    this.app.getRootNavs()[0].push(PerfilPage)
+    this.app.getRootNavs()[0].push(PerfilPage);
+  }
+
+  feedback() {
+    this.app.getRootNavs()[0].push(FeedbackPage);
   }
 }

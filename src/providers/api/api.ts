@@ -11,13 +11,13 @@ export class ApiProvider {
   private API_KEY: string;
   private URL: string;
   private REST_API: string;
-  private httpOptions = ({
+  private httpOptions = ({ // Requisições que precisem de Token 
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'user-token': localStorage.getItem("userToken") // Token gerado ao usuário logar
     })
   });
-  private httpOptionsNoToken = ({
+  private httpOptionsNoToken = ({ // Requisições que NÃO precisem de Token 
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
@@ -86,8 +86,6 @@ export class ApiProvider {
 
     return this.http.get(url, this.httpOptions);
   }
-
-  public getQuantidade
 
   public getQuantidadeObjSemana(inicio, fim) {
     let url = `${this.REST_API}/data/medicoes/count?where=data>=${inicio}&&data<=${fim}`;
@@ -163,15 +161,13 @@ export class ApiProvider {
   }
 
   public getMesEspecifico(primeiroDia, ultimoDia) {
-    let where: string = `?where=data>=${primeiroDia}&&data<=${ultimoDia}`;
-    where = encodeURI(where);
+    let where: string = encodeURI(`?where=data>=${primeiroDia}&&data<=${ultimoDia}`);
     const url = `${this.REST_API}/data/medicoes${where}`;
     return this.http.get(url, this.httpOptions);
   }
 
   public getAnoEspecifico(anoAtual) {
-    let where: string = `?where=data>${anoAtual}`;
-    where = encodeURI(where);
+    let where: string = encodeURI(`?where=data>${anoAtual}`);
     const url = `${this.REST_API}/data/medicoes${where}&pageSize=10`;
     return this.http.get(url, this.httpOptions);
   }
@@ -189,5 +185,13 @@ export class ApiProvider {
   public getInfoUser() {
     const url = `${this.REST_API}/data/users/${localStorage.getItem("userId")}`;
     return this.http.get(url, this.httpOptions);
+  }
+
+  public postFeedback(message) {
+    const url = `${this.REST_API}/data/feedback`;
+    const body = {
+      mensagem: message.mensagem
+    };
+    return this.http.post(url, body, this.httpOptions);
   }
 }

@@ -48,6 +48,10 @@ import { DetalhePage } from '../detalhe/detalhe';
      console.log('ionViewDidLoad AdicionarPage');
    }
 
+   clicked() {
+     console.log('Clicked')
+   }
+
    adicionar() {
      let newTurno: string = "";
      switch (this.medicao.turno) {

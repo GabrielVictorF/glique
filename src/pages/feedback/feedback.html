@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      Feedback
+      <ion-icon name="megaphone"></ion-icon>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="postFeedback()">
+    <ion-item>
+      <ion-label stacked>
+        Diga-nos sua opinião
+        <ion-icon name="mail"></ion-icon>
+      </ion-label>
+      <ion-textarea placeholder="Conte como está sendo sua experiência com o aplicativo :D" [(ngModel)]="message.mensagem" name="mensagem"></ion-textarea>
+    </ion-item>
+    <ion-item>
+    <button full icon-end type="submit" ion-button>
+      Enviar
+      <ion-icon name="send"></ion-icon>
+    </button>
+    </ion-item>
+  </form>
+</ion-content>
