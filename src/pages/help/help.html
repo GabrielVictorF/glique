@@ -17,15 +17,28 @@
   <ion-item text-wrap detail-push>
     Conheça os termos técnicos como: medição pré-prandial, pós-prandial, etc.
     <button ion-button icon-end item-end data-toggle="collapse" href="#help1" role="button" aria-expanded="false"
-      aria-controls="help1" (click)="show()">
-      {{ico.descricao}}
-      <ion-icon name={{ico.ico}}></ion-icon>
+      aria-controls="help1" (click)="show(0)">
+      {{ico[0].descricao}}
+      <ion-icon name={{ico[0].ico}}></ion-icon>
     </button>
 
     <div class="collapse" id="help1">
-      <strong>Medição pré-prandial: Se trata da medição que é feita <strong>antes</strong> das alimentações principais(almoço e janta).</strong>
+      <strong>Medição pré-prandial: </strong>Se trata da medição que é feita <strong>antes</strong> das alimentações principais(almoço e janta).
     <br>
       <strong>Medição pós-prandial: </strong>É o contrário da pré-prandial, é a medida feita <strong>depois</strong> das alimentações principais.
+    </div>
+  </ion-item>
+
+  <ion-item text-wrap detail-push>
+    Saiba como é dividido os níveis de glicemia
+    <button ion-button icon-end item-end data-toggle="collapse" href="#help2" role="button" aria-expanded="false"
+      aria-controls="help2" (click)="show(1)">
+      {{ico[1].descricao}}
+      <ion-icon name={{ico[1].ico}}></ion-icon>
+    </button>
+
+    <div class="collapse" id="help2">
+      Aqui texto  
     </div>
   </ion-item>
 </ion-content>

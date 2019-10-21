@@ -140,7 +140,7 @@
     <div class="date" [ngStyle]="{'background': getColor(x)}">
       <span class="day">{{functions.formataData(1,x.data)}}</span>
       <span class="month">{{functions.formataData(2,x.data)}}</span>
-      <span class="year">{{functions.formataData(3,x.data)}}</span>
+      <span class="year">{{functions.formataData(3,x.data)}}</span>            
     </div>
   </ion-item>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">

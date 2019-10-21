@@ -14,10 +14,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'help.html',
 })
 export class HelpPage {
-  public ico = {
+  public ico = [{
     ico: 'arrow-down',
     descricao: 'Mostrar'
-  }
+  }, {
+    ico: 'arrow-down',
+    descricao: 'Mostrar'
+  }]
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -26,13 +29,13 @@ export class HelpPage {
   }
 
   show(help: number) {
-    if (this.ico.ico == "arrow-down") {
-      this.ico.ico = "arrow-up";
-      this.ico.descricao = "Fechar";
+    if (this.ico[help].ico == "arrow-down") {
+      this.ico[help].ico = "arrow-up";
+      this.ico[help].descricao = "Fechar";
     }
     else {
-      this.ico.ico = "arrow-down";
-      this.ico.descricao = "Mostrar";
+      this.ico[help].ico = "arrow-down";
+      this.ico[help].descricao = "Mostrar";
     }
   }
 
