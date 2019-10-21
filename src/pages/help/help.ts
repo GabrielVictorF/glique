@@ -14,12 +14,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'help.html',
 })
 export class HelpPage {
-
+  public ico = {
+    ico: 'arrow-down',
+    descricao: 'Mostrar'
+  }
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HelpPage');
+  }
+
+  show(help: number) {
+    if (this.ico.ico == "arrow-down") {
+      this.ico.ico = "arrow-up";
+      this.ico.descricao = "Fechar";
+    }
+    else {
+      this.ico.ico = "arrow-down";
+      this.ico.descricao = "Mostrar";
+    }
   }
 
 }

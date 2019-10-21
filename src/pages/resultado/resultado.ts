@@ -7,6 +7,7 @@ import { FunctionsProvider } from '../../providers/functions/functions';
 import { DetalhePage} from '../detalhe/detalhe';
 
 import { LoginPage } from '../login/login';
+import { removeDebugNodeFromIndex } from '@angular/core/src/debug/debug_node';
 
 @Component({
    selector: 'page-resultado',
@@ -42,7 +43,7 @@ export class ResultadoPage {
     injetado: 0
   }; //Cálculo das médias da busca
   private loading; //LoadingController
-  private cores = ["primary", "warning"];
+  private cores = ["alert-light", "info"];
   
   constructor(public api: ApiProvider, public navParams: NavParams, public navCtrl: NavController,
   public loadingCtrl: LoadingController, public functions: FunctionsProvider, public alertCtrl: AlertController) {
@@ -253,5 +254,12 @@ export class ResultadoPage {
     this.medias.pre = soma.pre / length;
     this.medias.pos = soma.pos / length;
     this.medias.injetado = soma.injetado / length;
+  }
+
+  getColor(dado) {
+    if (dado.resultado_antes < 100 || dado.resultado_depois > 150)
+      return 'linear-gradient(to bottom, rgba(248,80,50,1) 0%,rgba(241,111,92,1) 50%,rgba(246,41,12,1) 51%,rgba(240,47,23,1) 71%,rgba(231,56,39,1) 100%)';
+    else
+      return 'linear-gradient(to bottom, rgba(141,138,158,1) 0%,rgba(159,157,173,1) 50%,rgba(118,116,140,1) 51%,rgba(122,120,142,1) 71%,rgba(126,125,143,1) 100%)'; 
   }
 }

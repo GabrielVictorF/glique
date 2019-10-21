@@ -39,10 +39,10 @@ $colors: (
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
-  navBarColor: #99432ebe
+  navBarColor: #488aff,
+  tabActive: #fab216,
+  tab: #337ab7
 );
-
-
 
 // App iOS Variables
 // --------------------------------------------------
@@ -54,6 +54,7 @@ $colors: (
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
+$tabs-md-tab-icon-color-active: secondary;
 
 
 
