@@ -1,0 +1,96 @@
+<!--
+  Generated template for the DicasPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>dicas</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item text-wrap detail-push>
+    Como evito as variações bruscas de glicemia?
+    <button ion-button icon-end item-end data-toggle="collapse" href="#dica1" role="button" aria-expanded="false"
+      aria-controls="dica1" (click)="show(0)">
+      {{ico[0].descricao}}
+      <ion-icon name={{ico[0].ico}}></ion-icon>
+    </button>
+    <ion-thumbnail item-start>
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/glique.appspot.com/o/imgs%2Fuser-question.png?alt=media&token=cce267b9-a6f7-4ef8-bb65-7b1e21e50161">
+    </ion-thumbnail>
+  </ion-item>
+
+  <!-- DIV DAS DICAS PARA CONTROLE DA GLICEMIA -->
+  <div class="collapse" id="dica1">
+      <ion-list>
+        <ion-item text-wrap>
+          Mantenha tanto quanto possível a sua rotina e horários diários de refeições e exercício físico, e não se
+          esqueça de tomar a sua medicação.
+        </ion-item>
+        <ion-item text-wrap>
+          Verifique os seus níveis de glicemia como lhe foi ensinado e partilhe os registos com o seu médico.
+        </ion-item>
+        <ion-item text-wrap>
+          Estabeleça, com o seu médico, objetivos para o peso, a atividade física, os níveis de glicemia e HbA1C.
+        </ion-item>
+        <ion-item text-wrap>
+          Use um objeto que informe as outras pessoas que sofre de diabetes, em caso de emergência, como um fio ou uma
+          pulseira.
+        </ion-item>
+        <ion-item text-wrap>
+          Tenha sempre consigo hidratos de carbono (como rebuçados ou pacotes de açúcar) para poder tratar em qualquer
+          altura as hipoglicemias ("baixas de açúcar").
+        </ion-item>
+      </ion-list>
+    </div>
+
+  <ion-item text-wrap detail-push>
+    Já que tenho esse aplicativo, não preciso mais do meu diário de diabetes. Certo?
+    <button ion-button icon-end item-end data-toggle="collapse" href="#dica2" role="button" aria-expanded="false"
+      aria-controls="dica2" (click)="show(1)">
+      {{ico[1].descricao}}
+      <ion-icon name={{ico[1].ico}}></ion-icon>
+    </button>
+    <ion-thumbnail item-start>
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/glique.appspot.com/o/imgs%2Fsmartphone.png?alt=media&token=7c90bc50-c99e-4e70-85ce-aae2f13c0774">
+    </ion-thumbnail>
+  </ion-item>
+
+  <div class="collapse" id="dica2">
+      <ion-item text-wrap>
+        Mais ou menos. É sempre indicado usar o diário de diabetes, pois fica mais claro para o seu médico de entender como está os
+        níveis de açucar
+        na sua rotina. Porém, converse com seu médico primeiro para apresentar-lhe a ferramente Glique, estamos sendo
+        implementando novas
+        funções e em breve esta será mais completa do que o "antigo" diário.
+      </ion-item>
+    </div>
+
+  <ion-item text-wrap detail-push>
+    O que é hipoglicemia e hiperglicemia?
+    <button ion-button icon-end item-end data-toggle="collapse" href="#dica3" role="button" aria-expanded="false"
+      aria-controls="dica3" (click)="show(2)">
+      {{ico[1].descricao}}
+      <ion-icon name={{ico[2].ico}}></ion-icon>
+    </button>
+    <ion-thumbnail item-start>
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/glique.appspot.com/o/imgs%2Fsugar.png?alt=media&token=0b3c1b0e-00e4-4bee-8774-dddce744b91b">
+    </ion-thumbnail>
+  </ion-item>
+
+  <div class="collapse" id="dica3">
+    <ion-item text-wrap>
+      <strong>Hiperglicemia: </strong>é quando o nível de açúcar na corrente sanguínea está acima do normal
+      (os valores estão expostos e explicados na seção abaixo).
+    </ion-item>
+  </div>
+</ion-content>

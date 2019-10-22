@@ -8,6 +8,7 @@ import { FeedbackPage } from '../../pages/feedback/feedback';
 
 import { ApiProvider } from '../../providers/api/api';
 import { HelpPage } from '../../pages/help/help';
+import { DicasPage } from '../../pages/dicas/dicas';
 
 @Component({
   selector: 'menu',
@@ -57,9 +58,13 @@ logout() {
 
   feedback() {
     this.app.getRootNavs()[0].push(FeedbackPage);
-  }
+  } 
 
   ajuda() {
     this.app.getRootNavs()[0].push(HelpPage);
+  }
+
+  dicas() {
+    this.app.getRootNavs()[0].push(DicasPage);
   }
 }
