@@ -24,8 +24,11 @@ export class DicasPage {
   },{
     ico: 'arrow-down',
     descricao: 'Ver'
+  },{
+    ico: 'arrow-down',
+    descricao: 'Ver'
   }];
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

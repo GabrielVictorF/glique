@@ -6,10 +6,12 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>dicas</ion-title>
+  <ion-navbar color="navBarColor">
+    <ion-title>
+      Dicas e dúvidas
+      <ion-icon name="md-bulb"></ion-icon>
+    </ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -29,27 +31,27 @@
 
   <!-- DIV DAS DICAS PARA CONTROLE DA GLICEMIA -->
   <div class="collapse" id="dica1">
-      <ion-list>
-        <ion-item text-wrap>
-          Mantenha tanto quanto possível a sua rotina e horários diários de refeições e exercício físico, e não se
-          esqueça de tomar a sua medicação.
-        </ion-item>
-        <ion-item text-wrap>
-          Verifique os seus níveis de glicemia como lhe foi ensinado e partilhe os registos com o seu médico.
-        </ion-item>
-        <ion-item text-wrap>
-          Estabeleça, com o seu médico, objetivos para o peso, a atividade física, os níveis de glicemia e HbA1C.
-        </ion-item>
-        <ion-item text-wrap>
-          Use um objeto que informe as outras pessoas que sofre de diabetes, em caso de emergência, como um fio ou uma
-          pulseira.
-        </ion-item>
-        <ion-item text-wrap>
-          Tenha sempre consigo hidratos de carbono (como rebuçados ou pacotes de açúcar) para poder tratar em qualquer
-          altura as hipoglicemias ("baixas de açúcar").
-        </ion-item>
-      </ion-list>
-    </div>
+    <ion-list>
+      <ion-item text-wrap>
+        Mantenha tanto quanto possível a sua rotina e horários diários de refeições e exercício físico, e não se
+        esqueça de tomar a sua medicação.
+      </ion-item>
+      <ion-item text-wrap>
+        Verifique os seus níveis de glicemia como lhe foi ensinado e partilhe os registos com o seu médico.
+      </ion-item>
+      <ion-item text-wrap>
+        Estabeleça, com o seu médico, objetivos para o peso, a atividade física, os níveis de glicemia e HbA1C.
+      </ion-item>
+      <ion-item text-wrap>
+        Use um objeto que informe as outras pessoas que sofre de diabetes, em caso de emergência, como um fio ou uma
+        pulseira.
+      </ion-item>
+      <ion-item text-wrap>
+        Tenha sempre consigo hidratos de carbono (como rebuçados ou pacotes de açúcar) para poder tratar em qualquer
+        altura as hipoglicemias ("baixas de açúcar").
+      </ion-item>
+    </ion-list>
+  </div>
 
   <ion-item text-wrap detail-push>
     Já que tenho esse aplicativo, não preciso mais do meu diário de diabetes. Certo?
@@ -65,14 +67,15 @@
   </ion-item>
 
   <div class="collapse" id="dica2">
-      <ion-item text-wrap>
-        Mais ou menos. É sempre indicado usar o diário de diabetes, pois fica mais claro para o seu médico de entender como está os
-        níveis de açucar
-        na sua rotina. Porém, converse com seu médico primeiro para apresentar-lhe a ferramente Glique, estamos sendo
-        implementando novas
-        funções e em breve esta será mais completa do que o "antigo" diário.
-      </ion-item>
-    </div>
+    <ion-item text-wrap>
+      Mais ou menos. É sempre indicado usar o diário de diabetes, pois fica mais claro para o seu médico de entender
+      como está os
+      níveis de açucar
+      na sua rotina. Porém, converse com seu médico primeiro para apresentar-lhe a ferramente Glique, estamos sendo
+      implementando novas
+      funções e em breve esta será mais completa do que o "antigo" diário.
+    </ion-item>
+  </div>
 
   <ion-item text-wrap detail-push>
     O que é hipoglicemia e hiperglicemia?
@@ -90,7 +93,33 @@
   <div class="collapse" id="dica3">
     <ion-item text-wrap>
       <strong>Hiperglicemia: </strong>é quando o nível de açúcar na corrente sanguínea está acima do normal
-      (os valores estão expostos e explicados na seção abaixo).
+    </ion-item>
+    <ion-item text-wrap>
+      <strong>Hipoglicemia: </strong>é o contrário de hiperglicemia. Se trata de quando a glicemia do paciente está
+      abaixo do normal.
+    </ion-item>
+    <ion-item text-wrap>
+      Na próxima seção, você pode conferir os valores de glicemia que são considerados altos e baixos de acordo
+      com os períodos do dia/noite.
+    </ion-item>
+  </div>
+
+  <ion-item text-wrap detail-push>
+    Quais são os valores de glicemia considerados altos e baixos?
+    <button ion-button icon-end item-end data-toggle="collapse" href="#dica4" role="button" aria-expanded="false"
+      aria-controls="dica4" (click)="show(3)">
+      {{ico[3].descricao}}
+      <ion-icon name={{ico[3].ico}}></ion-icon>
+    </button>
+    <ion-thumbnail item-start>
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/glique.appspot.com/o/imgs%2Flike.png?alt=media&token=81a396cf-e3f3-427d-a9da-e7181dba9c09">
+    </ion-thumbnail>
+  </ion-item>
+
+  <div class="collapse" id="dica4">
+    <ion-item text-wrap>
+    Seção ainda em construção
     </ion-item>
   </div>
 </ion-content>
