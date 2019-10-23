@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="navBarColor">
-   <ion-buttons right>
+    <ion-buttons right>
       <button ion-button icon-only menuToggle>
         <ion-icon name='menu'></ion-icon>
       </button>
@@ -10,18 +10,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding> 
-  <button ion-button round outline full color="secondary">Registro de ocorrência</button>
-  <ion-list class="label-add">
-  <ion-item>
-    <ion-label>
-      Data
-      <ion-icon name="calendar"></ion-icon>
-    </ion-label> 
-    <ion-datetime displayFormat="DD-MM-YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="medicao.data" monthNames="{{functions.monthNames}}" cancelText="Cancelar" doneText="Feito" placeholder="Data da ocorrência"></ion-datetime>
-  </ion-item>
-    
-	<ion-item>
+<ion-content padding>
+  <!--<ion-item>
     <ion-label stacked>
     	<span class="medicao-form-input">Medição de glicemia pré-prandial</span>
       <ion-icon name="flask"></ion-icon>
@@ -32,9 +22,9 @@
     </ion-label>
     
 		<ion-input type="number" placeholder="Resultado..." [(ngModel)]="medicao.res_antes" required></ion-input>
-	</ion-item>
+	</ion-item> -->
 
-  <ion-item>
+  <!-- <ion-item>
     <ion-label stacked>
     	<span class="medicao-form-input">Medição de glicemia pós-prandial</span>
     	<ion-icon name="beaker"></ion-icon>   
@@ -49,21 +39,9 @@
     </ion-label>
     
 		<ion-input type="number" placeholder="Resultado..." [(ngModel)]="medicao.quantidade" required></ion-input>
-	</ion-item>
+	</ion-item> -->
 
-	<ion-item>
-		<ion-label stacked>
-		  <span class="medicao-form-input">Turno</span>
-			<ion-icon name="clock"></ion-icon>
-		</ion-label>
-		<ion-select [(ngModel)]="medicao.turno" placeholder="Turno da medição" required interface="popover">
-      <ion-option value="1">Café</ion-option>
-      <ion-option value="2">Almoço</ion-option>
-      <ion-option value="3">Jantar / Noite</ion-option>
-   	</ion-select>
-	</ion-item>
-
-  <ion-item>
+  <!--<ion-item>
     <ion-label stacked>
       <span class="medicao-form-input">Tipo de insulina</span>
       <ion-icon name="cog"></ion-icon>
@@ -72,11 +50,52 @@
       <ion-option value="1">Basal</ion-option>
       <ion-option value="2">Bolus</ion-option>
     </ion-select>
-  </ion-item>
-</ion-list>
+  </ion-item> -->
+  <button ion-button round outline full color="secondary">Registro de ocorrência</button>
+  <ion-list class="label-add">
+    <ion-item>
+      <ion-label>
+        Data
+        <ion-icon name="calendar"></ion-icon>
+      </ion-label>
+      <ion-datetime displayFormat="DD-MM-YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="medicao.data"
+        monthNames="{{functions.monthNames}}" cancelText="Cancelar" doneText="Feito" placeholder="Data da ocorrência">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>
+        <span class="medicao-form-input">Turno</span>
+        <ion-icon name="clock"></ion-icon>
+      </ion-label>
+      <ion-select [(ngModel)]="medicao.turno" placeholder="Turno da medição" required interface="popover">
+        <ion-option value="1">Jejum</ion-option>
+        <ion-option value="2">Antes do almoço</ion-option>
+        <ion-option value="3">Depois do almoço</ion-option>
+        <ion-option value="4">Lanche</ion-option>
+        <ion-option value="5">Antes do jantar</ion-option>
+        <ion-option value="4">Depois do jantar</ion-option>
+        <!--<ion-option value="1">Café</ion-option> -->
+
+        <!-- <ion-option value="2">Almoço</ion-option> -->
+        <!-- <ion-option value="3">Jantar / Noite</ion-option> -->
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>
+        <span class="medicao-form-input">Valor da glicemia</span>
+        <ion-icon name="cog"></ion-icon>
+      </ion-label>
+      <ion-input type="number" [(ngModel)]="medicao.valor" placeholder="Valor da medição">
+
+      </ion-input>
+    </ion-item>
+
+  </ion-list>
   <p>
-	<button ion-button full outline color="primary" icon-end (click)="adicionar()">
-    Adicionar registro
-    <ion-icon name="send"></ion-icon>
-  </button>
+    <button ion-button full outline color="primary" icon-end (click)="adicionar()">
+      Adicionar registro
+      <ion-icon name="send"></ion-icon>
+    </button>
 </ion-content>

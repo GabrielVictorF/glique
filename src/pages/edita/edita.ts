@@ -26,7 +26,7 @@ export class EditaPage {
       this.navCtrl.pop();
       console.log(res);
     }, Error => {
-      console.log(Error);
+      this.functions.showToast('Não foi possível deletar o dado, favor tentar novamente.');
     });
   }
 }

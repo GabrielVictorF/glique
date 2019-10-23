@@ -22,31 +22,33 @@ export class MyApp {
             this.rootPage = TabsPage;
           } else {
             this.logout();
-          } 
+          }
         }, Error => this.rootPage = LoginPage);
       } else {
         this.rootPage = LoginPage;
-      } 
+      }
     });
   }
 
   logout() {
-    let load =  this.alertCtrl.create({
+    let load = this.alertCtrl.create({
       title: 'Sessão expirou!',
       message: 'Sua sessão expirou, por favor logue novamente.',
       buttons: [{
-      text: 'OK',
-      handler: () => {
-        const load = this.loadingCtrl.create({
-          content: 'Saindo...'
-        });
-        load.present();            
-        this.api.logout().subscribe(res => {
-          load.dismiss();
-          this.rootPage = LoginPage;
-          localStorage.removeItem("userToken");
-        });
-      }
+        text: 'OK',
+        handler: () => {
+          const load = this.loadingCtrl.create({
+            content: 'Saindo...'
+          });
+          load.present();
+          this.api.logout().subscribe(res => {
+            load.dismiss();
+            this.rootPage = LoginPage;
+            localStorage.removeItem("userToken");
+          }, {
+            
+          });
+        }
       }]
     });
     load.present();

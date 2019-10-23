@@ -22,13 +22,9 @@ import { DetalhePage } from '../detalhe/detalhe';
 
  export class AdicionarPage {
    private medicao = {
-     res_antes: 1,
-     res_depois: "",
-     quantidade: "",
      data: '',
      turno: 0,
-     tipo: 0,
-     dia_semana: 0
+     valor: 0
    }
 
    constructor(public navCtrl: NavController, public navParams: NavParams, 

@@ -15,8 +15,14 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+$navBarColor: #488aff;
+
 .medicao-form-input {
 		font-size: 1.5rem;
+}
+
+.toolbar-background-md {
+	background-color: $navBarColor;
 }
 
 

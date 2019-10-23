@@ -45,6 +45,8 @@ export class RelatorioResultadoPage {
       this.qtdObj = res;
       this.filtraFuncao();
       console.log(this.qtdObj);
+    }, Error => {
+      this.functions.showToast("Ops!" + this.functions.filtraErro(Error.error.code));
     });
   }
 

@@ -21,7 +21,7 @@ export class FeedbackPage {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public api: ApiProvider, public functions: FunctionsProvider) {
+    public api: ApiProvider, public functions: FunctionsProvider) {
   }
 
   ionViewDidLoad() {
@@ -29,6 +29,10 @@ export class FeedbackPage {
   }
 
   postFeedback() {
-    this.api.postFeedback(this.message).subscribe(() => this.functions.showAlert('Obrigado!', 'Seu feedback foi recebido, obrigado por contribuir com a continuação desse projeto!'));
+    this.api.postFeedback(this.message).subscribe(() => {
+      this.functions.showAlert('Obrigado!', 'Seu feedback foi recebido, obrigado por contribuir com a continuação desse projeto!')
+    }, Error => {
+      this.functions.showToast('Erro ao enviar feedback! Favor tentar novamente');
+    });
   }
 }
