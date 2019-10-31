@@ -51,7 +51,7 @@
       <ion-option value="2">Bolus</ion-option>
     </ion-select>
   </ion-item> -->
-  <button ion-button round outline full color="secondary">Registro de ocorrência</button>
+  <button ion-button round outline full color="secondary">Registro de medição </button>
   <ion-list class="label-add">
     <ion-item>
       <ion-label>
@@ -82,12 +82,12 @@
       </ion-select>
     </ion-item>
 
-    <ion-item>
+    <ion-item>  
       <ion-label stacked>
         <span class="medicao-form-input">Valor da glicemia</span>
         <ion-icon name="cog"></ion-icon>
       </ion-label>
-      <ion-input type="number" [(ngModel)]="medicao.valor" placeholder="Valor da medição">
+      <ion-input type="number" [(ngModel)]="medicao.valor" placeholder="Valor da medição em mg/dl">
 
       </ion-input>
     </ion-item>

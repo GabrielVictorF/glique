@@ -120,13 +120,11 @@ export class ApiProvider {
   public postMedicao(medicao): any {
     const url = `${this.REST_API}/data/medicoes`;
     let body = { // Trata os dados antes do POST
-      resultado_antes: parseInt(medicao.res_antes),
-      resultado_depois: parseInt(medicao.res_depois),
-      quantidade_insulina: parseInt(medicao.quantidade),
       data: medicao.data, 
       turno: parseInt(medicao.turno),
-      tipo: parseInt(medicao.tipo)
+      valor: parseInt(medicao.valor)
     }
+    console.log(body);
     return this.http.post(url, body, this.httpOptions);
   } 
 

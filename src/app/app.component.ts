@@ -45,8 +45,6 @@ export class MyApp {
             load.dismiss();
             this.rootPage = LoginPage;
             localStorage.removeItem("userToken");
-          }, {
-            
           });
         }
       }]

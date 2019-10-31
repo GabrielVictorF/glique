@@ -111,26 +111,19 @@
       <ion-icon name="{{ico[1]}}" *ngIf="show"></ion-icon>
     </ion-item>
     <div id="mostraMedia">
-      <ion-item text-center color="light">Média das injeções pré-prandial: <b>{{medias.pre.toFixed(2)}} mg/dl</b>
+      <ion-item text-center color="light">Média dos valores de glicemia: <b>{{media}} mg/dl</b>
       </ion-item>
-      <ion-item text-center color="light">Média das injeções pós-prandial: <b>{{medias.pos.toFixed(2)}} mg/dl</b>
-      </ion-item>
-      <ion-item text-center color="light">Média das injeções: <b>{{medias.injetado.toFixed(2)}} mg/dl</b></ion-item>
     </div>
   </ng-template>
   <br>
   <ion-item *ngFor="let x of data; let i = index" (click)="detalheItem(x)"
     class="list-group-item list-group-item-{{cores[i % 2]}}">
     <!-- Exibição dos itens da busca-->
-    <ion-icon name="undo"></ion-icon>
-    <b>Pré glicemia: </b>{{x.resultado_antes}} mg/dl<br>
-
-    <ion-icon name="share-alt"></ion-icon>
-    <b>Pós glicemia: </b>{{x.resultado_depois}} mg/dl<br>
-
     <ion-icon name="flash"></ion-icon>
-    <b>Insulina: </b>{{x.quantidade_insulina}} mg/dl
-
+    <b>Valor da glicemia: </b>{{x.valor}} mg/dl
+    <p></p>
+    <ion-icon name="clock"></ion-icon>
+    <b>Turno: </b>{{x.turno}}
     <!-- <div class="text-center">
           <span class="badge badge-danger">
           <ion-icon name="calendar" class="ico-calendar"></ion-icon>

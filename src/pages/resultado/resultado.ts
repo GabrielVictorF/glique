@@ -37,11 +37,7 @@ export class ResultadoPage {
   private filtro: any; //Data(calendário) recebida via navParams
   private filtro2 = new Array(); //Filtro das opções: "TURNO" e "ALTOBAIXO"
   private offset = 0; //Paginação da busca
-  private medias = {
-    pre: 0,
-    pos: 0,
-    injetado: 0
-  }; //Cálculo das médias da busca
+  private media; //Cálculo das médias da busca
   private loading; //LoadingController
   private cores = ["alert-light", "info"];
   
@@ -239,21 +235,14 @@ export class ResultadoPage {
   }
 
   private calculaMedia() { //Falta otimizar desempenho
-    let soma = {
-      pre: 0,
-      pos: 0,
-      injetado: 0
-    };
-    let length: number = this.data.length;
-
-    for (let i = 0; i < length; i++) {
-      soma.pre += this.data[i].resultado_antes;
-      soma.pos += this.data[i].resultado_depois;
-      soma.injetado += this.data[i].quantidade_insulina;
-    } 
-    this.medias.pre = soma.pre / length;
-    this.medias.pos = soma.pos / length;
-    this.medias.injetado = soma.injetado / length;
+    let soma;
+    
+    this.data.forEach(element => {
+      soma += element.valor; 
+    });
+    console.log('Soma')
+    console.log(soma)
+    this.media = soma / this.data.length;
   }
 
   getColor(dado) {
