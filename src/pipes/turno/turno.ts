@@ -10,15 +10,22 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TurnoPipe implements PipeTransform {
   /**
-   * Transforma um número de turno(1, 2, 3) em nome de turno
+   * Transforma um número de turno(de 1 a 6) em nome de turno respectivamente
    */
   transform(value: number) {
-  	if (value == 1)
-  		return 'Café';
-  	else if (value == 2)
-  		return 'Almoço';
-  	else 
-  		return 'Jantar / Noite';
-    //return value.toLowerCase();
+    switch (value) {
+      case 1:
+        return 'Jejum';
+      case 2:
+        return 'Antes do almoço';
+      case 3:
+        return 'Depois do almoço';
+      case 4:
+        return 'Lanche';
+      case 5:
+        return 'Antes do jantar';
+      case 6:
+        return 'Depois do jantar';
+    }
   }
 }

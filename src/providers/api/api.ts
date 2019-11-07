@@ -132,9 +132,7 @@ export class ApiProvider {
     const objectId = medicao.objectId;
     const url = `${this.REST_API}/data/medicoes/${objectId}`;
     let body = {
-      resultado_antes: parseInt(medicao.resultado_antes),
-      resultado_depois: parseInt(medicao.resultado_depois),
-      quantidade_insulina: parseInt(medicao.quantidade_insulina),
+      valor: parseInt(medicao.valor),
       data: medicao.data,
       turno: parseInt(medicao.turno)
     }

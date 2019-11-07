@@ -29,18 +29,6 @@
 
   <ion-item>
     <ion-label>
-      <span class="medicao-form-input">Tipo de insulina</span>
-      <ion-icon name="cog"></ion-icon>
-    </ion-label>
-    <ion-select [(ngModel)]="pesquisa.tipo" placeholder="Tipo da medição" required interface="popover">
-      <!-- Filtro turno -->
-      <ion-option value="1">Basal</ion-option>
-      <ion-option value="2">Bolus </ion-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>
       <span class="medicao-form-input">Altos ou baixos</span>
       <ion-icon name="arrow-round-up"></ion-icon>
       <ion-icon name="arrow-round-down"></ion-icon>
@@ -123,7 +111,7 @@
     <b>Valor da glicemia: </b>{{x.valor}} mg/dl
     <p></p>
     <ion-icon name="clock"></ion-icon>
-    <b>Turno: </b>{{x.turno}}
+    <b>Turno: </b>{{x.turno | turno}}
     <!-- <div class="text-center">
           <span class="badge badge-danger">
           <ion-icon name="calendar" class="ico-calendar"></ion-icon>

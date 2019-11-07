@@ -1,36 +1,50 @@
 <ion-header>
-  <ion-navbar color="navBarColor">
-    <ion-title>
-      Cadastro de usuário
-    </ion-title>
-    <ion-buttons right>
-      <button ion-button icon-only menuToggle>
-        <ion-icon name='menu'></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+	<ion-navbar color="navBarColor">
+		<ion-title>
+			Cadastro de usuário
+		</ion-title>
+		<ion-buttons right>
+			<button ion-button icon-only menuToggle>
+				<ion-icon name='menu'></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
-		<ion-label stacked><ion-icon name="mail" item-start></ion-icon> <b>E-mail</b></ion-label>
-		<ion-input type="email"	placeholder="Insira seu e-mail..." [(ngModel)]="user.email"></ion-input>
+	<ion-item>
+		<ion-label stacked>
+			<ion-icon name="mail" item-start></ion-icon> <b>E-mail</b>
+		</ion-label>
+		<ion-input type="email" placeholder="Insira seu e-mail..." [(ngModel)]="user.email"></ion-input>
 	</ion-item>
 	<ion-item>
-		<ion-label stacked><ion-icon name="lock" item-start></ion-icon> <b>Senha</b></ion-label>
+		<ion-label stacked>
+			<ion-icon name="lock" item-start></ion-icon> <b>Senha</b>
+		</ion-label>
 		<ion-input type="password" name="" placeholder="Insira sua senha..." [(ngModel)]="user.password"></ion-input>
 	</ion-item>
-  <ion-item>
-		<ion-label stacked><ion-icon name="lock" item-start></ion-icon> <b>Confirme sua senha</b></ion-label>
-		<ion-input type="password" name="" placeholder="Insira sua senha novamente..." [(ngModel)]="password2"></ion-input>
+	<ion-item>
+		<ion-label stacked>
+			<ion-icon name="lock" item-start></ion-icon> <b>Confirme sua senha</b>
+		</ion-label>
+		<ion-input type="password" name="" placeholder="Insira sua senha novamente..." [(ngModel)]="password2">
+		</ion-input>
 	</ion-item>
-  <ion-item>
-		<ion-label stacked><ion-icon name="body" item-start></ion-icon><b>Nome</b></ion-label>
+	<ion-item>
+		<ion-label stacked>
+			<ion-icon name="body" item-start></ion-icon><b>Nome</b>
+		</ion-label>
 		<ion-input type="text" name="" placeholder="Insira seu nome..." [(ngModel)]="user.name"></ion-input>
 	</ion-item>
-  <ion-item>
-		<ion-label stacked><ion-icon name="finger-print" item-start></ion-icon> <b>Idade</b></ion-label>
-		<ion-input type="number" name="" placeholder="Insira sua idade..." [(ngModel)]="user.idade"></ion-input>
+	<ion-item>
+		<ion-label stacked>
+			<ion-icon name="calendar" item-start></ion-icon> <b>Data de nascimento</b>
+		</ion-label>
+		<ion-datetime displayFormat="DD-MM-YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="user.nascimento"
+			monthNames="{{functions.monthNames}}" cancelText="Cancelar" doneText="Feito"
+			placeholder="Digite sua data de nascimento">
+		</ion-datetime>
 	</ion-item>
 	<ion-item>
 		<button ion-button full color="primary" (click)="cadastrar()">Cadastrar</button>

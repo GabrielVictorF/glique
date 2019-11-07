@@ -20,11 +20,11 @@
       Medições desta semana
       <span class="badge badge-danger">{{ qtdObj.semana }}</span>
     </button>
-  <button ion-button full outline (click)="show = !show" color="danger" icon-end>
+  <!--<button ion-button full outline (click)="show = !show" color="danger" icon-end>
     Medições de um dia específico
     <ion-icon name="{{ico[0]}}" *ngIf="!show"></ion-icon>
     <ion-icon name="{{ico[1]}}" *ngIf="show"></ion-icon>
-  </button>
+  </button>-->
   <button ion-button full outline (click)="getAllMedicoes()" color="dark" icon-end>
     Todas as medições
     <span class="badge badge-danger">{{ qtdObj.total }}</span>

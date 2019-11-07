@@ -23,11 +23,11 @@
   <ion-item>
     <strong>Conta criada em: </strong>{{ dadosUser?.created | data}}
   </ion-item>
-  <ion-item>
+  <ion-item text-wrap>
     <strong>E-mail cadastrado: </strong>{{ dadosUser?.email }}
   </ion-item>
   <ion-item>
-    <strong>Idade: </strong>{{ dadosUser?.idade }}
+    <strong>Data de nascimento: </strong>{{ dadosUser?.nascimento | data}}
   </ion-item>
   <ion-item>
     <strong>Nome do usuário: </strong>{{ dadosUser?.name }}

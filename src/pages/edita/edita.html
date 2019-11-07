@@ -1,62 +1,53 @@
 <ion-header>
-  <ion-navbar color="navBarColor">
-    <ion-buttons right>
-      <button ion-button icon-only menuToggle>
-        <ion-icon name='menu'></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>
-      Editar 
-    </ion-title>
-  </ion-navbar>
+	<ion-navbar color="navBarColor">
+		<ion-buttons right>
+			<button ion-button icon-only menuToggle>
+				<ion-icon name='menu'></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title>
+			Editar
+		</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
-    <ion-item>
-    		<ion-label stacked>
-    			<span class="medicao-form-input">Medição de glicemia pré-prandial:</span>
-    			<ion-icon name="flask"></ion-icon>
-    		</ion-label>
-    		<ion-icon name="clock"></ion-icon>
-			<ion-input type="number" placeholder="ANTES da injeção...." [(ngModel)]="item.resultado_antes" required></ion-input>
-		</ion-item>
-    <ion-item>
-    		<ion-label stacked>
-    			<span class="medicao-form-input">Medição de glicemia pós-prandial:</span>
-    			<ion-icon name="beaker"></ion-icon>
-    		</ion-label>
-    		<ion-icon name="clock"></ion-icon>
-			<ion-input type="number" placeholder="DEPOIS da injeção..." [(ngModel)]="item.resultado_depois"></ion-input>
-		</ion-item>
-    	<ion-item>
-    		<ion-label stacked>
-    			<span class="medicao-form-input">Quantidade de insulina aplicada</span>
-    			<ion-icon name="flash"></ion-icon>
-    		</ion-label>
-    		<ion-icon name="clock"></ion-icon>
-			<ion-input type="number" placeholder="Quantidade em mg/dl de insulina injetada..." [(ngModel)]="item.quantidade_insulina" required></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label stacked>
+	<ion-item>
+		<ion-label stacked>
+			<span class="medicao-form-input">Turno</span>
+			<ion-icon name="clock"></ion-icon>
+		</ion-label>
+		<ion-select [(ngModel)]="item.turno" placeholder="Turno da medição" required interface="popover">
+			<ion-option value="1">Jejum</ion-option>
+			<ion-option value="2">Antes do almoço</ion-option>
+			<ion-option value="3">Depois do almoço</ion-option>
+			<ion-option value="4">Lanche</ion-option>
+			<ion-option value="5">Antes do jantar</ion-option>
+			<ion-option value="4">Depois do jantar</ion-option>
+		</ion-select>
+	</ion-item>
+
+	<ion-item>
+		<ion-label stacked>
+			<span class="medicao-form-input">Valor da glicemia</span>
+			<ion-icon name="cog"></ion-icon>
+		</ion-label>
+		<ion-input type="number" [(ngModel)]="item.valor" placeholder="Valor da medição em mg/dl">
+		</ion-input>
+	</ion-item>
+
+	<ion-item>
+		<!-- Data não pode alterar -->
+		<ion-label stacked>
 			<span class="medicao-form-input">
 				<span class="medicao-form-input">Data</span>
 				<ion-icon name="calendar"></ion-icon>
 			</span>
-				</ion-label>
-			<ion-input type="text" value="{{item.data | data}}" readonly></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label stacked>
-				<span class="medicao-form-input">Turno</span>
-				<ion-icon name="clock"></ion-icon>
-			</ion-label>
-			<ion-select [(ngModel)]="item.turno" placeholder="Turno da medição" required>
-      			<ion-option value="1">Café</ion-option>
-      			<ion-option value="2">Almoço</ion-option>
-      			<ion-option value="3">Jantar / Noite</ion-option>
-   			</ion-select>
-		</ion-item>
-		<ion-item>
-			<button ion-button full color="primary" (click)="edita()">Atualizar item</button>
-		</ion-item>	
+		</ion-label>
+		<ion-input type="text" value="{{item.data | data}}" readonly></ion-input>
+	</ion-item>
+
+	<ion-item>
+		<button ion-button full color="primary" (click)="edita()">Atualizar item</button>
+	</ion-item>
 </ion-content>

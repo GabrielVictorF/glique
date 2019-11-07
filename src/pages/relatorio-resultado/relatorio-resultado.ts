@@ -167,7 +167,7 @@ export class RelatorioResultadoPage {
     }); load.present();
 
     let intervalo = this.functions.calculaEssaSemana();
-    
+
     this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
       load.dismiss();
       this.getConcluido = true;
@@ -190,9 +190,8 @@ export class RelatorioResultadoPage {
       menorAcucar: 10000000, // Menor nível de açúcar 
       menorAcucarObject: '', // Object do atr acima
       turno: { // Quantidade de registros nos turnos 
-        t1: 0,
-        t2: 0,
-        t3: 0
+        t1: 0, t2: 0, t3: 0,
+        t4: 0, t5: 0, t6: 0
       },
       maisTurno: 0, // Turno com MAIOR número de registros
       menorTurno: 0, // T  urno com MENOR número de registros
@@ -209,6 +208,26 @@ export class RelatorioResultadoPage {
     //Incrementa os turnos de acordo com os dados
     if (this.data.length > 0) {
       for (let i = 0; i < this.data.length; i++) {
+        switch (this.data.turno) {
+          case 1:
+            this.relatorio.turno.t1++;
+            break;
+          case 2:
+            this.relatorio.turno.t2++;
+            break;
+          case 3:
+            this.relatorio.turno.t3++;
+            break;
+          case 4:
+            this.relatorio.turno.t4++;
+            break;
+          case 5:
+            this.relatorio.turno.t5++;
+            break;
+          case 6:
+            this.relatorio.turno.t6++;
+            break;
+        }
         if (this.data[i].turno == 1)
           this.relatorio.turno.t1++;
         else if (this.data[i].turno == 2)
