@@ -26,6 +26,7 @@ export class MedicoesPage {
     total: 0,
     semana: 0
   }
+  private error = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: ApiProvider,
     public functions: FunctionsProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
@@ -58,13 +59,21 @@ export class MedicoesPage {
     let hoje = this.functions.toEpoch();
     let intervalo = this.functions.calculaEssaSemana();
     console.log(hoje)    
-    this.api.getQuantidadeObjDia(hoje).subscribe(res => this.qtdObj.hoje = res);
-    this.api.getQuantidadeObjSemana(intervalo.i1, intervalo.i2).subscribe(res => this.qtdObj.semana = res);
+    this.api.getQuantidadeObjDia(hoje).subscribe(
+      res => this.qtdObj.hoje = res,
+      Error => console.log("ERRRRRRRRRRRRRRO")
+    );
+    this.api.getQuantidadeObjSemana(intervalo.i1, intervalo.i2).subscribe(
+      res => this.qtdObj.semana = res,
+       Error => this.error++
+    );
     this.api.getQuantidadeObj().subscribe(res => {
       this.qtdObj.total = res;
-      console.log(res);
     }, Error => {
-      this.functions.showAlert("Ops!", this.functions.filtraErro(Error.error.code));
+      Error => this.error++;
     });
+
+   if (this.error > 0)
+     this.functions.showAlert("Ops", "foram encontrados erro ao exibir esta página");
   }
 }

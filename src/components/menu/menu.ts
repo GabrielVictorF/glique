@@ -37,7 +37,9 @@ logout() {
           this.api.logout().subscribe(res => {
             load.dismiss();
             this.menuCtrl.close();
-            localStorage.removeItem("userToken");
+            //console.log("TOKEN ANTES DE LOGAR:" + localStorage.getItem("userToken"));
+            //localStorage.removeItem("userToken");
+            localStorage.clear();
             this.app.getRootNavs()[0].setRoot(LoginPage); //Erro de tabs solved
           },
           Error => {

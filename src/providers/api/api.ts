@@ -73,7 +73,7 @@ export class ApiProvider {
 
   public logout() {
     const url = `${this.REST_API}/users/logout`;
-    return this.http.get(url, this.httpOptionsNoToken);
+    return this.http.get(url, this.httpOptions);
   }
 
   public getQuantidadeObj() { //Retorna a quantidade de objetos na tabela medicoes
@@ -189,5 +189,10 @@ export class ApiProvider {
       mensagem: message.mensagem
     };
     return this.http.post(url, body, this.httpOptions);
+  }
+
+  public getAlterPassword() {
+    const url = `${this.REST_API}/users/restorepassword/${localStorage.getItem("userId")}`;
+    return this.http.get(url, this.httpOptionsNoToken);
   }
 }

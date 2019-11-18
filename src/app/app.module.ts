@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler, Navbar } from 'ionic-angular';
+
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -22,6 +23,7 @@ import { AlimentosPage } from '../pages/alimentos/alimentos';
 import { CadastrarPage } from '../pages/cadastrar/cadastrar';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { ModalRelatorioPage } from '../pages/relatorio-resultado/modal-relatorio/modal-relatorio';
+import { ModalEditarPerfilPage } from '../pages/perfil/modal-editar-perfil/modal-editar-perfil';
 import { FeedbackPage } from '../pages/feedback/feedback';
 import { HelpPage } from '../pages/help/help';
 import { DicasPage } from '../pages/dicas/dicas';
@@ -83,6 +85,7 @@ export class SentryIonicErrorHandler extends IonicErrorHandler {
     CadastrarPage,
     PerfilPage,
     ModalRelatorioPage,
+    ModalEditarPerfilPage,
     FeedbackPage,
     HelpPage,
     DicasPage,
@@ -121,6 +124,7 @@ export class SentryIonicErrorHandler extends IonicErrorHandler {
     CadastrarPage,
     PerfilPage,
     ModalRelatorioPage,
+    ModalEditarPerfilPage,
     FeedbackPage,
     HelpPage,
     DicasPage

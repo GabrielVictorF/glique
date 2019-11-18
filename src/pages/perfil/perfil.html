@@ -15,7 +15,7 @@
     <input type="file" ion-input>
   </ion-item> -->
   <ion-item>
-    <strong>Ùltimo login: </strong>{{ dadosUser?.lastLogin | data}}
+    <strong>Último login: </strong>{{ dadosUser?.lastLogin | data}}
   </ion-item>
   <ion-item>
     <strong>Status da conta: </strong>{{ dadosUser?.userStatus }}
@@ -33,6 +33,17 @@
     <strong>Nome do usuário: </strong>{{ dadosUser?.name }}
   </ion-item>
   <ion-item>
-    <strong>Ùltima modificação: </strong>{{ dadosUser?.updated | data}}
+    <strong>Última modificação: </strong>{{ dadosUser?.updated | data}}
+  </ion-item>
+  <ion-item>
+    <button ion-button full rounded (click)="alterarSenha()">
+      Quero alterar minha senha
+    </button>
+  </ion-item>
+  <ion-item>
+    <button ion-button full rounded (click)="alterarPerfil()" icon-end>
+      Quero alterar meu perfil
+      <ion-icon name="send"></ion-icon>
+    </button>
   </ion-item>
 </ion-content>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Platform, LoadingController, AlertController } from 'ionic-angular';
-
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 
@@ -16,7 +15,7 @@ export class MyApp {
   constructor(platform: Platform, public api: ApiProvider, public functions: FunctionsProvider,
     public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     platform.ready().then(() => {
-      if (localStorage.userToken) {
+      if (localStorage.getItem('userToken')) {
         this.api.validaToken().subscribe(res => {
           if (res) {
             this.rootPage = TabsPage;
@@ -43,8 +42,8 @@ export class MyApp {
           load.present();
           this.api.logout().subscribe(res => {
             load.dismiss();
+            localStorage.clear();
             this.rootPage = LoginPage;
-            localStorage.removeItem("userToken");
           });
         }
       }]

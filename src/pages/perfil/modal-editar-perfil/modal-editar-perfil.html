@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar color="navBarColor">
+        <ion-buttons right>
+            <button ion-button (click)="dismiss()">
+                <span ion-text color="primary" showWhen="ios">Cancel</span>
+                <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title text-center><span class="titulo">Alterar Perfil</span></ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+	<ion-item>	
+		<ion-label stacked>
+			<ion-icon name="body" item-start></ion-icon><b>Nome</b>
+		</ion-label>
+		<ion-input type="text" name="" placeholder="Insira seu nome..." [(ngModel)]="user.name"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label stacked>
+			<ion-icon name="calendar" item-start></ion-icon> <b>Data de nascimento</b>
+		</ion-label>
+		<ion-datetime displayFormat="DD-MM-YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="user.nascimento"
+			monthNames="{{functions.monthNames}}" cancelText="Cancelar" doneText="Feito"
+			placeholder="Digite sua data de nascimento">
+		</ion-datetime>
+	</ion-item>
+	<ion-item>
+		<button ion-button full color="primary" (click)="cadastrar()">Cadastrar</button>
+	</ion-item>
+</ion-content>
