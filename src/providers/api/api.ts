@@ -195,4 +195,13 @@ export class ApiProvider {
     const url = `${this.REST_API}/users/restorepassword/${localStorage.getItem("userId")}`;
     return this.http.get(url, this.httpOptionsNoToken);
   }
+
+  public atualizaLocalStorage() {
+    this.httpOptions = ({ // Requisições que precisem de Token 
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'user-token': localStorage.getItem("userToken") // Token gerado ao usuário logar
+      })
+    });
+  }
 }

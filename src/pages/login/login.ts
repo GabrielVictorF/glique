@@ -45,6 +45,7 @@ export class LoginPage {
       load.dismiss();
       localStorage.setItem('userToken', res["user-token"]); //Token para reqs posteriores           
       localStorage.setItem('userId', res.objectId); // Id do usuário atual logado
+      this.api.atualizaLocalStorage();
       console.log("TOKEN DEPOIS DE LOGAR:" + localStorage.getItem("userToken"));
       this.navCtrl.setRoot(TabsPage);
     },
