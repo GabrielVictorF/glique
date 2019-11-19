@@ -64,21 +64,15 @@ export class RelatorioResultadoPage {
   }
 
   media() {
-    let somaAntes = 0, somaDepois = 0, somaInsulina = 0;
-    let length: number = this.data.length;
-    for (let i = 0; i < length; i++) {
-      somaAntes += this.data[i].resultado_antes;
-      somaDepois += this.data[i].resultado_depois;
-      somaInsulina += this.data[i].quantidade_insulina;
-    } console.log(somaInsulina);
-    this.relatorio.media.resultado_antes = somaAntes / length;
-    this.relatorio.media.resultado_depois = somaDepois / length;
-    this.relatorio.media.insulina = somaInsulina / length;
-    this.relatorio.media.resultado_antes = parseInt(this.relatorio.media.resultado_antes);
-    this.relatorio.media.resultado_depois = parseInt(this.relatorio.media.resultado_depois);
-    this.relatorio.media.insulina = parseInt(this.relatorio.media.insulina);
-    console.log(this.relatorio.media)
-    this.getConcluido = true;
+
+    let soma = 0;
+
+    this.data.forEach(element => {
+      soma += element.valor;
+    });
+    console.log('Soma')
+    console.log(soma)
+    this.relatorio.media = (soma / this.data.length).toFixed(1);
   }
 
   exibeMedia() {
@@ -151,6 +145,7 @@ export class RelatorioResultadoPage {
     esteAno = this.functions.toEpoch(esteAno);
     console.log(esteAno)
     this.api.getAnoEspecifico(esteAno).subscribe(res => {
+      this.getConcluido = true;
       load.dismiss();
       this.data = res;
       console.log("Tamanho da request:" + this.data.length)
@@ -187,19 +182,15 @@ export class RelatorioResultadoPage {
       maiorObject: '', // Object do atr acima
       maiorAcucar: -1, // Maior nível de açúcar
       maiorAcucarObject: '', // Object do atr acima
-      menorAcucar: 10000000, // Menor nível de açúcar 
+      menorAcucar: 10000, // Menor nível de açúcar 
       menorAcucarObject: '', // Object do atr acima
       turno: { // Quantidade de registros nos turnos 
         t1: 0, t2: 0, t3: 0,
         t4: 0, t5: 0, t6: 0
       },
+      media: 0,
       maisTurno: 0, // Turno com MAIOR número de registros
       menorTurno: 0, // T  urno com MENOR número de registros
-      media: {
-        resultado_antes: 0,
-        resultado_depois: 0,
-        insulina: 0
-      }
     }
   }
 
@@ -208,7 +199,7 @@ export class RelatorioResultadoPage {
     //Incrementa os turnos de acordo com os dados
     if (this.data.length > 0) {
       for (let i = 0; i < this.data.length; i++) {
-        switch (this.data.turno) {
+        switch (this.data[i].turno) {
           case 1:
             this.relatorio.turno.t1++;
             break;
@@ -228,38 +219,24 @@ export class RelatorioResultadoPage {
             this.relatorio.turno.t6++;
             break;
         }
-        if (this.data[i].turno == 1)
-          this.relatorio.turno.t1++;
-        else if (this.data[i].turno == 2)
-          this.relatorio.turno.t2++;
-        else
-          this.relatorio.turno.t3++;
 
         //Define o MAIOR nível de açucar
-        if (this.relatorio.maiorAcucar < this.data[i].resultado_antes) {
-          this.relatorio.maiorAcucar = this.data[i].resultado_antes;
-          this.relatorio.maiorAcucarObject = this.data[i];
-        }
-        if (this.relatorio.maiorAcucar < this.data[i].resultado_depois) {
-          this.relatorio.maiorAcucar = this.data[i].resultado_depois;
+        if (this.relatorio.maiorAcucar < this.data[i].valor) {
+          this.relatorio.maiorAcucar = this.data[i].valor;
           this.relatorio.maiorAcucarObject = this.data[i];
         }
 
         //Define o MENOR nível de açucar
-        if (this.relatorio.menorAcucar > this.data[i].resultado_antes) {
-          this.relatorio.menorAcucar = this.data[i].resultado_antes;
+        if (this.relatorio.menorAcucar > this.data[i].valor) {
+          this.relatorio.menorAcucar = this.data[i].valor;
           this.relatorio.menorAcucarObject = this.data[i];
-        }
-        if (this.relatorio.menorAcucar > this.data[i].resultado_depois) {
-          this.relatorio.menorAcucar = this.data[i].resultado_depois;
-          this.relatorio.menorAcucarObject = this.data[i];
-        }
-
-        if (this.relatorio.maior < this.data[i].quantidade_insulina) {
-          this.relatorio.maior = this.data[i].quantidade_insulina; //Define o maior nível de insulina registrado
-          this.relatorio.maiorObject = this.data[i]; //Pega todo o objeto do maior nível de insulina
         }
       }
+      //Define o turno com mais e menos registros
+      this.relatorio.maisTurno = Math.max(this.relatorio.turno.t1, this.relatorio.turno.t2, this.relatorio.turno.t3, this.relatorio.turno.t4, this.relatorio.turno.t5, this.relatorio.turno.t6)
+      //BUG, excluir 0 do parametro
+      this.relatorio.menorTurno = Math.min(this.relatorio.turno.t1, this.relatorio.turno.t2, this.relatorio.turno.t3, this.relatorio.turno.t4, this.relatorio.turno.t5, this.relatorio.turno.t6)
+      console.log(this.relatorio)
       this.media();
     }
   }

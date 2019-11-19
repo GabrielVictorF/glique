@@ -49,16 +49,6 @@
 
       <ion-item text-wrap>
         <ion-icon name="arrow-up"></ion-icon>
-        Maior quantidade de insulina injetada:
-        <b>{{relatorio.maior}}</b> mg/dl
-        <button ion-button icon-end item-end (click)="detalhe(1)" *ngIf="relatorio.maior != -1">
-          Ver Detalhe
-          <ion-icon name="more"></ion-icon>
-        </button>
-      </ion-item>
-
-      <ion-item text-wrap>
-        <ion-icon name="arrow-up"></ion-icon>
         Maior nível de açúcar: <b>{{relatorio.maiorAcucar}}</b> mg/dl
         <button ion-button icon-end item-end (click)="detalhe(2)" *ngIf="relatorio.maiorAcucar != -1">
           Ver Detalhe
@@ -95,29 +85,8 @@
 
       <ion-item text-wrap>
         <ion-icon name="calculator"></ion-icon>
-        Média dos registros
-        <button ion-button icon-end item-end (click)="media()" data-toggle="collapse" href="#mostraMedia" role="button"
-          aria-expanded="false" aria-controls="mostraMedia" (click)="exibeMedia()">
-          {{ico.descricao}}
-          <ion-icon name={{ico.ico}}></ion-icon>
-        </button>
-        <div class="collapse" id="mostraMedia">
-          <!-- DIV da media -->
-          <div>
-            <ion-item>
-              <ion-icon name="undo"></ion-icon>
-              <b>Antes</b>: {{relatorio.media.resultado_antes}} mg/dl
-            </ion-item>
-            <ion-item>
-              <ion-icon name="share-alt"></ion-icon>
-              <b>Depois</b>: {{relatorio.media.resultado_depois}} mg/dl
-            </ion-item>
-            <ion-item>
-              <ion-icon name="flask"></ion-icon>
-              <b>Insulina</b>: {{relatorio.media.insulina}} mg/dl
-            </ion-item>
-          </div>
-        </div>
+        Média dos registros:
+        <strong>{{relatorio.media}}</strong> mg/dl
       </ion-item>
 
       <ion-item-divider text-center>
