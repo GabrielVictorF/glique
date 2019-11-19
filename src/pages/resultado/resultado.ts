@@ -54,15 +54,15 @@ export class ResultadoPage {
 
   filtraPesquisa() { // Pesquisa os filtros para serem inseridos no getResultados()
     if (this.pesquisa.turno > 0)
-      this.filtro2.push("turno%20%3D%20" + this.pesquisa.turno);
-    if (this.pesquisa.tipo > 0)
-      this.filtro2.push("tipo%3D" + this.pesquisa.tipo);
+      this.filtro2.push("turno%3D" + this.pesquisa.turno);
+    //if (this.pesquisa.tipo > 0)
+    //  this.filtro2.push("tipo%3D" + this.pesquisa.tipo);
     if (this.pesquisa.altoBaixo == 1)
-      this.filtro2.push(encodeURIComponent("resultado_antes > 100"));
+      this.filtro2.push(encodeURIComponent("valor > 100"));
     else if (this.pesquisa.altoBaixo == 2)
-      this.filtro2.push(encodeURIComponent("resultado_antes < 100 && resultado_antes > 80"));
+      this.filtro2.push(encodeURIComponent("valor < 100 && valor > 80"));
     else if (this.pesquisa.altoBaixo == 3)
-      this.filtro2.push(encodeURIComponent("resultado_antes < 80"));
+      this.filtro2.push(encodeURIComponent("valor < 80"));
     // if (this.pesquisa.mes != '')
     // this.filtro2.push(encodeURIComponent(""));
   }
@@ -115,9 +115,7 @@ export class ResultadoPage {
       case 1:
         this.filtraPesquisa();
         this.data = [];
-        this.api.getQuantidadeObj().subscribe(res => {
-          this.quantidadeResultado = res;
-        });
+
         this.api.getMedicoes(this.offset, this.filtro2).subscribe(res => {
           this.getFeito = true;
           if (refreshEvent)
@@ -133,6 +131,7 @@ export class ResultadoPage {
           }
           if (this.data.length > 0)
             this.calculaMedia();
+          this.quantidadeResultado = this.data.length;
         }, Error => {
           let erro = this.functions.filtraErro(Error.error.code);
           this.functions.showAlert("Ops!", erro);
@@ -140,22 +139,30 @@ export class ResultadoPage {
         });
         break;
       case 2: // Medições da semana
+        this.filtraPesquisa();
+        this.data = [];
+
         let intervalo = this.functions.calculaEssaSemana();
-        this.api.getQuantidadeObjSemana(intervalo.i1, intervalo.i2).subscribe(res => {
-          this.quantidadeResultado = res;
-        })
         this.api.getSemana(intervalo.i1, intervalo.i2).subscribe(res => {
-          this.data = res;
-          if (this.data.length > 0)
-            this.calculaMedia();
+          this.getFeito = true;
+          if (this.pesquisa.data != '') { //Caso seja inserida uma data no filtro
+            this.getSomenteMes(res);
+          } else {
+            this.filtroDiaSemana(res);
+            if (this.pesquisa.data == "" && this.pesquisa.diaSemana < 0) {
+              this.data = res;
+            }
+            if (this.data.length > 0)
+              this.calculaMedia();
+            this.quantidadeResultado = this.data.length;
+            this.loading.dismiss();
+          }
+        }, Error => {
           this.loading.dismiss();
+          this.functions.showToast("Erro ao obter dados");
         });
         break;
-      case 3: //Medições HOJE
-      case 4: //Medições dia específico DESATIVAR??????????
-        this.api.getQuantidadeObjDia(this.functions.toEpoch()).subscribe(res => {
-          this.quantidadeResultado = res;
-        });
+      case 3: //Medições de hoje
         this.filtro2.push("data%3D" + this.filtro);
         this.filtraPesquisa();
         this.data = [];
@@ -171,9 +178,10 @@ export class ResultadoPage {
             this.data = res;
           if (this.data.length > 0)
             this.calculaMedia();
+          this.quantidadeResultado = this.data.length;
         },
           Error => {
-            //this.loading.dismiss();
+            this.loading.dismiss();
             this.functions.showToast("Erro ao obter dados");
           });
         break;

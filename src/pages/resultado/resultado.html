@@ -20,10 +20,12 @@
       <ion-icon name="clock"></ion-icon>
     </ion-label>
     <ion-select [(ngModel)]="pesquisa.turno" placeholder="Turno da medição" required interface="popover">
-      <!-- Filtro turno -->
-      <ion-option value="1">Café</ion-option>
-      <ion-option value="2">Almoço</ion-option>
-      <ion-option value="3">Jantar / Noite</ion-option>
+      <ion-option value="1">Jejum</ion-option>
+      <ion-option value="2">Antes do almoço</ion-option>
+      <ion-option value="3">Depois do almoço</ion-option>
+      <ion-option value="4">Lanche</ion-option>
+      <ion-option value="5">Antes do jantar</ion-option>
+      <ion-option value="6">Depois do jantar</ion-option>
     </ion-select>
   </ion-item>
 
@@ -41,7 +43,7 @@
       <ion-option value="3">Baixo(abaixo de <strong>80</strong>)</ion-option>
     </ion-select>
   </ion-item>
-  <ion-item *ngIf="funcao != 3 && funcao != 4">
+  <ion-item *ngIf="funcao == 1">
     <ion-label>
       Mês específico
       <ion-icon name="calendar"></ion-icon>

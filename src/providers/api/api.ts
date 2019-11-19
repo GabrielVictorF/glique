@@ -93,22 +93,24 @@ export class ApiProvider {
   }
 
   public getMedicoes(offset: number, filtros?): any {
+    console.log(filtros)
     let where = "";
     if (filtros && filtros.length > 0) { // Caso venha com filtros
       where += `?offset=${offset}&where=`;
       filtros.forEach(function (res, index) {
         where += res;
         if (filtros.length > 0 && filtros.length - index > 1) // Caso tenha mais de um filtro E NÂO seja o último filtro a ser tratado
-          where += "%26%26";
+          where += "&";
       });
 
-      where += `&pageSize=10&sortBy=data%20desc&offset=${offset}`;
+      where += `&pageSize=10&sortBy=data
+      desc&offset=${offset}`;
     } else {
       where += `?pageSize=10&sortBy=data%20desc&offset=${offset}`;
     }
 
     const url = `${this.REST_API}/data/medicoes${where}`;
-    return this.http.get<Medicoes>(url, this.httpOptions);
+    return this.http.get(url, this.httpOptions);
   }
 
   public getMedicoesTurnoEspecifico(turno: any, offset: any): any { // SEM USO 19/09/2019
