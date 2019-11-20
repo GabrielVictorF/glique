@@ -184,13 +184,14 @@ export class RelatorioResultadoPage {
       maiorAcucarObject: '', // Object do atr acima
       menorAcucar: 10000, // Menor nível de açúcar 
       menorAcucarObject: '', // Object do atr acima
-      turno: { // Quantidade de registros nos turnos 
+      /*turno: { // Quantidade de registros nos turnos 
         t1: 0, t2: 0, t3: 0,
         t4: 0, t5: 0, t6: 0
-      },
+      }, */
+      turno: [0, 0, 0, 0, 0, 0],
       media: 0,
       maisTurno: 0, // Turno com MAIOR número de registros
-      menorTurno: 0, // T  urno com MENOR número de registros
+      menorTurno: 1000, // T  urno com MENOR número de registros
     }
   }
 
@@ -201,22 +202,22 @@ export class RelatorioResultadoPage {
       for (let i = 0; i < this.data.length; i++) {
         switch (this.data[i].turno) {
           case 1:
-            this.relatorio.turno.t1++;
+            this.relatorio.turno[0]++;
             break;
           case 2:
-            this.relatorio.turno.t2++;
+            this.relatorio.turno[1]++;
             break;
           case 3:
-            this.relatorio.turno.t3++;
+            this.relatorio.turno[2]++;
             break;
           case 4:
-            this.relatorio.turno.t4++;
+            this.relatorio.turno[3]++;
             break;
           case 5:
-            this.relatorio.turno.t5++;
+            this.relatorio.turno[4]++;
             break;
           case 6:
-            this.relatorio.turno.t6++;
+            this.relatorio.turno[5]++;
             break;
         }
 
@@ -232,13 +233,20 @@ export class RelatorioResultadoPage {
           this.relatorio.menorAcucarObject = this.data[i];
         }
       }
-      //Define o turno com mais e menos registros
-      this.relatorio.maisTurno = Math.max(this.relatorio.turno.t1, this.relatorio.turno.t2, this.relatorio.turno.t3, this.relatorio.turno.t4, this.relatorio.turno.t5, this.relatorio.turno.t6)
-      //BUG, excluir 0 do parametro
-      this.relatorio.menorTurno = Math.min(this.relatorio.turno.t1, this.relatorio.turno.t2, this.relatorio.turno.t3, this.relatorio.turno.t4, this.relatorio.turno.t5, this.relatorio.turno.t6)
-      console.log(this.relatorio)
       this.media();
     }
+
+    //Cálculo das medições com menos e mais registros
+    this.relatorio.turno.forEach(element => {
+      console.log('if' + this.relatorio.maisTurno + '<' + element);
+      if (this.relatorio.maisTurno < element )
+        this.relatorio.maisTurno = element;
+
+      if (this.relatorio.menorTurno > element && element > 0)
+        this.relatorio.menorTurno = element;
+    });
+
+    console.log(this.relatorio)
   }
 
   detalhe(tipo) {

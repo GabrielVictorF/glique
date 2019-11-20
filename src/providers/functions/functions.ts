@@ -45,7 +45,7 @@ export class FunctionsProvider {
     let date = new Date(dataHuman);
     data.ano = date.getFullYear(),
       data.mes = date.getMonth(),
-      data.dia = date.getDate()
+      data.dia = date.getDate() + 1
   }
   else {
     let date = new Date();

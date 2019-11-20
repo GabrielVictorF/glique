@@ -42,12 +42,12 @@ export class ModalRelatorioPage {
             toolTipContent:"<b>{name}</b>: {y} registros (#percent%)",
             indexLabel: "{name} - #percent%",
             dataPoints: [
-              { y: this.data.t1, name: "Jejum" },
-              { y: this.data.t2, name: "Antes do almoço" },
-              { y: this.data.t3, name: "Depois do almoço" },
-              { y: this.data.t4, name: "Lanche" },
-              { y: this.data.t5, name: "Antes do jantar"},
-              { y: this.data.t6, name: "Depois do jantar"}
+              { y: this.data[0], name: "Jejum" },
+              { y: this.data[1], name: "Antes do almoço" },
+              { y: this.data[2], name: "Depois do almoço" },
+              { y: this.data[3], name: "Lanche" },
+              { y: this.data[4], name: "Antes do jantar"},
+              { y: this.data[5], name: "Depois do jantar"}
             ]
           }]
         });

@@ -206,4 +206,9 @@ export class ApiProvider {
       })
     });
   }
+
+  public putAtualizaUsuario(body) {
+    const url = `${this.REST_API}/users/${localStorage.getItem('userId')}`;
+    return this.http.put(url, body, this.httpOptions);
+  } 
 }
